@@ -4,7 +4,7 @@ import MapGL, { AttributionControl, ScaleControl } from 'react-map-gl';
 import { FakeSuggestions } from '../../data/FakeSuggestions';
 import mapStyles from './mapStyles';
 import MarkerWrapper from './MarkerWrapper';
-
+import Popup from './Popup';
 
 const Map = () => {
 
@@ -37,6 +37,11 @@ const Map = () => {
         };
     }, []);
 
+    useEffect(() => {
+        console.log('hoveredMarker', hoveredMarker);
+    }, [hoveredMarker])
+
+
 
     return (
         <MapGL
@@ -51,12 +56,15 @@ const Map = () => {
             <ScaleControl />
             {FakeSuggestions.map((country) => (
                 <MarkerWrapper
-                    id={`marker-${country.id}`}
-                    latitude={country.latitude}
-                    longitude={country.longitude}
-                    text={country.suggestionRank}
+                    country={country}
+                    setHoveredMarker={setHoveredMarker}
                 />
             ))}
+            {hoveredMarker ? (
+                <Popup
+                    country={hoveredMarker}
+                />
+            ) : null}
             <AttributionControl style={{ color: "black" }} customAttribution="Powered by Tigergraph" />
         </MapGL>
     )

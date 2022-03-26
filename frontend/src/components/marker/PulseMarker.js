@@ -3,7 +3,7 @@ import { css, keyframes } from '@emotion/react';
 import { memo } from 'react';
 import colors from './colors';
 
-const PulseMarker = ({ color = 'orange', size = 50, text }) => {
+const PulseMarker = ({ color = 'orange', size = 50, text, country, setHoveredMarker }) => {
 
 
   const pulseAnimation = keyframes`
@@ -41,6 +41,8 @@ const PulseMarker = ({ color = 'orange', size = 50, text }) => {
       cursor: pointer;
       animation: ${pulseAnimation} 2s infinite;
     `}
+      onMouseEnter={() => setHoveredMarker(country)}
+      onMouseLeave={() => setHoveredMarker(null)}
     >
       {text}
     </div>

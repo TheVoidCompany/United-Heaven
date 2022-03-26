@@ -1,15 +1,39 @@
-import { Popup as PopupGL } from 'react-map-gl';
+import { Box, Image, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
 
-const Popup = () => {
+
+const Popup = ({ country }) => {
+
+    const popupColor = useColorModeValue('#F6FBFFBB', '#061626BB');
+
     return (
-        <PopupGL
-            closeButton={false}
-            closeOnMove={true}
+        <Box
+            bg={popupColor}
+            zIndex={2}
+            position="absolute"
+            top={0}
+            p="4"
+            margin="6"
+            borderRadius={6}
         >
-            <div>
-                <h1>India</h1>
-            </div>
-        </PopupGL>
+            <Text
+                fontSize='2xl'
+                fontWeight='bold'
+                mb="4"
+            >
+                {country.location}
+            </Text>
+            <SimpleGrid columns={3} spacing={5}>
+                {country.goals.map((goal) => (
+                    <Image
+                        boxSize='90px'
+                        objectFit='cover'
+                        src={require(`../../images/SDGIcons/Goal${goal}.png`)}
+                        alt={`SDG Goal ${goal}`}
+                    />
+                ))}
+            </SimpleGrid>
+
+        </Box>
     )
 }
 

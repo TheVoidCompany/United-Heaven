@@ -2,15 +2,20 @@ import { memo } from 'react';
 import { Marker } from 'react-map-gl';
 import PulseMarker from '../marker/PulseMarker';
 
-const MarkerWrapper = ({ id, latitude, longitude, text }) => {
+const MarkerWrapper = ({ country, setHoveredMarker }) => {
+
     return (
         <Marker
-            key={id}
-            longitude={longitude}
-            latitude={latitude}
+            key={country.id}
+            longitude={country.longitude}
+            latitude={country.latitude}
             anchor="bottom"
         >
-            <PulseMarker text={text} />
+            <PulseMarker
+                text={country.suggestionRank}
+                setHoveredMarker={setHoveredMarker}
+                country={country}
+            />
         </Marker>
     )
 }
