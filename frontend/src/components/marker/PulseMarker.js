@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from '@emotion/react';
+import PropTypes from 'prop-types';
 import { memo } from 'react';
-import colors from './colors';
+import colors from './colors.constant';
 
-const PulseMarker = ({ color = 'orange', size = 50, text, country, setHoveredMarker }) => {
+const PulseMarker = ({ color = 'orange', size = 50, text, markerValue, setHoveredMarker, setSelectedMarker }) => {
 
 
   const pulseAnimation = keyframes`
@@ -41,13 +42,22 @@ const PulseMarker = ({ color = 'orange', size = 50, text, country, setHoveredMar
       cursor: pointer;
       animation: ${pulseAnimation} 2s infinite;
     `}
-      onMouseEnter={() => setHoveredMarker(country)}
+      onMouseEnter={() => setHoveredMarker(markerValue)}
       onMouseLeave={() => setHoveredMarker(null)}
+      onClick={() => setSelectedMarker(markerValue)}
     >
       {text}
     </div>
 
   )
+}
+
+PulseMarker.propTypes = {
+  color: PropTypes.string,
+  size: PropTypes.number,
+  text: PropTypes.string,
+  markerValue: PropTypes.any,
+  setHoveredMarker: PropTypes.func
 }
 
 export default memo(PulseMarker);

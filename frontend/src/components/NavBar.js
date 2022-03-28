@@ -1,12 +1,14 @@
 import { Box, Center, Flex, HStack, IconButton, Link, Spacer, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 const Links = [
-  { name: 'Suggestions', to: "#" },
-  { name: 'SDG', to: "#" },
-  { name: 'Donate us', to: "#" }
+  { name: 'Suggestions', to: "/" },
+  { name: 'SDG', to: "/sdg" },
+  { name: 'Read', to: "#" },
+  { name: 'Sponsor', to: "#" }
 ];
 
 
@@ -22,14 +24,16 @@ const NavBar = () => {
         align="center"
         paddingX={{ base: '2%', md: '8%' }}
       >
-        <Text
-          fontSize="2em"
-          fontFamily="Play"
-          userSelect="none"
-          cursor="pointer"
-        >
-          United Heaven
-        </Text>
+        <RouterLink to="/">
+          <Text
+            fontSize="2em"
+            fontFamily="Play"
+            userSelect="none"
+            cursor="pointer"
+          >
+            United Heaven
+          </Text>
+        </RouterLink>
         <Spacer />
         <HStack spacing={4}>
           <HStack
@@ -37,7 +41,7 @@ const NavBar = () => {
             spacing={4}
             display={{ base: 'none', md: 'flex' }}>
             {Links.map(({ name, to }) => (
-              <NavLink key={name} href={to}>{name}</NavLink>
+              <NavLink key={name} to={to}>{name}</NavLink>
             ))}
           </HStack>
           <ColorModeSwitcher />
@@ -65,8 +69,14 @@ const NavBar = () => {
 
 const NavLink = ({ children, to }) => {
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const url = location.pathname;
+
+  const linkBg = useColorModeValue('gray.200', 'gray.700');
+
   const handleClick = () => {
-    console.log(to);
+    navigate(to);
   };
 
 
@@ -79,8 +89,8 @@ const NavLink = ({ children, to }) => {
       rounded={'md'}
       _hover={{
         textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
       }}
+      bg={url === to ? linkBg : 'transparent'}
       onClick={handleClick}
     >
       {children}

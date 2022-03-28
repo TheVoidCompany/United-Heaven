@@ -1,14 +1,12 @@
 import { useColorModeValue } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { forwardRef, useEffect, useState } from 'react';
 import MapGL, { AttributionControl, ScaleControl } from 'react-map-gl';
-import { FakeSuggestions } from '../../data/FakeSuggestions';
-import mapStyles from './mapStyles';
-import MarkerWrapper from './MarkerWrapper';
-import Popup from './Popup';
+import mapStyles from './mapStyles.constant';
 
-const Map = () => {
+const MapWrapper = forwardRef(({ children, ...otherAttributes }, mapRef) => {
 
-    const [hoveredMarker, setHoveredMarker] = useState(null);
+
     const mapTheme = useColorModeValue(mapStyles.light, mapStyles.dark);
 
     //initial map view
@@ -37,37 +35,26 @@ const Map = () => {
         };
     }, []);
 
-    useEffect(() => {
-        console.log('hoveredMarker', hoveredMarker);
-    }, [hoveredMarker])
-
-
-
     return (
         <MapGL
-            id="suggestionMap"
             {...viewState}
             onMove={evt => setViewState(evt.viewState)}
             mapStyle={mapTheme}
-            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+            // mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             reuseMaps
             attributionControl={false}
+            ref={mapRef}
+            {...otherAttributes}
         >
             <ScaleControl />
-            {FakeSuggestions.map((country) => (
-                <MarkerWrapper
-                    country={country}
-                    setHoveredMarker={setHoveredMarker}
-                />
-            ))}
-            {hoveredMarker ? (
-                <Popup
-                    country={hoveredMarker}
-                />
-            ) : null}
+            {children}
             <AttributionControl style={{ color: "black" }} customAttribution="Powered by Tigergraph" />
         </MapGL>
     )
+});
+
+MapWrapper.propTypes = {
+    children: PropTypes.node.isRequired
 }
 
-export default Map
+export default MapWrapper
