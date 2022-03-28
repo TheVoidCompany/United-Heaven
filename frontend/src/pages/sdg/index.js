@@ -1,3 +1,4 @@
+import { useColorMode } from '@chakra-ui/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Layer, Source } from 'react-map-gl';
 import MapWrapper from '../../components/map/MapWrapper';
@@ -11,6 +12,7 @@ const SDGPage = () => {
     const [hoveredCountryId, sethoveredCountryId] = useState(null);
     const [hoveredCountry, sethoveredCountry] = useState(null);
     const [selectedCountry, setselectedCountry] = useState('null');
+    const { colorMode } = useColorMode()
 
 
     useEffect(() => {
@@ -84,9 +86,9 @@ const SDGPage = () => {
                 onClick={onMapClick}
             >
                 <Source generateId={true} id="country" type="geojson" data='https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson'>
-                    <Layer {...countryLayer} />
-                    <Layer {...countryOutline} />
-                    <Layer {...selectedCountryFill(selectedCountry)} />
+                    <Layer {...countryLayer(colorMode)} />
+                    <Layer {...countryOutline(colorMode)} />
+                    <Layer {...selectedCountryFill(colorMode, selectedCountry)} />
                 </Source>
                 {hoveredCountry && <OverlayCard
                     title={hoveredCountry?.name}

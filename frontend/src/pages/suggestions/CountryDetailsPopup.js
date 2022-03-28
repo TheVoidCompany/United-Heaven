@@ -52,6 +52,7 @@ const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
                             //Not working
                             left: `calc(50% - ${WIDTH_OF_EXPANDED_CARD / 2}px)`,
                             top: '10%',
+                            position: 'absolute'
                         }}
                     >
                         <Card

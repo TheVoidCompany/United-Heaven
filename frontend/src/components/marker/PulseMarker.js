@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Box } from '@chakra-ui/react';
 import { css, keyframes } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
@@ -26,28 +27,33 @@ const PulseMarker = ({ color = 'orange', size = 50, text, markerValue, setHovere
 
 
   return (
-    <div
+    <Box
       css={css`
-      background: ${colors[color] + '90'};
       border: 4px solid ${colors[color]};
       box-shadow: 0 0 0 0 ${colors[color]};
       border-radius: 50%;
-      height: ${size + 'px'};
-      width: ${size + 'px'};
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-weight: bold;
       transform: scale(1);
-      cursor: pointer;
       animation: ${pulseAnimation} 2s infinite;
     `}
+      w={size + 'px'}
+      h={size + 'px'}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bg={colors[color] + '90'}
+      cursor="pointer"
+      _hover={{
+        width: size + 20 + 'px',
+        height: size + 20 + 'px',
+        fontSize: 18 + 'px',
+      }}
       onMouseEnter={() => setHoveredMarker(markerValue)}
       onMouseLeave={() => setHoveredMarker(null)}
       onClick={() => setSelectedMarker(markerValue)}
     >
       {text}
-    </div>
+    </Box>
 
   )
 }

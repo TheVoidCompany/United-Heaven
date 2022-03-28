@@ -7,7 +7,7 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 const Links = [
   { name: 'Suggestions', to: "/" },
   { name: 'SDG', to: "/sdg" },
-  { name: 'Read', to: "#" },
+  { name: 'Study', to: "/study" },
   { name: 'Sponsor', to: "#" }
 ];
 
