@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import UnitedHeaven from '../pages';
+import Feed from '../pages/feed';
 import NotFound from '../pages/NotFound';
 import SDGPage from '../pages/sdg';
 import Study from '../pages/study';
@@ -12,6 +13,7 @@ const Router = () => {
                 <Route index element={<SuggestionsPage />} />
                 <Route path="/suggestion" element={<Navigate replace to="/" />} />
                 <Route path="/sdg" element={<SDGPage />} />
+                <Route path="/feed" element={<Feed />} />
                 <Route path="/study" element={<Study />} />
             </Route>
             <Route path="*" element={<NotFound />} />

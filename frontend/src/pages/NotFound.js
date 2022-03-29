@@ -18,6 +18,7 @@ const NotFound = () => {
       <Heading
         mt="2"
         size="4xl"
+        textAlign="center"
         onClick={() => navigate('/')}
         cursor="pointer"
         _hover={{ color: 'blue.700' }}

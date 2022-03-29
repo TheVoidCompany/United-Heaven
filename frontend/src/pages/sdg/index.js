@@ -1,4 +1,4 @@
-import { useColorMode } from '@chakra-ui/react';
+import { Box, useColorMode } from '@chakra-ui/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Layer, Source } from 'react-map-gl';
 import MapWrapper from '../../components/map/MapWrapper';
@@ -77,7 +77,7 @@ const SDGPage = () => {
     }, [selectedCountry]);
 
     return (
-        <>
+        <Box w="100vw" h="92vh">
             <MapWrapper
                 interactiveLayerIds={['country-layer', 'country-outline']}
                 ref={mapRef}
@@ -109,7 +109,7 @@ const SDGPage = () => {
                 <p>income group: {selectedCountry.income_grp}</p>
             </OverlayCard>
             }
-        </>
+        </Box>
     );
 }
 

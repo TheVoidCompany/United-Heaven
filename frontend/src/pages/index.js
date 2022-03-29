@@ -1,12 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/navbar/NavBar';
 
 const UnitedHeaven = () => {
     return (
         <>
-            <NavBar />
-            <Box w='100vw' h='92vh'>
+            <Box w='100vw' minH='8vh'>
+                <NavBar />
+            </Box>
+            <Box w='100vw' minH='92vh'>
                 <Outlet />
             </Box>
         </>

@@ -39,7 +39,7 @@ const SuggestionsPage = () => {
 
 
     return (
-        <Box w="100vw" h="100vh" position='relative'>
+        <Box w="100vw" h="92vh" position='relative'>
             <MapWrapper>
                 {markers}
             </MapWrapper>

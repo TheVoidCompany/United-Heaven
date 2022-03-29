@@ -35,7 +35,7 @@ nodes.unshift({
     labelCfg: {
         position: 'center',
         style: {
-            fill: 'black',
+            fill: '#000000CC',
             fontStyle: 'bolder',
             fontFamily: 'Play',
             fontSize: 12
@@ -139,6 +139,11 @@ const SdgGraph = () => {
                     size: 40,
                     type: 'bubble',
                 },
+                defaultEdge: {
+                    style: {
+                        stroke: "#97A2B0"
+                    }
+                }
             });
 
             graph.current.data({
