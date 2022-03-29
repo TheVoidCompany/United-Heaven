@@ -1,6 +1,6 @@
 import {
     Container, Flex,
-    Heading, Icon, Image, SimpleGrid, Stack,
+    Heading, Icon, SimpleGrid, Stack,
     StackDivider, Text, useColorModeValue
 } from '@chakra-ui/react';
 import { FaDatabase } from 'react-icons/fa';
@@ -8,6 +8,7 @@ import {
     IoAnalyticsSharp,
     IoSearchSharp
 } from 'react-icons/io5';
+import SdgGraph from './SdgGraph';
 
 const TwoColumnFeature = () => {
     return (
@@ -58,15 +59,10 @@ const TwoColumnFeature = () => {
                         />
                     </Stack>
                 </Stack>
-                <Flex>
-                    <Image
-                        rounded={'md'}
-                        alt={'feature image'}
-                        src={
-                            'https://i.ytimg.com/vi/afRqLpfSYHo/maxresdefault.jpg'
-                        }
-                        objectFit={'cover'}
-                    />
+                <Flex id="mountSdgGraph">
+                    <Flex align="center" justify="center" w={'full'}>
+                        <SdgGraph />
+                    </Flex>
                 </Flex>
             </SimpleGrid>
         </Container>
