@@ -1,6 +1,6 @@
 import {
     Avatar, Box, Button, Center, Divider, Flex, HStack, Icon, Link, Menu,
-    MenuButton, MenuDivider, MenuItem, MenuList, useColorModeValue
+    MenuButton, MenuDivider, MenuItem, MenuList, Tag, useColorModeValue, Wrap, WrapItem
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
@@ -9,12 +9,13 @@ import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles.css';
 
-
 const Links = [
     { name: 'Home', to: "/feed", icon: AiFillHome },
     { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt },
     { name: 'Notification', to: "/feed/notification", icon: IoNotifications }
 ];
+
+const UserFollowingGoals = [1, 4, 6, 15, 17];
 
 const FeedNavbar = () => {
 
@@ -106,6 +107,19 @@ const FeedNavbar = () => {
                                 <Center>
                                     <p>Santhosh V S</p>
                                 </Center>
+                                <br />
+
+                                <Flex align={"center"} justifyContent={"center"}>
+                                    <Wrap maxW={200} justify='center'>
+                                        {UserFollowingGoals.map(goal => {
+                                            return (
+                                                <WrapItem>
+                                                    <Tag size="sm" variant='solid'>Goal-{goal}</Tag>
+                                                </WrapItem>
+                                            )
+                                        })}
+                                    </Wrap>
+                                </Flex>
                                 <br />
                                 <MenuDivider />
                                 <MenuItem>Your Actions</MenuItem>
