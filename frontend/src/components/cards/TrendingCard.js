@@ -22,7 +22,7 @@ const TrendingCard = ({ type, heading, image }) => {
         <Flex p={5}
             cursor="pointer"
             _hover={{
-                backgroundColor: useColorModeValue('gray.700', 'gray.800')
+                backgroundColor: useColorModeValue('gray.100', 'gray.800')
             }}
             justifyContent="space-between"
         >

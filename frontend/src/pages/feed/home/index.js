@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import ActionCard from "../../../components/cards/ActionCard";
+import SDGFollowCard from "../../../components/cards/SDGFollowCard";
 import TrendingCard from "../../../components/cards/TrendingCard";
 import Heading from "../../../components/common/Heading";
 import ThreeColumnStructure from "../../../components/ThreeColumnStructure";
@@ -7,9 +8,17 @@ import ThreeColumnStructure from "../../../components/ThreeColumnStructure";
 const Home = () => {
     return (
         <ThreeColumnStructure>
-            <Box>
-                Follow Goals
-            </Box>
+            <div>
+                <Heading
+                    customStyles={{ p: 4 }}
+                >SDG Goals
+                </Heading>
+
+                <SDGFollowCard goalId={1} />
+                <SDGFollowCard goalId={4} />
+                <SDGFollowCard goalId={10} />
+                <SDGFollowCard goalId={17} />
+            </div>
             <div>
                 <ActionCard />
                 <ActionCard />

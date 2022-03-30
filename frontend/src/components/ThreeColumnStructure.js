@@ -8,7 +8,7 @@ const ThreeColumnStructure = ({ children }) => {
     return (
         <Flex minH="82vh">
             <Hide below="md">
-                <Flex w={{ base: "320px", lg: "290px", xl: "380px", "2xl": "400px" }}>
+                <Flex w={{ base: "320px", lg: "340px", xl: "380px", "2xl": "400px" }}>
                     <FixedCard id="fixedcard1">
                         {children[0]}
                     </FixedCard>
@@ -16,11 +16,11 @@ const ThreeColumnStructure = ({ children }) => {
                     <Divider orientation='vertical' />
                 </Flex>
             </Hide>
-            <Flex bg="yellow" flex={2} direction="column">
+            <Flex flex={2} direction="column">
                 {children[1]}
             </Flex>
             <Hide below="lg">
-                <Flex w={{ base: "300px", lg: "320px", xl: "380px", "2xl": "400px" }}>
+                <Flex w={{ base: "300px", lg: "300px", xl: "380px", "2xl": "400px" }}>
                     <Divider orientation='vertical' />
                     <FixedCard id="fixedcard2">
                         {children[2]}
