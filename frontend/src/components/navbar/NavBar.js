@@ -55,13 +55,14 @@ const NavBar = () => {
       w="100vw"
       zIndex={20}
       position={(url === '/study' || url.includes('/feed')) ? "fixed" : "relative"}
-      bg={useColorModeValue('gray.100', 'gray.900')} px={4}
+      bg={useColorModeValue('gray.100', 'gray.900')}
+      px={4}
       className="mainNavBar"
     >
       <Flex
         h="8vh"
         align="center"
-        paddingX={{ base: '2%', md: '8%' }}
+        paddingX={{ base: '2%', '2xl': '8%' }}
       >
         <RouterLink to="/">
           <Text

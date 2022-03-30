@@ -1,16 +1,18 @@
 import {
-    Avatar, Box, Button, Center, Flex, HStack, Icon, Link, Menu,
+    Avatar, Box, Button, Center, Divider, Flex, HStack, Icon, Link, Menu,
     MenuButton, MenuDivider, MenuItem, MenuList, useColorModeValue
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
+import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
 import './navbar.css';
 
 const Links = [
     { name: 'Home', to: "/feed", icon: AiFillHome },
-    { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt }
+    { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt },
+    { name: 'Notification', to: "/feed/notification", icon: IoNotifications }
 ];
 
 const FeedNavbar = () => {
@@ -58,7 +60,7 @@ const FeedNavbar = () => {
                 h={16}
                 alignItems={'center'}
                 justifyContent={'space-between'}
-                paddingX={{ base: '2%', md: '8%' }}
+                paddingX={{ base: '2%', '2xl': '8%' }}
             >
                 <HStack spacing={8} alignItems={'center'}>
                     <HStack
@@ -72,48 +74,50 @@ const FeedNavbar = () => {
                     </HStack>
                 </HStack>
                 <Flex alignItems={'center'}>
-                    <Button
-                        variant={'solid'}
-                        colorScheme={'teal'}
-                        size={'md'}
-                        mr={4}
-                        leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
-                        Action
-                    </Button>
-                    <Menu>
-                        <MenuButton
-                            as={Button}
-                            rounded={'full'}
-                            variant={'link'}
-                            cursor={'pointer'}
-                            minW={0}>
-                            <Avatar
-                                size={'md'}
-                                src={'https://avatars.dicebear.com/api/male/username.svg'}
-                            />
-                        </MenuButton>
-                        <MenuList alignItems={'center'}>
-                            <br />
-                            <Center>
+                    <HStack spacing="6">
+                        <Button
+                            variant={'solid'}
+                            colorScheme={'teal'}
+                            size={'md'}
+                            leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
+                            Action
+                        </Button>
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                rounded={'full'}
+                                variant={'link'}
+                                cursor={'pointer'}
+                                minW={0}>
                                 <Avatar
-                                    size={'2xl'}
+                                    size={'md'}
                                     src={'https://avatars.dicebear.com/api/male/username.svg'}
                                 />
-                            </Center>
-                            <br />
-                            <Center>
-                                <p>Santhosh V S</p>
-                            </Center>
-                            <br />
-                            <MenuDivider />
-                            <MenuItem>Your Actions</MenuItem>
-                            <MenuItem>Registered Actions</MenuItem>
-                            <MenuItem>Edit Profile</MenuItem>
-                            <MenuItem _hover={{ bg: useColorModeValue('red.300', 'red.400'), color: 'white' }}>Logout</MenuItem>
-                        </MenuList>
-                    </Menu>
+                            </MenuButton>
+                            <MenuList alignItems={'center'}>
+                                <br />
+                                <Center>
+                                    <Avatar
+                                        size={'2xl'}
+                                        src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                    />
+                                </Center>
+                                <br />
+                                <Center>
+                                    <p>Santhosh V S</p>
+                                </Center>
+                                <br />
+                                <MenuDivider />
+                                <MenuItem>Your Actions</MenuItem>
+                                <MenuItem>Registered Actions</MenuItem>
+                                <MenuItem>Edit Profile</MenuItem>
+                                <MenuItem _hover={{ bg: useColorModeValue('red.300', 'red.400'), color: 'white' }}>Logout</MenuItem>
+                            </MenuList>
+                        </Menu>
+                    </HStack>
                 </Flex>
             </Flex>
+            <Divider />
         </Box>
     )
 }
