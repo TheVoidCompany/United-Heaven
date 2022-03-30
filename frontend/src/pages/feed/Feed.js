@@ -8,7 +8,7 @@ const Feed = () => {
             <Box w='100vw' minH='8vh' >
                 <FeedNavbar />
             </Box>
-            <Box w='100vw' minH='84vh' paddingX={{ base: '2%', '2xl': '8%' }}>
+            <Box w='100vw' minH='84vh' paddingX={{ base: '0%', '2xl': '8%' }}>
                 <Outlet />
             </Box>
         </Box>

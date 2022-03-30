@@ -8,4 +8,3 @@ export const disableScroll = () => {
     document.body.style.overflow = 'hidden';
     document.body.classList.add('noselect');
 }
-

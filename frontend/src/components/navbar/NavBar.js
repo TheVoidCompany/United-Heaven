@@ -4,6 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import '../styles.css';
 
 const Links = [
   { name: 'Suggestions', to: "/" },
@@ -56,13 +57,12 @@ const NavBar = () => {
       zIndex={20}
       position={(url === '/study' || url.includes('/feed')) ? "fixed" : "relative"}
       bg={useColorModeValue('gray.100', 'gray.900')}
-      px={4}
-      className="mainNavBar"
+      className="fixedTransistion"
     >
       <Flex
         h="8vh"
         align="center"
-        paddingX={{ base: '2%', '2xl': '8%' }}
+        paddingX={{ base: '4%', lg: "2%", '2xl': '8%' }}
       >
         <RouterLink to="/">
           <Text

@@ -7,7 +7,8 @@ import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
 import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
-import './navbar.css';
+import '../styles.css';
+
 
 const Links = [
     { name: 'Home', to: "/feed", icon: AiFillHome },
@@ -40,7 +41,7 @@ const FeedNavbar = () => {
             window.removeEventListener('scroll', handleScroll);
         }
 
-    }, [])
+    }, []);
 
 
 
@@ -53,14 +54,13 @@ const FeedNavbar = () => {
             top="8vh"
             zIndex={20}
             bg={useColorModeValue('gray.100', 'gray.900')}
-            px={4}
-            className="mainNavBar"
+            className="fixedTransistion"
         >
             <Flex
                 h={16}
                 alignItems={'center'}
                 justifyContent={'space-between'}
-                paddingX={{ base: '2%', '2xl': '8%' }}
+                paddingX={{ base: '4%', lg: "2%", '2xl': '8%' }}
             >
                 <HStack spacing={8} alignItems={'center'}>
                     <HStack
