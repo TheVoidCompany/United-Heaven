@@ -127,7 +127,7 @@ const FeedNavbar = () => {
                                     <Wrap maxW={200} justify='center'>
                                         {UserFollowingGoals.map(goal => {
                                             return (
-                                                <WrapItem>
+                                                <WrapItem key={goal}>
                                                     <Tag size="sm" variant='solid'>Goal-{goal}</Tag>
                                                 </WrapItem>
                                             )

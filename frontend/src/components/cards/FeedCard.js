@@ -1,17 +1,52 @@
 import {
-    Avatar, Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Tag, Text, useColorMode, useColorModeValue, Wrap, WrapItem
+    Avatar, Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Tag, Text, useClipboard, useColorMode, useColorModeValue, useToast, Wrap, WrapItem
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
+import { SDGGoals } from '../../constants/SDGGoals';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 
-const FeedCard = ({ profile, type, heading, image, para, sdgTags, buttonText, buttonOnClick }) => {
+const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgTags, buttonText, buttonOnClick }) => {
 
+    const shareUrl = `https://united-heaven.org/action/${id}`;
     const [liked, setLiked] = useState(false);
-    const { colorMode } = useColorMode()
+    const { colorMode } = useColorMode();
+    const toast = useToast();
+    const shareToast = 'share-toast'
+    const { onCopy } = useClipboard(shareUrl);
 
+    const handleShare = async () => {
+        const shareData = {
+            text: heading,
+            url: shareUrl
+        }
+        try {
+            await navigator.share(shareData)
+        } catch (err) {
+
+            if (err.name !== "AbortError") {
+                try {
+                    onCopy()
+                    if (!toast.isActive(shareToast)) {
+                        toast({
+                            id: shareToast,
+                            title: 'Copied to clipboard',
+                            status: 'info',
+                            duration: 4000,
+                        })
+                    }
+                } catch (err) {
+                    toast({
+                        title: err,
+                        status: 'error',
+                        duration: 4000,
+                    })
+                }
+            }
+        }
+    }
 
     return (
         <>
@@ -67,7 +102,7 @@ const FeedCard = ({ profile, type, heading, image, para, sdgTags, buttonText, bu
                                         </CardOptions>
                                     )
                                 }
-                                <CardOptions color={colorMode === "light" ? "#319795" : "#4FD1C5"}>
+                                <CardOptions color={colorMode === "light" ? "#319795" : "#4FD1C5"} onClick={handleShare}>
                                     <IoIosShareAlt size={'1.5em'} />
                                 </CardOptions>
                             </Flex>
@@ -91,8 +126,11 @@ const FeedCard = ({ profile, type, heading, image, para, sdgTags, buttonText, bu
                         <Wrap>
                             {sdgTags.map(goal => {
                                 return (
-                                    <WrapItem>
-                                        <Tag size="sm" variant='solid'>Goal-{goal}</Tag>
+                                    <WrapItem key={goal}>
+                                        {/* <Square size='28px' bg={SDGGoals[goal - 1].color} color='white'>
+                                            {goal}
+                                        </Square> */}
+                                        <Tag size="sm" variant='solid' backgroundColor={SDGGoals[goal - 1].color}>{goal}</Tag>
                                     </WrapItem>
                                 )
                             })}
@@ -115,6 +153,16 @@ const FeedCard = ({ profile, type, heading, image, para, sdgTags, buttonText, bu
 
 }
 
+const CardOptions = ({ children, onClick, text, color, selected }) => {
+    return (
+        <Flex ml="6" align="center" color={selected && color} _hover={{ color: color }} cursor="pointer" onClick={onClick}>
+            <Circle size="36px" _hover={{ bg: `${color}19` }}>
+                {children}
+            </Circle>
+            {text && <Text ml="1" fontWeight="500" className='noselect'>{text}</Text>}
+        </Flex>
+    )
+}
 
 FeedCard.propTypes = {
     profile: PropTypes.shape({
@@ -131,17 +179,6 @@ FeedCard.propTypes = {
     buttonOnClick: PropTypes.func
 }
 
-
-const CardOptions = ({ children, onClick, text, color, selected }) => {
-    return (
-        <Flex ml="6" align="center" color={selected && color} _hover={{ color: color }} cursor="pointer" onClick={onClick}>
-            <Circle size="36px" _hover={{ bg: `${color}19` }}>
-                {children}
-            </Circle>
-            {text && <Text ml="1" fontWeight="500" className='noselect'>{text}</Text>}
-        </Flex>
-    )
-}
 
 
 export default FeedCard;
