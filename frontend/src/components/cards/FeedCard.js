@@ -1,11 +1,17 @@
 import {
-    Avatar, Box, Button, Divider, HStack, Image, Spacer, Stack, Tag, Text, useColorModeValue, Wrap, WrapItem
+    Avatar, Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Tag, Text, useColorMode, useColorModeValue, Wrap, WrapItem
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 
 const FeedCard = ({ profile, type, heading, image, para, sdgTags, buttonText, buttonOnClick }) => {
+
+    const [liked, setLiked] = useState(false);
+    const { colorMode } = useColorMode()
+
 
     return (
         <>
@@ -31,20 +37,42 @@ const FeedCard = ({ profile, type, heading, image, para, sdgTags, buttonText, bu
                     <Image
                         src={image}
                         layout={'fill'}
-                        mb={6}
+                        mb={4}
                         w="100%"
                         rounded={"lg"}
                     />
                 )}
                 <Stack>
-                    <Text
-                        color={findTypeColor(type)}
-                        textTransform={'uppercase'}
-                        fontWeight={800}
-                        fontSize={'sm'}
-                        letterSpacing={1.1}>
-                        {type}
-                    </Text>
+                    <Flex justify={"space-between"} align="center">
+                        <Text
+                            color={findTypeColor(type)}
+                            textTransform={'uppercase'}
+                            fontWeight={800}
+                            fontSize={'sm'}
+                            letterSpacing={1.1}>
+                            {type}
+                        </Text>
+                        {type === "action" && (
+                            <Flex>
+                                {
+                                    liked ? (
+                                        <CardOptions text="0" color="#F91C2D" selected onClick={() => setLiked(false)}>
+                                            <ScaleFade initialScale={0.1} in={liked}>
+                                                <IoIosHeart size={'1.5em'} />
+                                            </ScaleFade>
+                                        </CardOptions>
+                                    ) : (
+                                        <CardOptions text="0" color="#F91C2D" onClick={() => setLiked(true)}>
+                                            <IoIosHeartEmpty size={'1.5em'} />
+                                        </CardOptions>
+                                    )
+                                }
+                                <CardOptions color={colorMode === "light" ? "#319795" : "#4FD1C5"}>
+                                    <IoIosShareAlt size={'1.5em'} />
+                                </CardOptions>
+                            </Flex>
+                        )}
+                    </Flex>
                     {heading && (
                         <Heading
                             size="2xl"
@@ -101,6 +129,18 @@ FeedCard.propTypes = {
     sdgTags: PropTypes.arrayOf(PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])),
     buttonText: PropTypes.string,
     buttonOnClick: PropTypes.func
+}
+
+
+const CardOptions = ({ children, onClick, text, color, selected }) => {
+    return (
+        <Flex ml="6" align="center" color={selected && color} _hover={{ color: color }} cursor="pointer" onClick={onClick}>
+            <Circle size="36px" _hover={{ bg: `${color}19` }}>
+                {children}
+            </Circle>
+            {text && <Text ml="1" fontWeight="500" className='noselect'>{text}</Text>}
+        </Flex>
+    )
 }
 
 

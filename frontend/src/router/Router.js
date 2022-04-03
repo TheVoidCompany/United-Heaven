@@ -3,6 +3,7 @@ import UnitedHeaven from '../pages';
 import Action from '../pages/feed/action';
 import Feed from '../pages/feed/Feed';
 import Home from '../pages/feed/home';
+import EditProfile from '../pages/feed/profile/EditProfile';
 import NotFound from '../pages/NotFound';
 import SDGPage from '../pages/sdg';
 import Study from '../pages/study';
@@ -18,6 +19,7 @@ const Router = () => {
                 <Route element={<Feed />}>
                     <Route path="/feed" element={<Home />} />
                     <Route path="/feed/action" element={<Action />} />
+                    <Route path="/feed/profile/edit_profile" element={<EditProfile />} />
                 </Route>
                 <Route path="/study" element={<Study />} />
             </Route>

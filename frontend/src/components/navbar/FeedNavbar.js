@@ -7,17 +7,23 @@ import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
 import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { SDGWheel } from '../../images/SDGWheel';
 import '../styles.css';
 
 const Links = [
     { name: 'Home', to: "/feed", icon: AiFillHome },
     { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt },
-    { name: 'Notification', to: "/feed/notification", icon: IoNotifications }
+    { name: 'Goals', to: "/feed/sdg", icon: SDGWheel },
+    { name: 'Notification', to: "/feed/notification", icon: IoNotifications },
 ];
 
 const UserFollowingGoals = [1, 4, 6, 15, 17];
 
 const FeedNavbar = () => {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const url = location.pathname;
 
     useEffect(() => {
         //show and hide the navbar on scroll down and up respectively
@@ -43,6 +49,8 @@ const FeedNavbar = () => {
         }
 
     }, []);
+
+    const profileOutlineColor = useColorModeValue('rgba(66, 123, 255, 0.6)', 'rgba(66, 123, 255, 0.9)');
 
 
 
@@ -89,10 +97,16 @@ const FeedNavbar = () => {
                                 rounded={'full'}
                                 variant={'link'}
                                 cursor={'pointer'}
-                                minW={0}>
+                                minW={0}
+                                shadow={'md'}
+                                _focus={{ outline: 'none' }}
+                            >
                                 <Avatar
                                     size={'md'}
                                     src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                    outline={url.includes('profile') ? "3px solid" : "0px"}
+                                    outlineColor={profileOutlineColor}
+                                    outlineOffset={'2px'}
                                 />
                             </MenuButton>
                             <MenuList alignItems={'center'}>
@@ -122,9 +136,9 @@ const FeedNavbar = () => {
                                 </Flex>
                                 <br />
                                 <MenuDivider />
-                                <MenuItem>Your Actions</MenuItem>
-                                <MenuItem>Registered Actions</MenuItem>
-                                <MenuItem>Edit Profile</MenuItem>
+                                <MenuItem onClick={() => navigate('/feed/profile/actions')}>Your Actions</MenuItem>
+                                <MenuItem onClick={() => navigate('/feed/profile/registered_actions')}>Registered Actions</MenuItem>
+                                <MenuItem onClick={() => navigate('/feed/profile/edit_profile')}>Edit Profile</MenuItem>
                                 <MenuItem _hover={{ bg: useColorModeValue('red.300', 'red.400'), color: 'white' }}>Logout</MenuItem>
                             </MenuList>
                         </Menu>
