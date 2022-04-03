@@ -1,6 +1,7 @@
-import { Button, HStack, Image, Spacer, Tag, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Button, HStack, Image, Spacer, useColorModeValue, VStack } from '@chakra-ui/react';
 import { SDGGoals } from '../../constants/SDGGoals';
 import Heading from '../common/Heading';
+import SDGTags from '../SDGTags';
 
 const SDGFollowCard = ({ goalId = 1 }) => {
     return (
@@ -27,9 +28,9 @@ const SDGFollowCard = ({ goalId = 1 }) => {
                 >
                     {SDGGoals[goalId - 1].name}
                 </Heading>
-                <Tag size="sm" variant='solid' backgroundColor={SDGGoals[goalId - 1].color}>
-                    {goalId}
-                </Tag>
+                <SDGTags
+                    goals={[goalId]}
+                />
 
             </VStack>
             <Spacer />

@@ -1,6 +1,6 @@
 import {
     Avatar, Box, Button, Center, Divider, Flex, Heading, HStack, Icon, IconButton, Link, Menu,
-    MenuButton, MenuDivider, MenuItem, MenuList, Stack, Tag, useBreakpointValue, useColorModeValue, Wrap, WrapItem
+    MenuButton, MenuDivider, MenuItem, MenuList, Stack, useBreakpointValue, useColorModeValue
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
@@ -10,6 +10,7 @@ import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SDGWheel } from '../../images/SDGWheel';
 import SocialButton from '../common/SocialButton';
+import SDGTags from '../SDGTags';
 import '../styles.css';
 
 const Links = [
@@ -150,15 +151,11 @@ const FeedNavbar = () => {
                                 </Center>
                                 <br />
                                 <Flex align={"center"} justifyContent={"center"}>
-                                    <Wrap maxW={200} justify='center'>
-                                        {UserFollowingGoals.map(goal => {
-                                            return (
-                                                <WrapItem key={goal}>
-                                                    <Tag size="sm" variant='solid'>Goal-{goal}</Tag>
-                                                </WrapItem>
-                                            )
-                                        })}
-                                    </Wrap>
+                                    <SDGTags
+                                        wrapWidth={200}
+                                        position="center"
+                                        goals={UserFollowingGoals}
+                                    />
                                 </Flex>
                                 <br />
                                 <MenuDivider />

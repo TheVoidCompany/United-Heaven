@@ -1,14 +1,14 @@
 import {
-    Avatar, Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Tag, Text, useClipboard, useColorMode, useColorModeValue, useToast, Wrap, WrapItem
+    Avatar, Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
-import { SDGGoals } from '../../constants/SDGGoals';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
+import SDGTags from '../SDGTags';
 
-const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgTags, buttonText, buttonOnClick }) => {
+const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, buttonText, buttonOnClick }) => {
 
     const shareUrl = `https://united-heaven.org/action/${id}`;
     const [liked, setLiked] = useState(false);
@@ -122,19 +122,10 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgTags, button
                         </Text>
                     )}
 
-                    {sdgTags && (
-                        <Wrap>
-                            {sdgTags.map(goal => {
-                                return (
-                                    <WrapItem key={goal}>
-                                        {/* <Square size='28px' bg={SDGGoals[goal - 1].color} color='white'>
-                                            {goal}
-                                        </Square> */}
-                                        <Tag size="sm" variant='solid' backgroundColor={SDGGoals[goal - 1].color}>{goal}</Tag>
-                                    </WrapItem>
-                                )
-                            })}
-                        </Wrap>
+                    {sdgGoals && (
+                        <SDGTags
+                            goals={sdgGoals}
+                        />
                     )}
 
                 </Stack>
@@ -174,7 +165,7 @@ FeedCard.propTypes = {
     heading: PropTypes.string,
     image: PropTypes.string,
     para: PropTypes.string,
-    sdgTags: PropTypes.arrayOf(PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])),
+    sdgGoals: PropTypes.arrayOf(PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])),
     buttonText: PropTypes.string,
     buttonOnClick: PropTypes.func
 }
