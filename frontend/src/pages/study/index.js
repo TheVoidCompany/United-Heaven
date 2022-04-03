@@ -1,7 +1,7 @@
 import { Box, Text, useColorModeValue } from "@chakra-ui/react";
-import Footer from "../../components/Footer";
-import Hero from "../../components/Hero";
+import Footer from "../../components/common/Footer";
 import Features from "./Features";
+import Hero from "./Hero";
 import TwoColumnFeature from "./TwoColumnFeature";
 
 const Study = () => {

@@ -1,13 +1,15 @@
 import {
-    Avatar, Box, Button, Center, Divider, Flex, HStack, Icon, Link, Menu,
-    MenuButton, MenuDivider, MenuItem, MenuList, Tag, useColorModeValue, Wrap, WrapItem
+    Avatar, Box, Button, Center, Divider, Flex, Heading, HStack, Icon, IconButton, Link, Menu,
+    MenuButton, MenuDivider, MenuItem, MenuList, Stack, Tag, useBreakpointValue, useColorModeValue, Wrap, WrapItem
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SDGWheel } from '../../images/SDGWheel';
+import SocialButton from '../common/SocialButton';
 import '../styles.css';
 
 const Links = [
@@ -86,11 +88,22 @@ const FeedNavbar = () => {
                     <HStack spacing="6">
                         <Button
                             variant={'solid'}
+                            position={useBreakpointValue({ base: 'fixed', md: 'relative' })}
+                            bottom={useBreakpointValue({ base: '8', md: '0' })}
+                            right={useBreakpointValue({ base: '5', md: '0' })}
                             colorScheme={'teal'}
-                            size={'md'}
+                            size={useBreakpointValue({ base: 'sm', md: 'md' })}
                             leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
                             Action
                         </Button>
+                        <IconButton
+                            size={'md'}
+                            fontSize={useBreakpointValue({ base: '2xl', md: '3xl' })}
+                            aria-label={`Notification`}
+                            variant="ghost"
+                            _focus={{ outline: 'none' }}
+                            icon={<Center><IoNotifications /></Center>}
+                        />
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -102,7 +115,7 @@ const FeedNavbar = () => {
                                 _focus={{ outline: 'none' }}
                             >
                                 <Avatar
-                                    size={'md'}
+                                    size={useBreakpointValue({ base: 'sm', md: 'md' })}
                                     src={'https://avatars.dicebear.com/api/male/username.svg'}
                                     outline={url.includes('profile') ? "3px solid" : "0px"}
                                     outlineColor={profileOutlineColor}
@@ -119,10 +132,23 @@ const FeedNavbar = () => {
                                 </Center>
                                 <br />
                                 <Center>
-                                    <p>Santhosh V S</p>
+                                    <Heading size={"md"}>Santhosh V S</Heading>
                                 </Center>
                                 <br />
-
+                                <Center>
+                                    <Stack direction={'row'} spacing={6}>
+                                        <SocialButton label={'Twitter'} href={'#'}>
+                                            <FaTwitter />
+                                        </SocialButton>
+                                        <SocialButton label={'Facebook'} href={'#'}>
+                                            <FaFacebook />
+                                        </SocialButton>
+                                        <SocialButton label={'Instagram'} href={'#'}>
+                                            <FaInstagram />
+                                        </SocialButton>
+                                    </Stack>
+                                </Center>
+                                <br />
                                 <Flex align={"center"} justifyContent={"center"}>
                                     <Wrap maxW={200} justify='center'>
                                         {UserFollowingGoals.map(goal => {
@@ -180,7 +206,7 @@ const NavLink = ({ children, to, icon }) => {
         >
             <Icon
                 as={icon}
-                fontSize={{ base: 30, md: 24 }}
+                fontSize={{ base: 26, md: 24 }}
                 mr="2"
             />
             <Box
