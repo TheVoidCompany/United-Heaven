@@ -8,7 +8,7 @@ const UnitedHeaven = () => {
             <Box w='100vw' minH='8vh'>
                 <NavBar />
             </Box>
-            <Box w='100vw' minH='92vh'>
+            <Box w='100vw' minH='100%'>
                 <Outlet />
             </Box>
         </>

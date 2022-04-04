@@ -24,7 +24,7 @@ const OverlayCard = ({ children, position, title, onClose, onBack, customStyles,
                 <>
                     <HStack mb={2}>
                         {onBack && (<IoChevronBackOutline cursor='pointer' size={"26"} onClick={onBack} />)}
-                        <Text ml={"10px"} fontSize={'2xl'} fontWeight='bold' noOfLines={1} maxW={width ? width / 1.5 : "260px"}>{title}</Text>
+                        <Text ml={onBack && "10px"} fontSize={'2xl'} fontWeight='bold' noOfLines={1} maxW={width ? width / 1.5 : "260px"}>{title}</Text>
                         <Spacer />
                         {onClose && (<IoClose cursor='pointer' size={"26"} onClick={onClose} />)}
                     </HStack>

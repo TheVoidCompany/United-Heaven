@@ -1,12 +1,17 @@
-import { Box, useColorModeValue } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
+import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import { Outlet, useLocation } from 'react-router-dom';
+import ColumnCard from '../../components/cards/ColumnCard';
 import SDGFollowCard from '../../components/cards/SDGFollowCard';
-import TrendingCard from '../../components/cards/TrendingCard';
 import Heading from '../../components/common/Heading';
 import FeedNavbar from '../../components/navbar/FeedNavbar';
 import ThreeColumnStructure from '../../components/ThreeColumnStructure';
 
 const Feed = () => {
+
+    const isLgScreen = useBreakpointValue({ base: false, lg: true })
+    const location = useLocation();
+    const url = location.pathname;
+
     return (
         <Box bg={useColorModeValue('white', 'gray.900')}>
             <Box w='100vw' minH='8vh' >
@@ -14,47 +19,94 @@ const Feed = () => {
             </Box>
             <Box w='100vw' minH='84vh' paddingX={{ base: '0%', '2xl': '8%' }}>
                 <ThreeColumnStructure>
-                    <div>
-                        <Heading
-                            customStyles={{ p: 4 }}
-                        >SDG Goals
-                        </Heading>
-                        <SDGFollowCard goalId={1} />
-                        <SDGFollowCard goalId={4} />
-                        <SDGFollowCard goalId={10} />
-                        <SDGFollowCard goalId={17} />
-                    </div>
+                    {url === "/feed/action" ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
                     <div>
                         <Outlet />
                     </div>
-                    <Box>
-                        <Heading
-                            customStyles={{ p: 4 }}
-                        >Trending</Heading>
-                        <TrendingCard
-                            type="action"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                        />
-                        <TrendingCard
-                            type="news"
-                            heading="12 students started environment campaign in south india"
-                            image='https://picsum.photos/200/200'
-                        />
-                        <TrendingCard
-                            type="action"
-                            heading="Teach young students of africa about the importance of computer science in the modern world"
-                            image='https://picsum.photos/200/200'
-                        />
-                        <TrendingCard
-                            type="event"
-                            heading="Global SDG conference is happening in california, US"
-                            image='https://picsum.photos/200/200'
-                        />
-
-                    </Box>
+                    <TrendingColumn />
                 </ThreeColumnStructure>
             </Box>
+        </Box>
+    )
+}
+
+
+const SDGFollowColumn = () => {
+    return (
+        <Box>
+            <Heading
+                customStyles={{ p: 4 }}
+            >SDG Goals
+            </Heading>
+            <SDGFollowCard goalId={1} />
+            <SDGFollowCard goalId={4} />
+            <SDGFollowCard goalId={10} />
+            <SDGFollowCard goalId={17} />
+        </Box>
+    )
+}
+
+
+const SuggestedActionColumn = () => {
+    return (
+        <Box>
+            <Heading
+                customStyles={{ p: 4 }}
+            >Action</Heading>
+            <ColumnCard
+                type="action"
+                heading="Clean Marina Beach on 12 dec morning"
+                image='https://picsum.photos/200/200'
+            />
+            <ColumnCard
+                type="action"
+                heading="12 students started environment campaign in south india"
+                image='https://picsum.photos/200/200'
+            />
+            <ColumnCard
+                type="action"
+                heading="Teach young students of africa about the importance of computer science in the modern world"
+                image='https://picsum.photos/200/200'
+            />
+            <ColumnCard
+                type="action"
+                heading="Global SDG conference is happening in california, US"
+                image='https://picsum.photos/200/200'
+            />
+
+        </Box>
+    )
+}
+
+
+const TrendingColumn = () => {
+    return (
+
+        <Box>
+            <Heading
+                customStyles={{ p: 4 }}
+            >Trending</Heading>
+            <ColumnCard
+                type="action"
+                heading="Clean Marina Beach on 12 dec morning"
+                image='https://picsum.photos/200/200'
+            />
+            <ColumnCard
+                type="news"
+                heading="12 students started environment campaign in south india"
+                image='https://picsum.photos/200/200'
+            />
+            <ColumnCard
+                type="action"
+                heading="Teach young students of africa about the importance of computer science in the modern world"
+                image='https://picsum.photos/200/200'
+            />
+            <ColumnCard
+                type="event"
+                heading="Global SDG conference is happening in california, US"
+                image='https://picsum.photos/200/200'
+            />
+
         </Box>
     )
 }

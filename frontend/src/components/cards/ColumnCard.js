@@ -2,7 +2,7 @@ import { Flex, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 
-const TrendingCard = ({ type, heading, image }) => {
+const ColumnCard = ({ type, heading, image }) => {
 
     return (
         <Flex p={5}
@@ -45,4 +45,4 @@ const TrendingCard = ({ type, heading, image }) => {
     )
 }
 
-export default TrendingCard
+export default ColumnCard

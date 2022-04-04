@@ -92,7 +92,7 @@ const FeedNavbar = () => {
                             bottom={useBreakpointValue({ base: '8', md: '0' })}
                             right={useBreakpointValue({ base: '5', md: '0' })}
                             colorScheme={'teal'}
-                            size={useBreakpointValue({ base: 'sm', md: 'md' })}
+                            size={'md'}
                             leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
                             Action
                         </Button>

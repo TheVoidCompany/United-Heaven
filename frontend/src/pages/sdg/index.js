@@ -1,5 +1,5 @@
-import { Box, useBreakpointValue, useColorMode } from '@chakra-ui/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Box, Button, useBreakpointValue, useColorMode } from '@chakra-ui/react';
+import { useCallback, useRef, useState } from 'react';
 import { Layer, Source } from 'react-map-gl';
 import MapWrapper from '../../components/map/MapWrapper';
 import OverlayCard from '../../components/OverlayCard';
@@ -12,17 +12,9 @@ const SDGPage = () => {
     const [hoveredCountryId, sethoveredCountryId] = useState(null);
     const [hoveredCountry, sethoveredCountry] = useState(null);
     const [selectedCountry, setselectedCountry] = useState('null');
+    const [showCharityOverlay, setShowCharityOverlay] = useState(true);
     const isSmallSize = useBreakpointValue({ base: true, lg: false });
     const { colorMode } = useColorMode()
-
-
-    useEffect(() => {
-
-        return () => {
-            setselectedCountry(null);
-        }
-
-    }, [])
 
 
     const onHover = useCallback(event => {
@@ -78,7 +70,7 @@ const SDGPage = () => {
     }, [selectedCountry]);
 
     return (
-        <Box w="100vw" h="92vh">
+        <Box w="100vw" h="92vh" position='relative'>
             <MapWrapper
                 interactiveLayerIds={['country-layer', 'country-outline']}
                 ref={mapRef}
@@ -91,7 +83,7 @@ const SDGPage = () => {
                     <Layer {...countryOutline(colorMode)} />
                     <Layer {...selectedCountryFill(colorMode, selectedCountry)} />
                 </Source>
-                {hoveredCountry && <OverlayCard
+                {hoveredCountry && !isSmallSize && <OverlayCard
                     title={hoveredCountry?.name}
                     position={selectedCountry !== 'null' ? { left: '50%' } : { left: '0' }}
                     customStyles={selectedCountry !== 'null' ? { transform: 'translateX(-50%)' } : {}}
@@ -103,7 +95,7 @@ const SDGPage = () => {
                 title={selectedCountry.name}
                 onClose={() => setselectedCountry('null')}
                 position={{ right: '0', bottom: '0' }}
-                customStyles={{ height: '86vh' }}
+                customStyles={{ height: '94%' }}
                 divider
                 width={340}
                 isSmallSize={isSmallSize}
@@ -112,6 +104,34 @@ const SDGPage = () => {
                 <p>income group: {selectedCountry.income_grp}</p>
             </OverlayCard>
             }
+            {showCharityOverlay ? (
+
+                selectedCountry !== 'null' && !isSmallSize && <OverlayCard
+                    title={"Charity"}
+                    onClose={() => setShowCharityOverlay(false)}
+                    position={{ left: '0', bottom: '0' }}
+                    customStyles={{ height: '86vh' }}
+                    divider
+                    width={340}
+                >
+                    <p>1. DEAN FOUNDATION, HOSPICE AND PALLIATIVE CARE CENTER</p>
+                    <p>2. DEAN FOUNDATION, HOSPICE AND PALLIATIVE CARE CENTER</p>
+                </OverlayCard>
+
+            ) : (
+                <Button
+                    variant="solid"
+                    position='fixed'
+                    colorScheme={"gray"}
+                    left='0'
+                    bottom='0'
+                    onClick={() => setShowCharityOverlay(true)}
+                    mb={20}
+                    ml={4}
+                >
+                    Show Charity
+                </Button>
+            )}
         </Box>
     );
 }

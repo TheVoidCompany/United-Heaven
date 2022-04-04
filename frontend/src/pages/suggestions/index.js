@@ -78,7 +78,7 @@ const SuggestionsPage = () => {
                     onBack={selectedMarker !== null ? (() => setSelectedMarker(null)) : null}
                     position={{ right: '0', bottom: '0' }}
                     width={340}
-                    customStyles={{ height: '86vh' }}
+                    customStyles={{ height: '94%' }}
                     divider
                     isSmallSize={isSmallSize}
                 >
@@ -117,14 +117,14 @@ const SuggestionsPage = () => {
             ) : (
                 <Button
                     variant="solid"
-                    position='absolute'
+                    position='fixed'
                     right='0'
                     bottom='0'
                     onClick={() => setShowSuggestionOverlay(true)}
-                    mb={10}
+                    mb={isSmallSize ? 4 : 14}
                     mr={4}
                 >
-                    Suggestions
+                    Show Suggestions
                 </Button>
             )}
 
