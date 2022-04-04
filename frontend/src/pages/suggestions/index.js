@@ -1,21 +1,41 @@
-import { Box } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
+import { Box, Button, Text, useBreakpointValue } from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
 import { Marker } from 'react-map-gl';
 import MapWrapper from '../../components/map/MapWrapper';
 import PulseMarker from '../../components/marker/PulseMarker';
+import OverlayCard from '../../components/OverlayCard';
 import { FakeSuggestions } from '../../data/FakeSuggestions';
 import CountryDetailsPopup from './CountryDetailsPopup';
-
 
 const SuggestionsPage = () => {
 
     const [hoveredMarker, setHoveredMarker] = useState(null);
     const [selectedMarker, setSelectedMarker] = useState(null);
+    const isSmallSize = useBreakpointValue({ base: true, lg: false });
+    const [showSuggestionOverlay, setShowSuggestionOverlay] = useState(false);
+
+    useEffect(() => {
+        setShowSuggestionOverlay(isSmallSize ? false : true);
+    }, [isSmallSize])
+
 
 
     const markers = useMemo(() => {
 
-        return FakeSuggestions.map(country => {
+        //get countries object with unique iso3 values
+        const uniqueCountries = FakeSuggestions.reduce((acc, country) => {
+            if (!acc[country.iso3]) {
+                acc[country.iso3] = country;
+            }
+            return acc;
+        }, {});
+
+        //get array of countries with unique iso3 values
+        const uniqueCountriesArray = Object.values(uniqueCountries);
+
+
+
+        return uniqueCountriesArray.map(country => {
 
             return (
                 <Marker
@@ -25,9 +45,10 @@ const SuggestionsPage = () => {
                     anchor="bottom"
                 >
                     <PulseMarker
-                        text={country.suggestionRank}
+                        text={country.totalGoals}
                         setHoveredMarker={setHoveredMarker}
                         setSelectedMarker={setSelectedMarker}
+                        selectedMarker={selectedMarker}
                         markerValue={country}
 
                     />
@@ -35,7 +56,7 @@ const SuggestionsPage = () => {
             )
         })
 
-    }, []);
+    }, [selectedMarker]);
 
 
     return (
@@ -43,11 +64,70 @@ const SuggestionsPage = () => {
             <MapWrapper>
                 {markers}
             </MapWrapper>
-            <CountryDetailsPopup
-                hoveredMarker={hoveredMarker}
-                selectedMarker={selectedMarker}
-                onClose={() => setSelectedMarker(null)}
-            />
+            {!isSmallSize && (
+                <CountryDetailsPopup
+                    hoveredMarker={hoveredMarker}
+                    selectedMarker={selectedMarker}
+                    onClose={() => setSelectedMarker(null)}
+                />
+            )}
+            {showSuggestionOverlay || (isSmallSize && selectedMarker !== null) ? (
+                <OverlayCard
+                    title={selectedMarker !== null ? selectedMarker.name : 'Suggestions'}
+                    onClose={(selectedMarker !== null && isSmallSize) ? null : () => setShowSuggestionOverlay(false)}
+                    onBack={selectedMarker !== null ? (() => setSelectedMarker(null)) : null}
+                    position={{ right: '0', bottom: '0' }}
+                    width={340}
+                    customStyles={{ height: '86vh' }}
+                    divider
+                    isSmallSize={isSmallSize}
+                >
+                    {selectedMarker !== null ? (
+                        FakeSuggestions.map(country => {
+                            if (country.iso3 === selectedMarker.iso3) {
+                                return (
+                                    <Text
+                                        key={country.id}
+                                        p={2}
+                                        cursor='pointer'
+                                        fontWeight={"bold"}
+                                    >
+                                        {`${country.suggestionRank}. ${country.description}`}
+                                    </Text>
+                                )
+                            }
+                            return null;
+                        })
+                    ) : (
+                        FakeSuggestions.map(country => {
+                            return (
+                                <Text
+                                    key={country.id}
+                                    p={2}
+                                    cursor='pointer'
+                                    fontWeight={"bold"}
+                                    textShadow={country.iso3 === hoveredMarker?.iso3 && `1px 1px 8px`}
+                                >
+                                    {`${country.suggestionRank}. ${country.description}`}
+                                </Text>
+                            )
+                        })
+                    )}
+                </OverlayCard>
+            ) : (
+                <Button
+                    variant="solid"
+                    position='absolute'
+                    right='0'
+                    bottom='0'
+                    onClick={() => setShowSuggestionOverlay(true)}
+                    mb={10}
+                    mr={4}
+                >
+                    Suggestions
+                </Button>
+            )}
+
         </Box>
     )
 }

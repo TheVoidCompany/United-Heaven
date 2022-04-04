@@ -1,4 +1,4 @@
-import { Box, useColorMode } from '@chakra-ui/react';
+import { Box, useBreakpointValue, useColorMode } from '@chakra-ui/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Layer, Source } from 'react-map-gl';
 import MapWrapper from '../../components/map/MapWrapper';
@@ -12,6 +12,7 @@ const SDGPage = () => {
     const [hoveredCountryId, sethoveredCountryId] = useState(null);
     const [hoveredCountry, sethoveredCountry] = useState(null);
     const [selectedCountry, setselectedCountry] = useState('null');
+    const isSmallSize = useBreakpointValue({ base: true, lg: false });
     const { colorMode } = useColorMode()
 
 
@@ -100,10 +101,12 @@ const SDGPage = () => {
             </MapWrapper>
             {selectedCountry !== 'null' && <OverlayCard
                 title={selectedCountry.name}
-                closeButton
                 onClose={() => setselectedCountry('null')}
                 position={{ right: '0', bottom: '0' }}
-                customStyles={{ minWidth: '300', height: '86vh' }}
+                customStyles={{ height: '86vh' }}
+                divider
+                width={340}
+                isSmallSize={isSmallSize}
             >
                 <p>continent: {selectedCountry.continent}</p>
                 <p>income group: {selectedCountry.income_grp}</p>

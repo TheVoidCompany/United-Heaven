@@ -1,9 +1,9 @@
-import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Divider, HStack, Spacer, Text, useColorModeValue } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
-import { IoClose } from "react-icons/io5";
+import { IoChevronBackOutline, IoClose } from "react-icons/io5";
 
 
-const OverlayCard = ({ children, position, title, closeButton, onClose, customStyles, titleLg }) => {
+const OverlayCard = ({ children, position, title, onClose, onBack, customStyles, width, divider, isSmallSize }) => {
 
     const popupColor = useColorModeValue('#F6FBFFEE', '#061626EE');
 
@@ -14,15 +14,22 @@ const OverlayCard = ({ children, position, title, closeButton, onClose, customSt
             position="absolute"
             {...position}
             p="4"
-            margin="6"
+            margin={isSmallSize ? "0" : "8"}
             borderRadius={6}
+            minW={isSmallSize ? "100vw" : width}
+            maxW={isSmallSize ? "100vw" : width}
             {...customStyles}
         >
             {title && (
-                <Flex mb={children ? '4' : '0'} justifyContent='space-between' alignItems="center">
-                    <Text fontSize={titleLg ? '3xl' : '2xl'} fontWeight='bold'> {title} </Text>
-                    {closeButton && (<IoClose cursor='pointer' size={titleLg ? "30" : "26"} onClick={onClose} />)}
-                </Flex>
+                <>
+                    <HStack mb={2}>
+                        {onBack && (<IoChevronBackOutline cursor='pointer' size={"26"} onClick={onBack} />)}
+                        <Text ml={"10px"} fontSize={'2xl'} fontWeight='bold' noOfLines={1} maxW={width ? width / 1.5 : "260px"}>{title}</Text>
+                        <Spacer />
+                        {onClose && (<IoClose cursor='pointer' size={"26"} onClick={onClose} />)}
+                    </HStack>
+                    {divider && <Divider mb={children ? '4' : '0'} />}
+                </>
             )}
             {children}
         </Box>
@@ -44,10 +51,12 @@ OverlayCard.propTypes = {
         bottom: PropTypes.string || PropTypes.number
     }),
     title: PropTypes.string,
-    closeButton: PropTypes.bool,
     onClose: PropTypes.func,
     customStyles: PropTypes.object,
-    titleLg: PropTypes.bool
+    onBack: PropTypes.func,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    divider: PropTypes.bool,
+    isSmallSize: PropTypes.bool
 };
 
 export default OverlayCard

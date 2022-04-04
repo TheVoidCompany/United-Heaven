@@ -66,8 +66,8 @@ const NavBar = () => {
       >
         <RouterLink to="/">
           <Text
-            fontSize="2em"
-            fontFamily="Play"
+            fontSize={{ base: '1.5em', sm: '2em' }}
+            fontFamily="Ailerons"
             userSelect="none"
             cursor="pointer"
             noOfLines={1}
@@ -96,10 +96,10 @@ const NavBar = () => {
         </HStack>
       </Flex>
       {isOpen ? (
-        <Box pb={4} display={{ lg: 'none' }}>
+        <Box pb={4} mt={url.includes('/feed') && '8vh'} zIndex={50} display={{ lg: 'none' }}>
           <Stack as={'nav'} spacing={4}>
             {Links.map(({ name, to }) => (
-              <NavLink key={name} to={to}>{name}</NavLink>
+              <NavLink key={name} to={to} close={onClose}>{name}</NavLink>
             ))}
           </Stack>
         </Box>
@@ -108,7 +108,7 @@ const NavBar = () => {
   );
 };
 
-const NavLink = ({ children, to }) => {
+const NavLink = ({ children, to, close }) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -117,6 +117,7 @@ const NavLink = ({ children, to }) => {
   const linkBg = useColorModeValue('gray.200', 'gray.700');
 
   const handleClick = () => {
+    close && close()
     navigate(to);
   };
 

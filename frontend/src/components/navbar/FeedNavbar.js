@@ -17,7 +17,6 @@ const Links = [
     { name: 'Home', to: "/feed", icon: AiFillHome },
     { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt },
     { name: 'Goals', to: "/feed/sdg", icon: SDGWheel },
-    { name: 'Notification', to: "/feed/notification", icon: IoNotifications },
 ];
 
 const UserFollowingGoals = [1, 4, 6, 15, 17];

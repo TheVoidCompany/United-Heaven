@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import colors from './colors.constant';
 
-const PulseMarker = ({ color = 'orange', size = 50, text, markerValue, setHoveredMarker, setSelectedMarker }) => {
+const PulseMarker = ({ color = 'green', size = 50, text, markerValue, setHoveredMarker, selectedMarker, setSelectedMarker }) => {
 
 
   const pulseAnimation = keyframes`
@@ -34,14 +34,15 @@ const PulseMarker = ({ color = 'orange', size = 50, text, markerValue, setHovere
       border-radius: 50%;
       font-weight: bold;
       transform: scale(1);
-      animation: ${pulseAnimation} 2s infinite;
+      animation: ${selectedMarker !== null ? selectedMarker === markerValue ? pulseAnimation : 'none' : pulseAnimation} 2s infinite;
     `}
-      w={size + 'px'}
-      h={size + 'px'}
+      w={(selectedMarker === markerValue ? size + 20 : size) + "px"}
+      h={(selectedMarker === markerValue ? size + 20 : size) + "px"}
       display="flex"
       alignItems="center"
       justifyContent="center"
       bg={colors[color] + '90'}
+      fontSize={(selectedMarker === markerValue) && 18 + "px"}
       cursor="pointer"
       _hover={{
         width: size + 20 + 'px',
@@ -61,7 +62,7 @@ const PulseMarker = ({ color = 'orange', size = 50, text, markerValue, setHovere
 PulseMarker.propTypes = {
   color: PropTypes.string,
   size: PropTypes.number,
-  text: PropTypes.string,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   markerValue: PropTypes.any,
   setHoveredMarker: PropTypes.func
 }
