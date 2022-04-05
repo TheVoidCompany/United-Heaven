@@ -6,6 +6,7 @@ import Goal from '../pages/feed/goal';
 import GoalFeed from '../pages/feed/goal/GoalFeed';
 import Home from '../pages/feed/home';
 import EditProfile from '../pages/feed/profile/EditProfile';
+import ViewAction from '../pages/feed/profile/ViewAction';
 import NotFound from '../pages/NotFound';
 import SDGPage from '../pages/sdg';
 import Study from '../pages/study';
@@ -23,6 +24,10 @@ const Router = () => {
                     <Route path="/home" element={<Navigate replace to="/feed" />} />
                     <Route path="/feed/action" element={<Action />} />
                     <Route path="/feed/profile/edit_profile" element={<EditProfile />} />
+                    <Route path="/feed/profile/actions" element={<ViewAction />} />
+                    <Route path="/feed/profile/registered_actions" element={<ViewAction />} />
+                    <Route path="/feed/profile/actions/:id" element={<ViewAction />} />
+                    <Route path="/feed/profile/registered_actions/:id" element={<ViewAction />} />
                     <Route path="/feed/goal" element={<Goal />} />
                     <Route path="/feed/goal/:id" element={<GoalFeed />} />
                 </Route>

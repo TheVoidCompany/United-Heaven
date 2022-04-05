@@ -92,6 +92,7 @@ const FeedNavbar = () => {
                             bottom={useBreakpointValue({ base: '8', md: '0' })}
                             right={useBreakpointValue({ base: '5', md: '0' })}
                             colorScheme={'teal'}
+                            display={(url === "/feed/action" || url === "/feed") ? 'flex' : 'none'}
                             size={'md'}
                             leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
                             Action

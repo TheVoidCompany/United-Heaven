@@ -21,7 +21,7 @@ const Feed = () => {
                 <FeedNavbar />
             </Box>
             <Box w='100vw' minH='84vh' paddingX={{ base: '0%', '2xl': '8%' }}>
-                {url === "/feed/goal" ? (
+                {url.includes("/goal") || url.includes('/profile') ? (
                     <Outlet />
                 ) : (
                     <ThreeColumnStructure>
