@@ -14,9 +14,9 @@ import SDGTags from '../SDGTags';
 import '../styles.css';
 
 const Links = [
-    { name: 'Home', to: "/feed", icon: AiFillHome },
+    { name: 'Home', to: "/home", icon: AiFillHome },
     { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt },
-    { name: 'Goals', to: "/feed/sdg", icon: SDGWheel },
+    { name: 'Goals', to: "/feed/goal", icon: SDGWheel },
 ];
 
 const UserFollowingGoals = [1, 4, 6, 15, 17];
@@ -177,6 +177,7 @@ const NavLink = ({ children, to, icon }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const url = location.pathname;
+    const formattedUrl = url === '/feed' ? '/home' : url;
 
     const linkColor = useColorModeValue('black', 'white');
 
@@ -195,7 +196,7 @@ const NavLink = ({ children, to, icon }) => {
                 textDecoration: 'none',
                 color: linkColor
             }}
-            color={url === to ? linkColor : 'gray.500'}
+            color={formattedUrl.includes(to) ? linkColor : 'gray.500'}
             onClick={handleClick}
             display={"flex"}
             alignItems="center"

@@ -9,22 +9,30 @@ import ThreeColumnStructure from '../../components/ThreeColumnStructure';
 const Feed = () => {
 
     const isLgScreen = useBreakpointValue({ base: false, lg: true })
+    const bg = useColorModeValue('white', 'gray.900')
     const location = useLocation();
     const url = location.pathname;
 
+
+
     return (
-        <Box bg={useColorModeValue('white', 'gray.900')}>
+        <Box bg={bg}>
             <Box w='100vw' minH='8vh' >
                 <FeedNavbar />
             </Box>
             <Box w='100vw' minH='84vh' paddingX={{ base: '0%', '2xl': '8%' }}>
-                <ThreeColumnStructure>
-                    {url === "/feed/action" ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
-                    <div>
-                        <Outlet />
-                    </div>
-                    <TrendingColumn />
-                </ThreeColumnStructure>
+                {url === "/feed/goal" ? (
+                    <Outlet />
+                ) : (
+                    <ThreeColumnStructure>
+                        {url === "/feed/action" ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
+                        <div>
+                            <Outlet />
+                        </div>
+                        <TrendingColumn />
+                    </ThreeColumnStructure>
+                )}
+
             </Box>
         </Box>
     )

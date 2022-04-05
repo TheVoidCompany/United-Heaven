@@ -4,7 +4,7 @@ import {
     Link,
     Stack,
     Text,
-    useColorModeValue,
+    useColorModeValue
 } from '@chakra-ui/react';
 import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 import SocialButton from './SocialButton';
@@ -22,12 +22,12 @@ const Footer = () => {
                 spacing={4}
                 justify={'center'}
                 align={'center'}>
-                <Text fontSize="3xl" fontWeight="black" fontFamily="Play">United Heaven</Text>
+                <Text fontSize="3xl" fontWeight="500" fontFamily="Ailerons">United Heaven</Text>
                 <Stack direction={'row'} spacing={6}>
                     <Link href={'/'}>Suggestions</Link>
                     <Link href={'/sdg'}>SDG</Link>
+                    <Link href={'/feed'}>Feed</Link>
                     <Link href={'#'}>Sponsor</Link>
-                    <Link href={'#'}>Github</Link>
                 </Stack>
             </Container>
 

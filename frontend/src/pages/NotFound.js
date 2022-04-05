@@ -17,7 +17,7 @@ const NotFound = () => {
       </Heading>
       <Heading
         mt="2"
-        size="4xl"
+        size={'2xl'}
         textAlign="center"
         onClick={() => navigate('/')}
         cursor="pointer"

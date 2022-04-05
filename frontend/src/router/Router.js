@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import UnitedHeaven from '../pages';
 import Action from '../pages/feed/action';
 import Feed from '../pages/feed/Feed';
+import Goal from '../pages/feed/goal';
+import GoalFeed from '../pages/feed/goal/GoalFeed';
 import Home from '../pages/feed/home';
 import EditProfile from '../pages/feed/profile/EditProfile';
 import NotFound from '../pages/NotFound';
@@ -18,8 +20,11 @@ const Router = () => {
                 <Route path="/sdg" element={<SDGPage />} />
                 <Route element={<Feed />}>
                     <Route path="/feed" element={<Home />} />
+                    <Route path="/home" element={<Navigate replace to="/feed" />} />
                     <Route path="/feed/action" element={<Action />} />
                     <Route path="/feed/profile/edit_profile" element={<EditProfile />} />
+                    <Route path="/feed/goal" element={<Goal />} />
+                    <Route path="/feed/goal/:id" element={<GoalFeed />} />
                 </Route>
                 <Route path="/study" element={<Study />} />
             </Route>

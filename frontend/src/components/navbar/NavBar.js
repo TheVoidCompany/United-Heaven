@@ -7,7 +7,7 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import '../styles.css';
 
 const Links = [
-  { name: 'Suggestions', to: "/" },
+  { name: 'Suggestions', to: "/suggestion" },
   { name: 'SDG', to: "/sdg" },
   { name: 'Feed', to: "/feed" },
   { name: 'Study', to: "/study" },
@@ -20,6 +20,7 @@ const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const url = location.pathname;
+  const formattedUrl = url === '/' ? '/suggestion' : url;
 
   useEffect(() => {
     //show and hide the navbar on scroll down and up respectively
@@ -38,7 +39,7 @@ const NavBar = () => {
 
     }
 
-    if (url.includes('/feed')) {
+    if (formattedUrl.includes('/feed')) {
       window.addEventListener('scroll', handleScroll);
     }
 
@@ -46,7 +47,7 @@ const NavBar = () => {
       window.removeEventListener('scroll', handleScroll);
     }
 
-  }, [url]);
+  }, [formattedUrl]);
 
 
 
@@ -113,6 +114,7 @@ const NavLink = ({ children, to, close }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const url = location.pathname;
+  const formattedUrl = url === '/' ? '/suggestion' : url;
 
   const linkBg = useColorModeValue('gray.200', 'gray.700');
 
@@ -120,7 +122,6 @@ const NavLink = ({ children, to, close }) => {
     close && close()
     navigate(to);
   };
-
 
   return (
     <Link
@@ -132,7 +133,9 @@ const NavLink = ({ children, to, close }) => {
       _hover={{
         textDecoration: 'none',
       }}
-      bg={url === to ? linkBg : 'transparent'}
+      //change bg color of the link depending on the current url and its sub-urls
+      bg={formattedUrl.includes(to) ? linkBg : 'transparent'}
+
       onClick={handleClick}
     >
       {children}

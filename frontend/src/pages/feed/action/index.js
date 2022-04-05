@@ -40,6 +40,7 @@ const Action = () => {
                     imageUrl: 'https://avatars0.githubusercontent.com/u/1164541?v=4',
                     name: 'Achim Rolle',
                     subText: 'Feb 08, 2021 · 6min read',
+
                 }}
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
