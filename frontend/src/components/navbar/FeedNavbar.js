@@ -105,7 +105,7 @@ const FeedNavbar = () => {
                             _focus={{ outline: 'none' }}
                             icon={<Center><IoNotifications /></Center>}
                         />
-                        <Menu>
+                        <Menu isLazy>
                             <MenuButton
                                 as={Button}
                                 rounded={'full'}

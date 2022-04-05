@@ -1,11 +1,10 @@
-import {
-    Avatar, Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast
-} from '@chakra-ui/react';
+import { Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
+import DisplayPic from '../DisplayPic';
 import SDGTags from '../SDGTags';
 
 const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, buttonText, buttonOnClick }) => {
@@ -57,16 +56,7 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                 overflow={'hidden'}
             >
                 {profile && (
-                    <Stack mb={6} direction={'row'} spacing={4} align={'center'}>
-                        <Avatar
-                            src={profile.imageUrl}
-                            alt={`user ${profile.name} profile picture`}
-                        />
-                        <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-                            <Text fontWeight={600}>{profile.name}</Text>
-                            {profile.subText && <Text color={'gray.500'}>{profile.subText}</Text>}
-                        </Stack>
-                    </Stack>
+                    <DisplayPic profile={profile} />
                 )}
                 {image && (
                     <Image
