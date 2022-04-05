@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import UnitedHeaven from '../pages';
 import Action from '../pages/feed/action';
+import CreateAction from '../pages/feed/action/CreateAction';
 import Feed from '../pages/feed/Feed';
 import Goal from '../pages/feed/goal';
 import GoalFeed from '../pages/feed/goal/GoalFeed';
@@ -23,6 +24,8 @@ const Router = () => {
                     <Route path="/feed" element={<Home />} />
                     <Route path="/home" element={<Navigate replace to="/feed" />} />
                     <Route path="/feed/action" element={<Action />} />
+                    <Route path="/feed/action/:id" element={<Action />} />
+                    <Route path="/feed/action/create" element={<CreateAction />} />
                     <Route path="/feed/profile/edit_profile" element={<EditProfile />} />
                     <Route path="/feed/profile/actions" element={<ViewAction />} />
                     <Route path="/feed/profile/registered_actions" element={<ViewAction />} />

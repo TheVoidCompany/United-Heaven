@@ -1,12 +1,24 @@
 import { Flex, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 
-const ColumnCard = ({ type, heading, image }) => {
+const ColumnCard = ({ type, heading, image, clickableCardUrl }) => {
+
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        if (type === "action") {
+            navigate(clickableCardUrl)
+        } else {
+            window.open(clickableCardUrl, '_blank');
+        }
+    }
 
     return (
         <Flex p={5}
             cursor="pointer"
+            onClick={handleCardClick}
             _hover={{
                 backgroundColor: useColorModeValue('gray.100', 'gray.800')
             }}

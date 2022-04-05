@@ -7,8 +7,8 @@ import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import '../styles.css';
 
 const Links = [
-  { name: 'Suggestions', to: "/suggestion" },
-  { name: 'SDG', to: "/sdg" },
+  { name: 'Primacy', to: "/suggestion" },
+  { name: 'Sight', to: "/sdg" },
   { name: 'Feed', to: "/feed" },
   { name: 'Study', to: "/study" },
   { name: 'Sponsor', to: "#" }

@@ -2,12 +2,13 @@ import { Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, S
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 import DisplayPic from '../DisplayPic';
 import SDGTags from '../SDGTags';
 
-const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, buttonText, buttonOnClick }) => {
+const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, buttonText, buttonOnClick, clickableCardUrl }) => {
 
     const shareUrl = `https://united-heaven.org/action/${id}`;
     const [liked, setLiked] = useState(false);
@@ -15,6 +16,15 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
     const toast = useToast();
     const shareToast = 'share-toast'
     const { onCopy } = useClipboard(shareUrl);
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        if (type === "action") {
+            navigate(clickableCardUrl)
+        } else {
+            window.open(clickableCardUrl, '_blank');
+        }
+    }
 
     const handleShare = async () => {
         const shareData = {
@@ -56,11 +66,14 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                 overflow={'hidden'}
             >
                 {profile && (
-                    <DisplayPic profile={profile} />
+                    <Box mb={4}>
+                        <DisplayPic profile={profile} />
+                    </Box>
                 )}
                 {image && (
                     <Image
                         src={image}
+                        onClick={() => handleCardClick()}
                         layout={'fill'}
                         mb={4}
                         w="100%"
@@ -98,19 +111,21 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                             </Flex>
                         )}
                     </Flex>
-                    {heading && (
-                        <Heading
-                            size="2xl"
-                            isExternal={type === "news" || type === "event"}
-                        >
-                            {heading}
-                        </Heading>
-                    )}
-                    {para && (
-                        <Text color={'gray.500'}>
-                            {para}
-                        </Text>
-                    )}
+                    <Box onClick={() => handleCardClick()} cursor={"pointer"}>
+                        {heading && (
+                            <Heading
+                                size="2xl"
+                                isExternal={type === "news" || type === "event"}
+                            >
+                                {heading}
+                            </Heading>
+                        )}
+                        {para && (
+                            <Text py={2} color={'gray.500'}>
+                                {para}
+                            </Text>
+                        )}
+                    </Box>
 
                     {sdgGoals && (
                         <SDGTags

@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'Play';
-    src: local('Play'), url(./fonts/Play-Regular.ttf) format('truetype');
-}
-
-@font-face {
-    font-family: 'Ailerons';
-    src: local('Ailerons'), url(./fonts/Ailerons-Regular.otf) format('opentype');
-}
