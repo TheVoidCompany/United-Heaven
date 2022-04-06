@@ -12,6 +12,9 @@ const Feed = () => {
     const bg = useColorModeValue('white', 'gray.900')
     const location = useLocation();
     const url = location.pathname;
+    const feedSubUrl = url.slice(5);
+    //check if feedSubUrl is '/goals/' + number and if so, set the goalId to the number
+    const goalId = feedSubUrl.includes('/goals/') ? feedSubUrl.slice(7) ? feedSubUrl.slice(7) : null : null;
 
 
 
@@ -20,7 +23,7 @@ const Feed = () => {
             <Box w='100vw' minH='8vh' >
                 <FeedNavbar />
             </Box>
-            <Box w='100vw' minH='84vh' paddingX={{ base: '0%', '2xl': '8%' }}>
+            <Box w='100vw' minH='84vh' paddingX={goalId ? 0 : { base: '0%', '2xl': '8%' }}>
                 {url.includes("/goals") || url.includes('/profile') || url === "/feed/actions/create" ? (
                     <Outlet />
                 ) : (

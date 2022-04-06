@@ -12,7 +12,6 @@ const TargetAccordianCard = ({ goalId }) => {
 
         getTargetsAndIndicatorsByGoalId(goalId).then(response => {
             setTargetsAndIndicators(response);
-            console.log(response);
         });
 
     }, [goalId]);
@@ -37,7 +36,7 @@ const AccordianCard = ({ target }) => {
         <Stack borderRadius="sm" align={"start"}>
             <Stack
                 p="6"
-                px={{ base: "6", lg: "12" }}
+                px={{ base: '4%', '2xl': '8%' }}
                 direction="column"
                 alignItems="start"
                 onClick={onToggle}
@@ -58,8 +57,10 @@ const AccordianCard = ({ target }) => {
             <Collapse in={isOpen} animateOpacity>
                 <Stack
                     p="6"
-                    px={{ base: "6", lg: "12" }}
-                    justifyContent="space-between">
+                    px={{ base: '4%', '2xl': '8%' }}
+                    w="100vw"
+                    justifyContent="space-between"
+                >
                     <Text color={'gray.600'} fontWeight="semibold">Indicator</Text>
                     {target.indicators.map(indicator => {
                         return (
