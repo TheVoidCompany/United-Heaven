@@ -1,13 +1,18 @@
 import { Button, HStack, Image, Spacer, useColorModeValue, VStack } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { SDGGoals } from '../../constants/SDGGoals';
 import Heading from '../common/Heading';
 import SDGTags from '../SDGTags';
 
 const SDGFollowCard = ({ goalId = 1 }) => {
+
+    const navigate = useNavigate();
+
     return (
         <HStack
             p="4"
             cursor='pointer'
+            onClick={() => navigate(`/feed/goals/${goalId}`)}
             _hover={{
                 backgroundColor: useColorModeValue('gray.100', 'gray.800'),
             }}>

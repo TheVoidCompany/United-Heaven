@@ -15,8 +15,8 @@ import '../styles.css';
 
 const Links = [
     { name: 'Home', to: "/home", icon: AiFillHome },
-    { name: 'Actions', to: "/feed/action", icon: AiFillThunderbolt },
-    { name: 'Goals', to: "/feed/goal", icon: SDGWheel },
+    { name: 'Actions', to: "/feed/actions", icon: AiFillThunderbolt },
+    { name: 'Goals', to: "/feed/goals", icon: SDGWheel },
 ];
 
 const UserFollowingGoals = [1, 4, 6, 15, 17];
@@ -92,9 +92,9 @@ const FeedNavbar = () => {
                             bottom={useBreakpointValue({ base: '8', md: '0' })}
                             right={useBreakpointValue({ base: '5', md: '0' })}
                             colorScheme={'teal'}
-                            display={((url.slice(5).includes("/action") && url.slice(5) !== "/action/create") || url === "/feed") ? 'flex' : 'none'}
+                            display={((url.slice(5).includes("/actions") && url.slice(5) !== "/actions/create") || url === "/feed") ? 'flex' : 'none'}
                             size={'md'}
-                            onClick={() => navigate('/feed/action/create')}
+                            onClick={() => navigate('/feed/actions/create')}
                             leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
                             Action
                         </Button>

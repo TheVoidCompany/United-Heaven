@@ -28,7 +28,7 @@ const GoalCard = ({ goal }) => {
                 pos={'relative'}
                 zIndex={1}
             >
-                <Flex direction={"column"} align={'center'} onClick={() => navigate(`/feed/goal/${goal.id}`)} cursor="pointer">
+                <Flex direction={"column"} align={'center'} onClick={() => navigate(`/feed/goals/${goal.id}`)} cursor="pointer">
                     <Box
                         rounded={'lg'}
                         mt={-12}

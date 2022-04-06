@@ -27,25 +27,25 @@ const SuggestedActionColumn = () => {
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
             />
             <ColumnCard
                 type="action"
                 heading="12 students started environment campaign in south india"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/2'
+                clickableCardUrl='/feed/actions/2'
             />
             <ColumnCard
                 type="action"
                 heading="Teach young students of africa about the importance of computer science in the modern world"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/3'
+                clickableCardUrl='/feed/actions/3'
             />
             <ColumnCard
                 type="action"
                 heading="Global SDG conference is happening in california, US"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
             />
 
         </Box>

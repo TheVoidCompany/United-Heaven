@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { SDGGoals } from '../../constants/SDGGoals';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import '../styles.css';
 
@@ -20,6 +21,9 @@ const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const url = location.pathname;
+  const feedSubUrl = url.slice(5);
+  //check if feedSubUrl is '/goals/' + number and if so, set the goalId to the number
+  const goalId = feedSubUrl.includes('/goals/') ? feedSubUrl.slice(7) ? feedSubUrl.slice(7) : null : null;
   const formattedUrl = url === '/' ? '/suggestion' : url;
 
   useEffect(() => {
@@ -72,6 +76,7 @@ const NavBar = () => {
             userSelect="none"
             cursor="pointer"
             noOfLines={1}
+            color={goalId && SDGGoals[goalId - 1].color}
           >
             United Heaven
           </Text>

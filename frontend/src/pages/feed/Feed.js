@@ -21,11 +21,11 @@ const Feed = () => {
                 <FeedNavbar />
             </Box>
             <Box w='100vw' minH='84vh' paddingX={{ base: '0%', '2xl': '8%' }}>
-                {url.includes("/goal") || url.includes('/profile') || url === "/feed/action/create" ? (
+                {url.includes("/goals") || url.includes('/profile') || url === "/feed/actions/create" ? (
                     <Outlet />
                 ) : (
                     <ThreeColumnStructure>
-                        {url === "/feed/action" ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
+                        {url === "/feed/actions" ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
                         <div>
                             <Outlet />
                         </div>
@@ -65,25 +65,25 @@ const SuggestedActionColumn = () => {
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
             />
             <ColumnCard
                 type="action"
                 heading="12 students started environment campaign in south india"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
             />
             <ColumnCard
                 type="action"
                 heading="Teach young students of africa about the importance of computer science in the modern world"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/3'
+                clickableCardUrl='/feed/actions/3'
             />
             <ColumnCard
                 type="action"
                 heading="Global SDG conference is happening in california, US"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/2'
+                clickableCardUrl='/feed/actions/2'
             />
 
         </Box>
@@ -102,7 +102,7 @@ const TrendingColumn = () => {
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/2'
+                clickableCardUrl='/feed/actions/2'
             />
             <ColumnCard
                 type="news"
@@ -114,7 +114,7 @@ const TrendingColumn = () => {
                 type="action"
                 heading="Teach young students of africa about the importance of computer science in the modern world"
                 image='https://picsum.photos/200/200'
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
             />
             <ColumnCard
                 type="event"

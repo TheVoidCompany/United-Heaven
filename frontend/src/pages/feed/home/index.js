@@ -30,7 +30,7 @@ const Home = () => {
                 image='https://img.dtnext.in/Images/Article/201606010143032596_When-angels-come-to-clean-Marina-Beach_SECVPF.gif'
                 para="Marina beach is the second largest beach in the world and it is not maintained properly. The beach is full of litters and it's affecting everyone. So me and my friends are planning to clean the beach this sunday. Any one interested can join!!"
                 sdgGoals={[1, 4, 6, 15, 17]}
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
                 buttonText="Participate"
                 buttonOnClick={() => {
                     console.log('join clicked')
@@ -40,7 +40,7 @@ const Home = () => {
                 type="news"
                 heading="12 students started environment campaign in south india"
                 image='https://avatars0.githubusercontent.com/u/1164541?v=4'
-                clickableCardUrl='/feed/action/1'
+                clickableCardUrl='/feed/actions/1'
             />
             <FeedCard
                 type="event"
