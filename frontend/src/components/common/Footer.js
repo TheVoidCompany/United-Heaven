@@ -24,8 +24,8 @@ const Footer = () => {
                 align={'center'}>
                 <Text fontSize="3xl" fontWeight="500" fontFamily="Ailerons">United Heaven</Text>
                 <Stack direction={'row'} spacing={6}>
-                    <Link href={'/'}>Suggestions</Link>
-                    <Link href={'/sdg'}>SDG</Link>
+                    <Link href={'/'}>Primacy</Link>
+                    <Link href={'/sight'}>Sight</Link>
                     <Link href={'/feed'}>Feed</Link>
                     <Link href={'#'}>Sponsor</Link>
                 </Stack>

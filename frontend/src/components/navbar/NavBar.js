@@ -9,7 +9,7 @@ import '../styles.css';
 
 const Links = [
   { name: 'Primacy', to: "/suggestion" },
-  { name: 'Sight', to: "/sdg" },
+  { name: 'Sight', to: "/sight" },
   { name: 'Feed', to: "/feed" },
   { name: 'Study', to: "/study" },
   { name: 'Sponsor', to: "#" }

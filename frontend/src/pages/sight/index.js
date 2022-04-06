@@ -5,7 +5,7 @@ import MapWrapper from '../../components/map/MapWrapper';
 import OverlayCard from '../../components/OverlayCard';
 import { countryLayer, countryOutline, selectedCountryFill } from './mapTilesStyle';
 
-const SDGPage = () => {
+const SightPage = () => {
 
     const mapRef = useRef();
 
@@ -136,4 +136,4 @@ const SDGPage = () => {
     );
 }
 
-export default SDGPage
+export default SightPage

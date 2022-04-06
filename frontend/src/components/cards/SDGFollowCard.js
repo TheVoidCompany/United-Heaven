@@ -8,6 +8,11 @@ const SDGFollowCard = ({ goalId = 1 }) => {
 
     const navigate = useNavigate();
 
+    const handleFollow = (event) => {
+        event.stopPropagation();
+        console.log('following goal', goalId);
+    }
+
     return (
         <HStack
             p="4"
@@ -39,7 +44,12 @@ const SDGFollowCard = ({ goalId = 1 }) => {
 
             </VStack>
             <Spacer />
-            <Button colorScheme='gray' variant='outline' size="sm" >
+            <Button
+                colorScheme='gray'
+                variant='outline'
+                size="sm"
+                onClick={handleFollow}
+            >
                 Follow
             </Button>
         </HStack>

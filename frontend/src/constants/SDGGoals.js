@@ -5,7 +5,7 @@ export const SDGGoals = [
         description: 'End poverty in all its forms everywhere',
         color: "#e5243b",
         isFollowing: true,
-        coverImage: 'https://oecd-development-matters.org/wp-content/uploads/2019/03/poverty-dit-facts.jpg'
+        coverImage: 'https://oecd-development-matters.org/wp-content/uploads/2019/03/poverty-dit-facts.jpg',
     },
     {
         id: "2",

@@ -13,6 +13,12 @@ const GoalCard = ({ goal }) => {
     const buttonBg = useColorModeValue('#151f21', 'gray.700');
     const navigate = useNavigate();
 
+    const handleFollow = (event) => {
+        event.stopPropagation();
+        setIsFollowing(!isFollowing);
+    }
+
+
     return (
         <Center py={12}>
             <Flex
@@ -25,10 +31,12 @@ const GoalCard = ({ goal }) => {
                 boxShadow={'2xl'}
                 justify={'center'}
                 rounded={'lg'}
+                onClick={() => navigate(`/feed/goals/${goal.id}`)}
                 pos={'relative'}
+                cursor="pointer"
                 zIndex={1}
             >
-                <Flex direction={"column"} align={'center'} onClick={() => navigate(`/feed/goals/${goal.id}`)} cursor="pointer">
+                <Flex direction={"column"} align={'center'}>
                     <Box
                         rounded={'lg'}
                         mt={-12}
@@ -88,7 +96,7 @@ const GoalCard = ({ goal }) => {
                     right={0}
                     left={0}
                     zIndex={2}
-                    onClick={() => setIsFollowing(!isFollowing)}
+                    onClick={handleFollow}
                     _focus={{
                         outline: 'none',
                     }}

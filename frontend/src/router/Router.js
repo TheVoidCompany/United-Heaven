@@ -9,7 +9,7 @@ import Home from '../pages/feed/home';
 import EditProfile from '../pages/feed/profile/EditProfile';
 import ViewAction from '../pages/feed/profile/ViewAction';
 import NotFound from '../pages/NotFound';
-import SDGPage from '../pages/sdg';
+import SightPage from '../pages/sight';
 import Study from '../pages/study';
 import SuggestionsPage from '../pages/suggestions';
 
@@ -19,7 +19,7 @@ const Router = () => {
             <Route path="/" element={<UnitedHeaven />}>
                 <Route index element={<SuggestionsPage />} />
                 <Route path="/suggestion" element={<Navigate replace to="/" />} />
-                <Route path="/sdg" element={<SDGPage />} />
+                <Route path="/sight" element={<SightPage />} />
                 <Route element={<Feed />}>
                     <Route path="/feed" element={<Home />} />
                     <Route path="/home" element={<Navigate replace to="/feed" />} />
