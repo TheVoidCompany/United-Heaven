@@ -1,6 +1,7 @@
 import { Box, Center, Flex, HStack, IconButton, Link, Spacer, Stack, Text, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
+import { FaGithub } from 'react-icons/fa';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { SDGGoals } from '../../constants/SDGGoals';
@@ -12,7 +13,7 @@ const Links = [
   { name: 'Sight', to: "/sight" },
   { name: 'Feed', to: "/feed" },
   { name: 'Study', to: "/study" },
-  { name: 'Sponsor', to: "#" }
+  { name: 'Fund', to: "#" }
 ];
 
 
@@ -91,6 +92,18 @@ const NavBar = () => {
               <NavLink key={name} to={to}>{name}</NavLink>
             ))}
           </HStack>
+
+          <IconButton
+            size="md"
+            fontSize="xl"
+            variant="ghost"
+            color="current"
+            marginLeft="2"
+            display={{ base: "none", lg: 'flex' }}
+            _focus={{ outline: 'none' }}
+            onClick={() => window.open('https://github.com/TheVoidCompany/United-Heaven', '_blank')}
+            icon={<FaGithub />}
+          />
           <ColorModeSwitcher />
           <IconButton
             size={'md'}

@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import UnitedHeaven from '../pages';
+import LoginPage from '../pages/auth/LoginPage';
+import SignupPage from '../pages/auth/SignupPage';
 import Action from '../pages/feed/action';
 import CreateAction from '../pages/feed/action/CreateAction';
 import Feed from '../pages/feed/Feed';
@@ -17,6 +19,8 @@ const Router = () => {
     return (
         <Routes>
             <Route path="/" element={<UnitedHeaven />}>
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route index element={<SuggestionsPage />} />
                 <Route path="/suggestion" element={<Navigate replace to="/" />} />
                 <Route path="/sight" element={<SightPage />} />

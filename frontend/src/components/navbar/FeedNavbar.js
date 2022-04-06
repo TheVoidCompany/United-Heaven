@@ -1,6 +1,6 @@
 import {
     Avatar, Box, Button, Center, Divider, Flex, Heading, HStack, Icon, IconButton, Link, Menu,
-    MenuButton, MenuDivider, MenuItem, MenuList, Stack, useBreakpointValue, useColorModeValue
+    MenuButton, MenuDivider, MenuItem, MenuList, Stack, useBreakpointValue, useColorMode, useColorModeValue
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
@@ -21,10 +21,14 @@ const Links = [
 
 const UserFollowingGoals = [1, 4, 6, 15, 17];
 
+const userAuthenticated = false;
+
 const FeedNavbar = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const { colorMode } = useColorMode();
+    const avatarSize = useBreakpointValue({ base: 'sm', md: 'md' });
     const url = location.pathname;
 
     useEffect(() => {
@@ -85,88 +89,118 @@ const FeedNavbar = () => {
                     </HStack>
                 </HStack>
                 <Flex alignItems={'center'}>
-                    <HStack spacing="6">
-                        <Button
-                            variant={'solid'}
-                            position={useBreakpointValue({ base: 'fixed', md: 'relative' })}
-                            bottom={useBreakpointValue({ base: '8', md: '0' })}
-                            right={useBreakpointValue({ base: '5', md: '0' })}
-                            colorScheme={'teal'}
-                            display={((url.slice(5).includes("/actions") && url.slice(5) !== "/actions/create") || url === "/feed") ? 'flex' : 'none'}
-                            size={'md'}
-                            onClick={() => navigate('/feed/actions/create')}
-                            leftIcon={<MdAdd size={22} color={useColorModeValue('white', 'black')} />}>
-                            Action
-                        </Button>
-                        <IconButton
-                            size={'md'}
-                            fontSize={useBreakpointValue({ base: '2xl', md: '3xl' })}
-                            aria-label={`Notification`}
-                            variant="ghost"
-                            _focus={{ outline: 'none' }}
-                            icon={<Center><IoNotifications /></Center>}
-                        />
-                        <Menu isLazy>
-                            <MenuButton
-                                as={Button}
-                                rounded={'full'}
-                                variant={'link'}
-                                cursor={'pointer'}
-                                minW={0}
-                                shadow={'md'}
+                    {userAuthenticated ? (
+                        <HStack spacing="6">
+                            <Button
+                                variant={'solid'}
+                                position={{ base: 'fixed', md: 'relative' }}
+                                bottom={{ base: '8', md: '0' }}
+                                right={{ base: '5', md: '0' }}
+                                colorScheme={'teal'}
+                                display={((url.slice(5).includes("/actions") && url.slice(5) !== "/actions/create") || url === "/feed") ? 'flex' : 'none'}
+                                size={'md'}
+                                onClick={() => navigate('/feed/actions/create')}
+                                leftIcon={<MdAdd size={22} color={colorMode === 'light' ? 'white' : 'black'} />}>
+                                Action
+                            </Button>
+                            <IconButton
+                                size={'md'}
+                                fontSize={{ base: '2xl', md: '3xl' }}
+                                aria-label={`Notification`}
+                                variant="ghost"
                                 _focus={{ outline: 'none' }}
-                            >
-                                <Avatar
-                                    size={useBreakpointValue({ base: 'sm', md: 'md' })}
-                                    src={'https://avatars.dicebear.com/api/male/username.svg'}
-                                    outline={url.includes('profile') ? "3px solid" : "0px"}
-                                    outlineColor={profileOutlineColor}
-                                    outlineOffset={'2px'}
-                                />
-                            </MenuButton>
-                            <MenuList alignItems={'center'}>
-                                <br />
-                                <Center>
+                                icon={<Center><IoNotifications /></Center>}
+                            />
+                            <Menu isLazy>
+                                <MenuButton
+                                    as={Button}
+                                    rounded={'full'}
+                                    variant={'link'}
+                                    cursor={'pointer'}
+                                    minW={0}
+                                    shadow={'md'}
+                                    _focus={{ outline: 'none' }}
+                                >
                                     <Avatar
-                                        size={'2xl'}
+                                        size={avatarSize}
                                         src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                        outline={url.includes('profile') ? "3px solid" : "0px"}
+                                        outlineColor={profileOutlineColor}
+                                        outlineOffset={'2px'}
                                     />
-                                </Center>
-                                <br />
-                                <Center>
-                                    <Heading size={"md"}>Santhosh V S</Heading>
-                                </Center>
-                                <br />
-                                <Center>
-                                    <Stack direction={'row'} spacing={6}>
-                                        <SocialButton label={'Twitter'} href={'#'}>
-                                            <FaTwitter />
-                                        </SocialButton>
-                                        <SocialButton label={'Facebook'} href={'#'}>
-                                            <FaFacebook />
-                                        </SocialButton>
-                                        <SocialButton label={'Instagram'} href={'#'}>
-                                            <FaInstagram />
-                                        </SocialButton>
-                                    </Stack>
-                                </Center>
-                                <br />
-                                <Flex align={"center"} justifyContent={"center"}>
-                                    <SDGTags
-                                        wrapWidth={200}
-                                        position="center"
-                                        goals={UserFollowingGoals}
-                                    />
-                                </Flex>
-                                <br />
-                                <MenuDivider />
-                                <MenuItem onClick={() => navigate('/feed/profile/actions')}>Your Actions</MenuItem>
-                                <MenuItem onClick={() => navigate('/feed/profile/registered_actions')}>Registered Actions</MenuItem>
-                                <MenuItem onClick={() => navigate('/feed/profile/edit_profile')}>Edit Profile</MenuItem>
-                                <MenuItem _hover={{ bg: useColorModeValue('red.300', 'red.400'), color: 'white' }}>Logout</MenuItem>
-                            </MenuList>
-                        </Menu>
-                    </HStack>
+                                </MenuButton>
+                                <MenuList alignItems={'center'}>
+                                    <br />
+                                    <Center>
+                                        <Avatar
+                                            size={'2xl'}
+                                            src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                        />
+                                    </Center>
+                                    <br />
+                                    <Center>
+                                        <Heading size={"md"}>Santhosh V S</Heading>
+                                    </Center>
+                                    <br />
+                                    <Center>
+                                        <Stack direction={'row'} spacing={6}>
+                                            <SocialButton label={'Twitter'} href={'#'}>
+                                                <FaTwitter />
+                                            </SocialButton>
+                                            <SocialButton label={'Facebook'} href={'#'}>
+                                                <FaFacebook />
+                                            </SocialButton>
+                                            <SocialButton label={'Instagram'} href={'#'}>
+                                                <FaInstagram />
+                                            </SocialButton>
+                                        </Stack>
+                                    </Center>
+                                    <br />
+                                    <Flex align={"center"} justifyContent={"center"}>
+                                        <SDGTags
+                                            wrapWidth={200}
+                                            position="center"
+                                            goals={UserFollowingGoals}
+                                        />
+                                    </Flex>
+                                    <br />
+                                    <MenuDivider />
+                                    <MenuItem onClick={() => navigate('/feed/profile/actions')}>Your Actions</MenuItem>
+                                    <MenuItem onClick={() => navigate('/feed/profile/registered_actions')}>Registered Actions</MenuItem>
+                                    <MenuItem onClick={() => navigate('/feed/profile/edit_profile')}>Edit Profile</MenuItem>
+                                    <MenuItem _hover={{ bg: colorMode === 'light' ? 'red.300' : 'red.400', color: 'white' }}>Logout</MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </HStack>
+                    ) : (
+                        <Stack
+                            flex={{ base: 1, md: 0 }}
+                            justify={'flex-end'}
+                            direction={'row'}
+                            spacing={8}>
+                            <Button
+                                as={'a'}
+                                fontSize={'sm'}
+                                fontWeight={400}
+                                onClick={() => navigate('/login')}
+                                variant={'link'}
+                                href={'#'}>
+                                Sign In
+                            </Button>
+                            <Button
+                                fontSize={'sm'}
+                                fontWeight={600}
+                                color={'white'}
+                                bg={'green.500'}
+                                onClick={() => navigate('/signup')}
+                                _hover={{
+                                    bg: 'green.600',
+                                }}>
+                                Sign Up
+                            </Button>
+                        </Stack>
+                    )}
+
                 </Flex>
             </Flex>
             <Divider />

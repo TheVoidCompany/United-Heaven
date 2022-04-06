@@ -2,10 +2,12 @@ import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
+import ScrollToTop from './utils/scrollToTop';
 
 const config = {
   initialColorMode: 'dark',
@@ -19,6 +21,7 @@ ReactDOM.render(
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <ColorModeScript />
+        <ScrollToTop />
         <App />
       </ChakraProvider>
     </BrowserRouter>
