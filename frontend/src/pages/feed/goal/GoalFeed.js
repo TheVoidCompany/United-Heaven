@@ -1,8 +1,12 @@
-import { Box, Button, Flex, Heading, Stack, Text, useBreakpointValue, useColorModeValue, VStack } from '@chakra-ui/react';
+import {
+    Box, Button, Container, Flex, Heading, SimpleGrid, Stack, Text, useBreakpointValue, useColorModeValue, VStack
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import ColumnCard from '../../../components/cards/ColumnCard';
 import StatisticsCard from '../../../components/cards/StatisticsCard';
 import TargetAccordianCard from '../../../components/cards/TargetAccordianCard';
+import Footer from '../../../components/common/Footer';
 import { SDGGoals } from '../../../constants/SDGGoals';
 
 const GoalFeed = () => {
@@ -11,6 +15,14 @@ const GoalFeed = () => {
     const navigate = useNavigate();
     const [isFollowing, setIsFollowing] = useState(false);
     let goalId = params.id;
+
+    const handleNextLink = () => {
+        if (goalId === "17") {
+            window.open('https://sdgs.un.org/goals', '_blank');
+        } else {
+            navigate(`/feed/goals/${++goalId}`);
+        }
+    }
 
 
     return (
@@ -102,7 +114,7 @@ const GoalFeed = () => {
                 </VStack>
             </Flex>
             <Box py={{ base: 20, lg: 40 }}>
-                <StatisticsCard />
+                <StatisticsCard goalId={goalId} />
             </Box>
             <Box py={{ base: 10, lg: 30 }}>
                 <Heading
@@ -134,7 +146,76 @@ const GoalFeed = () => {
                     />
                 </Box>
             </Box>
+            <Box py={{ base: "80px", lg: "100px" }}>
+                <Heading
+                    pb={8}
+                    fontSize={{ base: '2xl', md: '3xl' }}
+                    fontWeight={'500'}
+                    fontFamily={'Oswald'}
+                    px={{ base: '4%', '2xl': '8%' }}
+                >
+                    RELATED TOPICS
+                </Heading>
+                <Box px={{ base: '0%', 'lg': '4%', '2xl': '8%' }}>
+                    <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing={6}>
+                        <ColumnCard
+                            type="action"
+                            heading="Clean Marina Beach on 12 dec morning Marina Beach on 12 dec morning"
+                            image='https://picsum.photos/200/200'
+                            clickableCardUrl='/feed/actions/1'
+                        />
+                        <ColumnCard
+                            type="news"
+                            heading="Clean Marina Beach on 12 dec morning"
+                            image='https://picsum.photos/200/200'
+                            clickableCardUrl='/feed/actions/1'
+                        />
+                        <ColumnCard
+                            type="action"
+                            heading="Clean Marina Beach on 12 dec morning"
+                            image='https://picsum.photos/200/200'
+                            clickableCardUrl='/feed/actions/1'
+                        />
+                        <ColumnCard
+                            type="event"
+                            heading="Clean Marina Beach on 12 dec morning"
+                            image='https://picsum.photos/200/200'
+                            clickableCardUrl='/feed/actions/1'
+                        />
+                        <ColumnCard
+                            type="action"
+                            heading="Clean Marina Beach on 12 dec morning"
+                            image='https://picsum.photos/200/200'
+                            clickableCardUrl='/feed/actions/1'
+                        />
+                    </SimpleGrid>
 
+                </Box>
+            </Box>
+
+            <Box bg={useColorModeValue('gray.50', 'gray.800')} p={4} py={{ base: "70px", lg: "140px" }}>
+                <Box as={Container} maxW="7xl" pb={4}>
+                    <VStack alignItems="flex-start" spacing="-5px">
+                        <Text color={'gray.600'} fontSize={{ base: "xl", lg: "2xl", "xl": "3xl" }} fontWeight="bold">Next</Text>
+                        <Text
+                            fontSize={{ base: "3xl", md: "4xl", lg: "5xl", "xl": "6xl" }}
+                            fontWeight="800"
+                            cursor={"pointer"}
+                            onClick={handleNextLink}
+                            _hover={{
+                                color: goalId === "17" ? "green.400" : SDGGoals[goalId].color,
+                            }}
+                        >
+                            {goalId === "17" ? "Learn More About the SDG" : (
+                                SDGGoals[goalId].name
+                            )}
+                        </Text>
+                    </VStack>
+                </Box>
+
+            </Box>
+
+            <Footer />
         </Box>
     )
 }

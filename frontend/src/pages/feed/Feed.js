@@ -28,7 +28,7 @@ const Feed = () => {
                     <Outlet />
                 ) : (
                     <ThreeColumnStructure>
-                        {url === "/feed/actions" ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
+                        {url.slice(6).includes("actions") ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
                         <div>
                             <Outlet />
                         </div>

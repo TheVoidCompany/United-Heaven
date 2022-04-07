@@ -2,8 +2,9 @@ import {
   Box, Container, Flex, Grid,
   GridItem, Heading, Text
 } from '@chakra-ui/react';
+import { SDGGoals } from '../../constants/SDGGoals';
 
-const StatisticsCard = () => {
+const StatisticsCard = ({ goalId }) => {
   return (
     <Container py={5} maxW={'container.lg'}>
       <Grid
@@ -14,7 +15,11 @@ const StatisticsCard = () => {
         }}
         gap={10}>
         <GridItem w="100%" colSpan={{ base: 1, sm: 2, md: 2 }}>
-          <Heading as={'h2'}>Overview</Heading>
+          <Heading as={'h2'}>Overview on <br />
+            <Text as={'span'} color={SDGGoals[goalId - 1].color}>
+              {SDGGoals[goalId - 1].name}
+            </Text>
+          </Heading>
         </GridItem>
         <GridItem w="100%">
           <Flex flexDirection={'column'}>
