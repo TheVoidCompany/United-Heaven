@@ -67,8 +67,6 @@ SDGGoals.forEach(goal => {
     })
 })
 
-console.log(nodes);
-console.log(edges);
 
 const TwoColumnFeature = () => {
 

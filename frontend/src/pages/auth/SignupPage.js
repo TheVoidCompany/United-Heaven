@@ -65,7 +65,7 @@ const SignupPage = () => {
                     minH="500px"
                 >
                     {currentView === 'user details' && (
-                        <UserDetails />
+                        <UserDetails goNext={() => setCurrentView('user location')} />
                     )}
                     {currentView === 'user location' && (
                         <UserLocation />

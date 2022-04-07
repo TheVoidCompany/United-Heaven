@@ -10,7 +10,6 @@ const SDGFollowCard = ({ goalId = 1 }) => {
 
     const handleFollow = (event) => {
         event.stopPropagation();
-        console.log('following goal', goalId);
     }
 
     return (
