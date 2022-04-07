@@ -31,9 +31,7 @@ const GoalFeed = () => {
                 w={'full'}
                 h={'60vh'}
                 mt={'-1vh'}
-                backgroundImage={
-                    `url(${SDGGoals[goalId - 1].coverImage})`
-                }
+                backgroundImage={require(`../../../images/SDGCovers/goalcover${goalId}.webp`)}
                 backgroundSize={'cover'}
                 backgroundPosition={'center center'}>
                 <VStack

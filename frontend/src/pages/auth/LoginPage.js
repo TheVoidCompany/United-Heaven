@@ -42,13 +42,13 @@ const LoginPage = () => {
                     <Box position={"absolute"} w="600px" h="600px" overflow={"clip"} bottom={0} filter='grayscale(80%)' display={{ base: "none", lg: "block" }}>
                         <Slider {...settings}>
                             <div>
-                                <Image src={require(`../../images/person1.png`)} />
+                                <Image src={require(`../../images/welcomepics/person1.webp`)} />
                             </div>
                             <div>
-                                <Image src={require(`../../images/person2.png`)} />
+                                <Image src={require(`../../images/welcomepics/person2.webp`)} />
                             </div>
                             <div>
-                                <Image src={require(`../../images/person3.png`)} />
+                                <Image src={require(`../../images/welcomepics/person3.webp`)} />
                             </div>
                         </Slider>
                     </Box>
