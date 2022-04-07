@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import UnitedHeaven from '../pages';
 import LoginPage from '../pages/auth/LoginPage';
 import SignupPage from '../pages/auth/SignupPage';
+import CountryGoalPage from '../pages/common/CountryGoalPage';
 import Action from '../pages/feed/action';
 import CreateAction from '../pages/feed/action/CreateAction';
 import Feed from '../pages/feed/Feed';
@@ -39,6 +40,7 @@ const Router = () => {
                     <Route path="/feed/goals/:id" element={<GoalFeed />} />
                 </Route>
                 <Route path="/study" element={<Study />} />
+                <Route path="/:country/:goalId" element={<CountryGoalPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
             <Route path="/_error" element={<NotFound />} />

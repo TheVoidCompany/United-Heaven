@@ -8,9 +8,70 @@ import {
     IoAnalyticsSharp,
     IoSearchSharp
 } from 'react-icons/io5';
-import SdgGraph from './SdgGraph';
+import SdgGraph from '../../components/SdgGraph';
+import { SDGGoals } from '../../constants/SDGGoals';
+import { SDGRelation } from '../../constants/SDGRelation';
+
+const maxNodeSize = 80;
+
+
+const nodes = SDGGoals.map(SDGGoal => {
+    return {
+        id: SDGGoal.id,
+        label: SDGGoal.id,
+        labelCfg: {
+            position: 'center',
+            style: {
+                fill: SDGGoal.color,
+                // fontStyle: 'bolder',
+                fontSize: 12,
+                fontFamily: 'Play'
+
+            },
+        },
+    }
+});
+
+nodes.push({
+    id: "0",
+    label: "SDG Goals",
+    style: {
+        "stroke": "rgba(95, 149, 255, 0.5)",
+        "lineWidth": 2,
+    },
+    labelCfg: {
+        position: 'center',
+        style: {
+            fill: '#000000CC',
+            fontStyle: 'bolder',
+            fontFamily: 'Play',
+            fontSize: 12
+
+        },
+    },
+    size: maxNodeSize
+});
+
+
+const edges = SDGRelation.map(SDGRelation => {
+    return {
+        source: SDGRelation.sourceGoal,
+        target: SDGRelation.targetGoal,
+    }
+});
+
+SDGGoals.forEach(goal => {
+    edges.push({
+        source: "0",
+        target: goal.id
+    })
+})
+
+console.log(nodes);
+console.log(edges);
 
 const TwoColumnFeature = () => {
+
     return (
         <Container maxW={'5xl'} py={14}>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
@@ -61,13 +122,15 @@ const TwoColumnFeature = () => {
                 </Stack>
                 <Flex id="mountSdgGraph">
                     <Flex align="center" justify="center" w={'full'}>
-                        <SdgGraph />
+                        <SdgGraph nodes={nodes} edges={edges} maxNodeSize={maxNodeSize} />
                     </Flex>
                 </Flex>
             </SimpleGrid>
         </Container>
     );
 }
+
+
 
 
 const Feature = ({ text, icon, iconBg }) => {

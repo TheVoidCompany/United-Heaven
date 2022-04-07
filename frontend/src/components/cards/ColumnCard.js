@@ -39,20 +39,22 @@ const ColumnCard = ({ type, heading, image, clickableCardUrl }) => {
                 <Heading
                     size="md"
                     customStyles={{ noOfLines: 3 }}
-                    isExternal={type === "news" || type === "event"}
+                    isExternal={type === "news" || type === "event" || type === "charity"}
                 >
                     {heading}
                 </Heading>
             </Stack>
-            <Image
-                src={image}
-                boxSize='100px'
-                objectFit={'cover'}
-                objectPosition="center center"
-                rounded={'lg'}
-                ml="4"
+            {image && (
+                <Image
+                    src={image}
+                    boxSize='100px'
+                    objectFit={'cover'}
+                    objectPosition="center center"
+                    rounded={'lg'}
+                    ml="4"
 
-            />
+                />
+            )}
         </Flex>
     )
 }

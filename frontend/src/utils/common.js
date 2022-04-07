@@ -5,7 +5,9 @@ export const findTypeColor = (typeName) => {
         return 'green.500'
     } else if (type === "news") {
         return 'yellow.500'
-    } else {
+    } else if (type === "event") {
         return 'red.500'
+    } else {
+        return 'pink.500'
     }
 }

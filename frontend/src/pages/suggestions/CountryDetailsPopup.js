@@ -1,8 +1,11 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { Image, SimpleGrid } from '@chakra-ui/react';
 import { memo, useCallback } from 'react';
+import { useNavigate } from 'react-router';
 import OverlayCard from '../../components/OverlayCard';
 
 const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
+
+    const navigate = useNavigate();
 
 
     const Card = useCallback(
@@ -16,8 +19,10 @@ const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
                 >
                     <SimpleGrid columns={3} spacing={5}>
                         {goals.map((goal) => (
-                            <img
+                            <Image
                                 key={goal}
+                                onClick={() => navigate(`/${name}/goal${goal}`)}
+                                cursor="pointer"
                                 style={{ width: '90px', height: '90px', }}
                                 src={require(`../../images/SDGIcons/Goal${goal}.png`)}
                                 alt={`SDG Goal ${goal}`}

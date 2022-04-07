@@ -227,6 +227,7 @@ const NavLink = ({ children, to, icon }) => {
             px={1}
             fontWeight="900"
             fontSize="1.4em"
+            className='noselect'
             rounded={'md'}
             _hover={{
                 textDecoration: 'none',

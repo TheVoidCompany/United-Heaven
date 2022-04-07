@@ -2,66 +2,14 @@ import G6 from '@antv/g6';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { SDGGoals } from '../../constants/SDGGoals';
-import { SDGRelation } from '../../constants/SDGRelation';
-import { disableScroll, enableScroll } from '../../utils/scrollAndSelectHandler';
-
-const maxNodeSize = 80;
-
-const nodes = SDGGoals.map(SDGGoal => {
-    return {
-        id: SDGGoal.id,
-        label: SDGGoal.id,
-        labelCfg: {
-            position: 'center',
-            style: {
-                fill: SDGGoal.color,
-                // fontStyle: 'bolder',
-                fontSize: 12,
-                fontFamily: 'Play'
-
-            },
-        },
-    }
-});
-
-nodes.unshift({
-    id: "0",
-    label: "SDG Goals",
-    style: {
-        "stroke": "rgba(95, 149, 255, 0.5)",
-        "lineWidth": 2,
-    },
-    labelCfg: {
-        position: 'center',
-        style: {
-            fill: '#000000CC',
-            fontStyle: 'bolder',
-            fontFamily: 'Play',
-            fontSize: 12
-
-        },
-    },
-    size: maxNodeSize
-});
+import { disableScroll, enableScroll } from '../utils/scrollAndSelectHandler';
 
 
-const edges = SDGRelation.map(SDGRelation => {
-    return {
-        source: SDGRelation.sourceGoal,
-        target: SDGRelation.targetGoal,
-    }
-});
-
-SDGGoals.forEach(goal => {
-    edges.push({
-        source: "0",
-        target: goal.id
-    })
-})
 
 
-const SdgGraph = () => {
+
+
+const SdgGraph = ({ nodes, edges, maxNodeSize, size = "500px" }) => {
 
     const ref = useRef(null);
     const graph = useRef(null);
@@ -79,7 +27,7 @@ const SdgGraph = () => {
             })
 
         }
-    }, [edgeColor]);
+    }, [edgeColor, edges]);
 
 
     useEffect(() => {
@@ -190,14 +138,14 @@ const SdgGraph = () => {
         }
 
 
-    }, []);
+    }, [nodes, edges, maxNodeSize]);
 
     return <Box
         rounded='md'
         backgroundColor={useColorModeValue('gray.200', 'gray.700')}
         ref={ref}
-        w="500px"
-        h="500px"
+        w={size}
+        h={size}
     >
     </Box>;
 }

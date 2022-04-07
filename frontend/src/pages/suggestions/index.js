@@ -1,6 +1,7 @@
 import { Box, Button, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import { Marker } from 'react-map-gl';
+import { useNavigate } from 'react-router';
 import MapWrapper from '../../components/map/MapWrapper';
 import PulseMarker from '../../components/marker/PulseMarker';
 import OverlayCard from '../../components/OverlayCard';
@@ -13,6 +14,7 @@ const SuggestionsPage = () => {
     const [selectedMarker, setSelectedMarker] = useState(null);
     const isSmallSize = useBreakpointValue({ base: true, lg: false });
     const [showSuggestionOverlay, setShowSuggestionOverlay] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setShowSuggestionOverlay(isSmallSize ? false : true);
@@ -91,6 +93,7 @@ const SuggestionsPage = () => {
                                         p={2}
                                         cursor='pointer'
                                         fontWeight={"bold"}
+                                        onClick={() => navigate(`/${country.name}/goal${country.goal}`)}
                                     >
                                         {`${country.suggestionRank}. ${country.description}`}
                                     </Text>
@@ -106,6 +109,7 @@ const SuggestionsPage = () => {
                                     p={2}
                                     cursor='pointer'
                                     fontWeight={"bold"}
+                                    onClick={() => navigate(`/${country.name}/goal${country.goal}`)}
                                     textShadow={country.iso3 === hoveredMarker?.iso3 && `1px 1px 8px`}
                                 >
                                     {`${country.suggestionRank}. ${country.description}`}

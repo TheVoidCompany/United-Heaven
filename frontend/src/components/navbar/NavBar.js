@@ -13,7 +13,7 @@ const Links = [
   { name: 'Sight', to: "/sight" },
   { name: 'Feed', to: "/feed" },
   { name: 'Study', to: "/study" },
-  { name: 'Fund', to: "#" }
+  { name: 'Donate us', to: "#" }
 ];
 
 
@@ -147,6 +147,7 @@ const NavLink = ({ children, to, close }) => {
       py={2}
       fontWeight="bold"
       fontSize="1em"
+      className='noselect'
       rounded={'md'}
       _hover={{
         textDecoration: 'none',
