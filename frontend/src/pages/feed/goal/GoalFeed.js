@@ -1,19 +1,21 @@
 import {
     Box, Button, Container, Flex, Heading, SimpleGrid, Stack, Text, useBreakpointValue, useColorModeValue, VStack
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import ColumnCard from '../../../components/cards/ColumnCard';
 import StatisticsCard from '../../../components/cards/StatisticsCard';
 import TargetAccordianCard from '../../../components/cards/TargetAccordianCard';
 import Footer from '../../../components/common/Footer';
 import { SDGGoals } from '../../../constants/SDGGoals';
+import { AuthContext } from '../../../context/authContext';
 
 const GoalFeed = () => {
 
     const params = useParams();
     const navigate = useNavigate();
     const [isFollowing, setIsFollowing] = useState(false);
+    const { onAuthRun } = useContext(AuthContext);
     let goalId = params.id;
 
     const handleNextLink = () => {
@@ -22,6 +24,12 @@ const GoalFeed = () => {
         } else {
             navigate(`/feed/goals/${++goalId}`);
         }
+    }
+
+    const handleFollow = () => {
+        onAuthRun(() => {
+            setIsFollowing(!isFollowing);
+        });
     }
 
 
@@ -89,7 +97,7 @@ const GoalFeed = () => {
                                         rounded={'full'}
                                         color={'white'}
                                         _focus={{ outline: 'none' }}
-                                        onClick={() => setIsFollowing(false)}
+                                        onClick={handleFollow}
                                         _hover={{ bg: 'whiteAlpha.500' }}>
                                         Following
                                     </Button>
@@ -101,7 +109,7 @@ const GoalFeed = () => {
                                         bg={'blue.500'}
                                         _hover={{ bg: 'blue.600' }}
                                         _focus={{ outline: 'none' }}
-                                        onClick={() => setIsFollowing(true)}>
+                                        onClick={handleFollow}>
                                         Follow
                                     </Button>
                                 )}

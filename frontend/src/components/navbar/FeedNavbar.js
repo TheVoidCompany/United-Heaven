@@ -2,12 +2,13 @@ import {
     Avatar, Box, Button, Center, Divider, Flex, Heading, HStack, Icon, IconButton, Link, Menu,
     MenuButton, MenuDivider, MenuItem, MenuList, Stack, useBreakpointValue, useColorMode, useColorModeValue
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/authContext';
 import { SDGWheel } from '../../images/SDGWheel';
 import SocialButton from '../common/SocialButton';
 import SDGTags from '../SDGTags';
@@ -21,7 +22,6 @@ const Links = [
 
 const UserFollowingGoals = [1, 4, 6, 15, 17];
 
-const userAuthenticated = false;
 
 const FeedNavbar = () => {
 
@@ -30,6 +30,8 @@ const FeedNavbar = () => {
     const { colorMode } = useColorMode();
     const avatarSize = useBreakpointValue({ base: 'sm', md: 'md' });
     const url = location.pathname;
+    const { isAuthenticated } = useContext(AuthContext);
+
 
     useEffect(() => {
         //show and hide the navbar on scroll down and up respectively
@@ -89,7 +91,7 @@ const FeedNavbar = () => {
                     </HStack>
                 </HStack>
                 <Flex alignItems={'center'}>
-                    {userAuthenticated ? (
+                    {isAuthenticated ? (
                         <HStack spacing="6">
                             <Button
                                 variant={'solid'}

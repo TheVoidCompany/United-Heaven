@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 import UnitedHeaven from '../pages';
-import LoginPage from '../pages/auth/LoginPage';
-import SignupPage from '../pages/auth/SignupPage';
+import LoginPage from '../pages/auth/login/LoginPage';
+import SignupPage from '../pages/auth/signup/SignupPage';
 import CountryGoalPage from '../pages/common/CountryGoalPage';
 import Action from '../pages/feed/action';
 import CreateAction from '../pages/feed/action/CreateAction';
@@ -17,11 +19,25 @@ import Study from '../pages/study';
 import SuggestionsPage from '../pages/suggestions';
 
 const Router = () => {
+
+    const { isAuthenticated } = useContext(AuthContext);
+
+    const PrivateRoute = ({ children }) => {
+        return isAuthenticated ? children : <Navigate to="/login" />;
+    };
+
+
+
+    const RestrictedRoute = ({ children }) => {
+        return isAuthenticated ? <Navigate to="/" /> : children;
+    }
+
+
     return (
         <Routes>
             <Route path="/" element={<UnitedHeaven />}>
-                <Route path="/signup" element={<SignupPage />} />
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<RestrictedRoute><SignupPage /></RestrictedRoute>} />
+                <Route path="/login" element={<RestrictedRoute><LoginPage /></RestrictedRoute>} />
                 <Route index element={<SuggestionsPage />} />
                 <Route path="/suggestion" element={<Navigate replace to="/" />} />
                 <Route path="/sight" element={<SightPage />} />
@@ -30,10 +46,10 @@ const Router = () => {
                     <Route path="/home" element={<Navigate replace to="/feed" />} />
                     <Route path="/feed/actions" element={<Action />} />
                     <Route path="/feed/actions/:id" element={<Action />} />
-                    <Route path="/feed/actions/create" element={<CreateAction />} />
-                    <Route path="/feed/profile/edit_profile" element={<EditProfile />} />
-                    <Route path="/feed/profile/actions" element={<ViewAction />} />
-                    <Route path="/feed/profile/registered_actions" element={<ViewAction />} />
+                    <Route path="/feed/actions/create" element={<PrivateRoute><CreateAction /></PrivateRoute>} />
+                    <Route path="/feed/profile/edit_profile" element={<PrivateRoute> <EditProfile /></PrivateRoute>} />
+                    <Route path="/feed/profile/actions" element={<PrivateRoute><ViewAction /></PrivateRoute>} />
+                    <Route path="/feed/profile/registered_actions" element={<PrivateRoute><ViewAction /></PrivateRoute>} />
                     <Route path="/feed/profile/actions/:id" element={<ViewAction />} />
                     <Route path="/feed/profile/registered_actions/:id" element={<ViewAction />} />
                     <Route path="/feed/goals" element={<Goal />} />

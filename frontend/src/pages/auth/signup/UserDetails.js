@@ -1,7 +1,6 @@
 import { Box, Button, Checkbox, FormControl, FormErrorMessage, FormHelperText, Heading, Input, InputGroup, InputRightElement, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import findFormErrors from '../../helpers/findFormErrors';
+import findFormErrors from '../../../helpers/findFormErrors';
 
 
 const defaultFormFields = {
@@ -11,7 +10,7 @@ const defaultFormFields = {
     remember: false,
 };
 
-const UserDetails = ({ goNext }) => {
+const UserDetails = ({ goNext, onLoginClick }) => {
 
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
@@ -33,7 +32,6 @@ const UserDetails = ({ goNext }) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
         const newErrors = findFormErrors(form)
 
         if (Object.keys(newErrors).length > 0) {
@@ -144,7 +142,7 @@ const UserDetails = ({ goNext }) => {
                     mt={4}
                     display={"block"}>
                     Already have an account?
-                    <Link to="/login" ><Text as={'span'} color="green.400" fontSize={'lg'} fontWeight={"700"}> Login</Text></Link>
+                    <Text cursor={"pointer"} as={'span'} color="green.400" fontSize={'lg'} fontWeight={"700"} onClick={onLoginClick}> Login</Text>
                 </Text>
             </Box>
         </>

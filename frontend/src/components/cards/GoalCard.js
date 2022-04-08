@@ -1,9 +1,9 @@
 import {
     Box, Button, Center, Flex, Heading, Image, Stack, useColorModeValue
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { AuthContext } from '../../context/authContext';
 
 const GoalCard = ({ goal }) => {
 
@@ -12,10 +12,14 @@ const GoalCard = ({ goal }) => {
     const [isFollowing, setIsFollowing] = useState(goal.isFollowing);
     const buttonBg = useColorModeValue('#151f21', 'gray.700');
     const navigate = useNavigate();
+    const { onAuthRun } = useContext(AuthContext);
+
 
     const handleFollow = (event) => {
         event.stopPropagation();
-        setIsFollowing(!isFollowing);
+        onAuthRun(() => {
+            setIsFollowing(!isFollowing);
+        });
     }
 
 

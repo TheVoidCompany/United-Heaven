@@ -1,10 +1,7 @@
 import { Box, Container, Heading, Image, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
-import UserDetails from './UserDetails';
-import UserLocation from './UserLocation';
-import UserSocial from './UserSocial';
-
+import UserSignupDetails from './UserSignupDetails';
 
 
 const settings = {
@@ -23,7 +20,12 @@ const settings = {
 
 const SignupPage = () => {
 
-    const [currentView, setCurrentView] = useState('user details');
+    const navigate = useNavigate();
+
+    const onLoginClick = () => {
+        navigate('/login');
+    }
+
 
     return (
         <Box position={'relative'} bg={useColorModeValue('gray.100', 'gray.900')} h="92vh">
@@ -44,36 +46,18 @@ const SignupPage = () => {
                     <Box position={"absolute"} w="600px" h="600px" overflow={"clip"} bottom={0} filter='grayscale(80%)' display={{ base: "none", lg: "block" }}>
                         <Slider {...settings}>
                             <div>
-                                <Image src={require(`../../images/welcomepics/person1.webp`)} />
+                                <Image src={require(`../../../images/welcomepics/person1.webp`)} />
                             </div>
                             <div>
-                                <Image src={require(`../../images/welcomepics/person2.webp`)} />
+                                <Image src={require(`../../../images/welcomepics/person2.webp`)} />
                             </div>
                             <div>
-                                <Image src={require(`../../images/welcomepics/person3.webp`)} />
+                                <Image src={require(`../../../images/welcomepics/person3.webp`)} />
                             </div>
                         </Slider>
                     </Box>
                 </Stack>
-                <Stack
-                    bg={'gray.50'}
-                    rounded={'xl'}
-                    zIndex={20}
-                    p={{ base: 4, sm: 6, md: 8 }}
-                    spacing={{ base: 8 }}
-                    maxW={{ lg: 'lg' }}
-                    minH="500px"
-                >
-                    {currentView === 'user details' && (
-                        <UserDetails goNext={() => setCurrentView('user location')} />
-                    )}
-                    {currentView === 'user location' && (
-                        <UserLocation />
-                    )}
-                    {currentView === 'user social' && (
-                        <UserSocial />
-                    )}
-                </Stack>
+                <UserSignupDetails onLoginClick={onLoginClick} />
             </Container>
         </Box>
     );

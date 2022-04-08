@@ -1,15 +1,22 @@
 import { Button, HStack, Image, Spacer, useColorModeValue, VStack } from '@chakra-ui/react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SDGGoals } from '../../constants/SDGGoals';
+import { AuthContext } from '../../context/authContext';
 import Heading from '../common/Heading';
 import SDGTags from '../SDGTags';
 
 const SDGFollowCard = ({ goalId = 1 }) => {
 
     const navigate = useNavigate();
+    const [isFollowing, setIsFollowing] = useState(false);
+    const { onAuthRun } = useContext(AuthContext);
 
     const handleFollow = (event) => {
         event.stopPropagation();
+        onAuthRun(() => {
+            setIsFollowing(!isFollowing);
+        });
     }
 
     return (
@@ -48,8 +55,11 @@ const SDGFollowCard = ({ goalId = 1 }) => {
                 variant='outline'
                 size="sm"
                 onClick={handleFollow}
+                _focus={{
+                    outline: 'none',
+                }}
             >
-                Follow
+                {isFollowing ? 'Following' : 'Follow'}
             </Button>
         </HStack>
     )

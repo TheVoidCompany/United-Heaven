@@ -13,7 +13,7 @@ const UserLocation = () => {
             textAlign={"center"}
             h="500px"
         >
-            <Image boxSize={"200"} src={require('../../images/locationIcon.png')} />
+            <Image boxSize={"200"} src={require('../../../images/locationIcon.png')} />
             <Stack spacing={4}>
                 <Heading
                     color={'gray.800'}

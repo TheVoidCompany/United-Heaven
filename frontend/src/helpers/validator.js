@@ -21,7 +21,7 @@ function checkPhoneNo(value) {
 
 function checkPassword(value) {
     //password must be at least 8 characters long and contain at least one number and one letter
-    return /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/.test(value);
+    return /^(?=.*\d)(?=.*[a-zA-Z]).{8,50}$/.test(value);
 
 }
 

@@ -1,8 +1,9 @@
 import { Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/authContext';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 import DisplayPic from '../DisplayPic';
@@ -17,6 +18,7 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
     const shareToast = 'share-toast'
     const { onCopy } = useClipboard(shareUrl);
     const navigate = useNavigate();
+    const { onAuthRun } = useContext(AuthContext);
 
     const handleCardClick = () => {
         if (type === "action") {
@@ -57,6 +59,18 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
         }
     }
 
+    const handleButtonClick = () => {
+        onAuthRun(() => {
+            buttonOnClick();
+        });
+    }
+
+    const handleLike = () => {
+        onAuthRun(() => {
+            setLiked(!liked);
+        });
+    }
+
     return (
         <>
             <Box
@@ -94,13 +108,13 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                             <Flex>
                                 {
                                     liked ? (
-                                        <CardOptions text="0" color="#F91C2D" selected onClick={() => setLiked(false)}>
+                                        <CardOptions text="0" color="#F91C2D" selected onClick={handleLike}>
                                             <ScaleFade initialScale={0.1} in={liked}>
                                                 <IoIosHeart size={'1.5em'} />
                                             </ScaleFade>
                                         </CardOptions>
                                     ) : (
-                                        <CardOptions text="0" color="#F91C2D" onClick={() => setLiked(true)}>
+                                        <CardOptions text="0" color="#F91C2D" onClick={handleLike}>
                                             <IoIosHeartEmpty size={'1.5em'} />
                                         </CardOptions>
                                     )
@@ -137,7 +151,7 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                 {buttonText && (
                     <HStack mt="2">
                         <Spacer />
-                        <Button colorScheme='twitter' variant='solid' onClick={buttonOnClick}>
+                        <Button colorScheme='twitter' variant='solid' onClick={handleButtonClick}>
                             {buttonText}
                         </Button>
                     </HStack>
