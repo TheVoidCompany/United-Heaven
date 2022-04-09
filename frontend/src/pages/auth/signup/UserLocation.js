@@ -1,7 +1,31 @@
-import { Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Heading, Image, Spinner, Stack, Text } from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { geolocated } from "react-geolocated";
+import { UserContext } from '../../../context/userContext';
+
+const UserLocation = (props) => {
+
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const [loadingLocation, setloadingLocation] = useState(false);
+
+    useEffect(() => {
+        if (!props.isGeolocationAvailable || !props.isGeolocationEnabled) {
+            props.goNext();
+        } else if (props.coords) {
+            setCurrentUser({
+                ...currentUser,
+                lat: props.coords.latitude,
+                lng: props.coords.longitude
+            });
+            props.goNext();
+        } else if (props.isGeolocationAvailable && props.isGeolocationEnabled && !props.coords) {
+            setloadingLocation(true);
+        }
+
+    }, [props, setCurrentUser, currentUser]);
 
 
-const UserLocation = () => {
+
     return (
         <Stack
             bg={'gray.50'}
@@ -19,7 +43,7 @@ const UserLocation = () => {
                     color={'gray.800'}
                     lineHeight={1.1}
                     fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
-                    Enable Geolocation
+                    {!loadingLocation ? 'Enable Geolocation' : <span> <Spinner mr="2" size='lg' /> Locating you...</span>}
                 </Heading>
                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
                     All us to provide you with relevant actions based on your location.
@@ -30,4 +54,8 @@ const UserLocation = () => {
     )
 }
 
-export default UserLocation
+export default geolocated({
+    positionOptions: {
+        enableHighAccuracy: false,
+    }
+})(UserLocation);

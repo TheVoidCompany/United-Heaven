@@ -64,7 +64,10 @@ const GoalFeed = () => {
                                 fontWeight={800}
                                 textShadow={'0px 0px 10px rgba(0,0,0,0.3)'}
                                 lineHeight={1.2}
-                                fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
+                                fontSize={useBreakpointValue({ base: '2xl', sm: '3xl', md: '4xl' })}
+                                noOfLines={7}
+
+                            >
                                 {SDGGoals[goalId - 1].description}
                             </Text>
                         </Flex>

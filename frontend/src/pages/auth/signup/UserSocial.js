@@ -1,7 +1,35 @@
 import { Box, Button, Heading, Input, InputGroup, InputRightElement, Stack, Text } from '@chakra-ui/react';
+import { useContext, useState } from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../../context/userContext';
+
+const defaultFormFields = {
+    facebookUrl: '',
+    instagramUrl: '',
+    twitterUrl: '',
+};
 
 const UserSocial = () => {
+
+    const [form, setForm] = useState(defaultFormFields);
+    const navigate = useNavigate();
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+
+    const setField = (field, value) => {
+        setForm({
+            ...form,
+            [field]: value
+        })
+    }
+
+    const handleSubmit = (e) => {
+        setCurrentUser({
+            ...currentUser,
+            ...form
+        });
+        navigate('/feed');
+    }
 
 
     return (
@@ -26,6 +54,8 @@ const UserSocial = () => {
                             type="url"
                             pr='4.5rem'
                             border={0}
+                            onChange={(e) => setField('facebookUrl', e.target.value)}
+                            value={form.facebookUrl}
                             color={'gray.500'}
                             _placeholder={{
                                 color: 'gray.500',
@@ -42,6 +72,8 @@ const UserSocial = () => {
                             type="url"
                             pr='4.5rem'
                             border={0}
+                            onChange={(e) => setField('twitterUrl', e.target.value)}
+                            value={form.twitterUrl}
                             color={'gray.500'}
                             _placeholder={{
                                 color: 'gray.500',
@@ -58,6 +90,8 @@ const UserSocial = () => {
                             type="url"
                             pr='4.5rem'
                             border={0}
+                            onChange={(e) => setField('instagramUrl', e.target.value)}
+                            value={form.instagramUrl}
                             color={'gray.500'}
                             _placeholder={{
                                 color: 'gray.500',
@@ -68,6 +102,19 @@ const UserSocial = () => {
                         </InputRightComponent>
                     </InputGroup>
                 </Stack>
+                <Button
+                    fontFamily={'heading'}
+                    mt={8}
+                    w={'full'}
+                    bg={'green.500'}
+                    color={'white'}
+                    onClick={handleSubmit}
+                    _hover={{
+                        bg: 'green.600',
+                        boxShadow: 'xl',
+                    }}>
+                    Finish
+                </Button>
             </Box>
         </>
     )
