@@ -7,7 +7,7 @@ import Router from './router/Router';
 function App() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   const onAuthRun = (toRun) => {
     if (isAuthenticated) {

@@ -1,14 +1,9 @@
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 
 from db.init_db import connect_tg
 import models
 
 router = APIRouter()
-
-
-@router.get("/")
-def testing():
-    return {"Hello": "World"}
 
 
 @router.post("/login")
