@@ -30,6 +30,11 @@ const Home = () => {
                 image='https://img.dtnext.in/Images/Article/201606010143032596_When-angels-come-to-clean-Marina-Beach_SECVPF.gif'
                 para="Marina beach is the second largest beach in the world and it is not maintained properly. The beach is full of litters and it's affecting everyone. So me and my friends are planning to clean the beach this sunday. Any one interested can join!!"
                 sdgGoals={[1, 4, 6, 15, 17]}
+                location="Marina Beach, chennai, IN"
+                isOnline
+                startDate="Feb 08, 2021"
+                endDate="Feb 10, 2021"
+                url="https://www.google.com"
                 clickableCardUrl='/feed/actions/1'
                 buttonText="Participate"
                 buttonOnClick={() => {

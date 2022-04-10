@@ -262,22 +262,8 @@ const CreateAction = () => {
                         </FormLabel>
                         <Switch value={form.isOnline} colorScheme={"green"} size='lg' id='isOnline' onChange={(e) => setField('isOnline', !form.isOnline)} />
                     </FormControl>
-                    {form.isOnline ? (
-                        <FormControl id="url">
-                            <FormLabel>Related url</FormLabel>
-                            <Input
-                                placeholder="Enter any url you want to provide to the users"
-                                _placeholder={{ color: 'gray.500' }}
-                                type="url"
-                                onChange={(e) => setField('url', e.target.value)}
-                                value={form.url}
-                                _focus={{
-                                    outline: 'none',
-                                }}
-                                variant='filled'
-                            />
-                        </FormControl>
-                    ) : (
+
+                    {!form.isOnline && (
                         <FormControl id="location">
                             <FormLabel>Location</FormLabel>
                             <Input
@@ -292,7 +278,23 @@ const CreateAction = () => {
                                 variant='filled'
                             />
                         </FormControl>
+
                     )}
+
+                    <FormControl id="url">
+                        <FormLabel>Related url</FormLabel>
+                        <Input
+                            placeholder="Enter any url you want to provide to the users"
+                            _placeholder={{ color: 'gray.500' }}
+                            type="url"
+                            onChange={(e) => setField('url', e.target.value)}
+                            value={form.url}
+                            _focus={{
+                                outline: 'none',
+                            }}
+                            variant='filled'
+                        />
+                    </FormControl>
 
                     <Button
                         variant="solid"

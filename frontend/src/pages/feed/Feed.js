@@ -1,8 +1,10 @@
-import { Box, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import { FaFilter } from 'react-icons/fa';
 import { Outlet, useLocation } from 'react-router-dom';
 import ColumnCard from '../../components/cards/ColumnCard';
 import SDGFollowCard from '../../components/cards/SDGFollowCard';
 import Heading from '../../components/common/Heading';
+import SearchBar from '../../components/common/SearchBar';
 import FeedNavbar from '../../components/navbar/FeedNavbar';
 import ThreeColumnStructure from '../../components/ThreeColumnStructure';
 
@@ -29,10 +31,21 @@ const Feed = () => {
                 ) : (
                     <ThreeColumnStructure>
                         {url.slice(6).includes("actions") ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
-                        <div>
+                        <Box>
                             <Outlet />
-                        </div>
-                        <TrendingColumn />
+                        </Box>
+                        <Box>
+                            <Flex
+                                h="60px"
+                                p="2" px="4" align={"center"}
+                            >
+                                <SearchBar />
+                                <Box ml="4">
+                                    <FaFilter fontSize={26} color="red" />
+                                </Box>
+                            </Flex>
+                            <TrendingColumn />
+                        </Box>
                     </ThreeColumnStructure>
                 )}
 

@@ -1,6 +1,5 @@
 import {
-    Avatar, Box, Button, Center, Divider, Flex, Heading, HStack, Icon, IconButton, Link, Menu,
-    MenuButton, MenuDivider, MenuItem, MenuList, Stack, useBreakpointValue, useColorMode, useColorModeValue
+    Avatar, Box, Button, Center, Divider, Flex, Heading, HStack, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useBreakpointValue, useColorMode, useColorModeValue
 } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
@@ -9,6 +8,7 @@ import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import { FakeNotification } from '../../data/FakeNotification';
 import { SDGWheel } from '../../images/SDGWheel';
 import SocialButton from '../common/SocialButton';
 import SDGTags from '../SDGTags';
@@ -105,14 +105,45 @@ const FeedNavbar = () => {
                                 leftIcon={<MdAdd size={22} color={colorMode === 'light' ? 'white' : 'black'} />}>
                                 Action
                             </Button>
-                            <IconButton
-                                size={'md'}
-                                fontSize={{ base: '2xl', md: '3xl' }}
-                                aria-label={`Notification`}
-                                variant="ghost"
-                                _focus={{ outline: 'none' }}
-                                icon={<Center><IoNotifications /></Center>}
-                            />
+
+                            <Menu isLazy >
+                                <IconButton
+                                    as={MenuButton}
+                                    size={'md'}
+                                    fontSize={{ base: '2xl', md: '3xl' }}
+                                    aria-label={`Notification`}
+                                    variant="ghost"
+                                    _focus={{ outline: 'none' }}
+                                    icon={<Center><IoNotifications /></Center>}
+                                />
+                                <MenuList alignItems={'center'} >
+                                    {FakeNotification.map(({ id, type, action, name, profileUrl }) => (
+                                        <MenuItem key={id} maxW={'400px'}>
+                                            <Flex alignItems={'center'}>
+                                                <Avatar
+                                                    size={avatarSize}
+                                                    src={profileUrl}
+                                                    name={name}
+                                                    borderRadius={'full'}
+                                                />
+                                                <Box ml={2}>
+                                                    <Text size={'sm'}>
+                                                        <Text as={'span'} fontWeight={'bold'}>
+                                                            {name + " "}
+                                                        </Text>
+                                                        {type + " "}
+                                                        <Text as={'span'} fontWeight={'bold'}>
+                                                            {action + " "}
+                                                        </Text>
+                                                    </Text>
+                                                </Box>
+                                            </Flex>
+                                        </MenuItem>
+                                    ))}
+                                </MenuList>
+                            </Menu>
+
+
                             <Menu isLazy>
                                 <MenuButton
                                     as={Button}

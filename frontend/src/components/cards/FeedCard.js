@@ -1,7 +1,11 @@
-import { Box, Button, Circle, Divider, Flex, HStack, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
+import { Box, Button, Circle, Divider, Flex, HStack, Icon, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
+import { AiOutlineLink } from 'react-icons/ai';
+import { BsFillCalendarWeekFill } from 'react-icons/bs';
+import { FaGlobeAmericas } from 'react-icons/fa';
 import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
+import { IoLocationSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
 import { findTypeColor } from '../../utils/common';
@@ -9,7 +13,7 @@ import Heading from '../common/Heading';
 import DisplayPic from '../DisplayPic';
 import SDGTags from '../SDGTags';
 
-const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, buttonText, buttonOnClick, clickableCardUrl }) => {
+const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, location, url, startDate, endDate, sdgGoals, buttonText, buttonOnClick, clickableCardUrl }) => {
 
     const shareUrl = `https://united-heaven.org/action/${id}`;
     const [liked, setLiked] = useState(false);
@@ -94,7 +98,7 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                         rounded={"lg"}
                     />
                 )}
-                <Stack>
+                <Stack spacing={2}>
                     <Flex justify={"space-between"} align="center">
                         <Text
                             color={findTypeColor(type)}
@@ -140,12 +144,51 @@ const FeedCard = ({ id = 2, profile, type, heading, image, para, sdgGoals, butto
                             </Text>
                         )}
                     </Box>
-
                     {sdgGoals && (
                         <SDGTags
                             goals={sdgGoals}
                         />
                     )}
+
+                    <Stack spacing={4} pt="5">
+
+                        {isOnline && (
+                            <List
+                                icon={FaGlobeAmericas}
+                                text='Online'
+                            />
+                        )}
+
+
+                        {startDate && (
+                            <List
+                                icon={BsFillCalendarWeekFill}
+                                text={`${startDate} - ${endDate}`}
+                            />
+                        )}
+
+
+
+                        {location && (
+                            <List
+                                onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${location}`, '_blank')}
+                                icon={IoLocationSharp}
+                                text={location}
+                            />
+                        )}
+
+                        {url && (
+                            <List
+                                onClick={() => window.open(url, '_blank')}
+                                icon={AiOutlineLink}
+                                text={url}
+                            />
+                        )}
+
+
+
+                    </Stack>
+
 
                 </Stack>
                 {buttonText && (
@@ -174,6 +217,26 @@ const CardOptions = ({ children, onClick, text, color, selected }) => {
     )
 }
 
+const List = ({ text, onClick, icon }) => {
+    return (
+        <Flex
+            w="fit-content"
+            align="center"
+            color={'gray.500'}
+            onClick={onClick}
+            cursor={onClick && "pointer"}
+            _hover={{
+                color: onClick && 'white'
+            }}
+        >
+            <Icon as={icon} fontSize={'1.5em'} />
+            <Text fontSize={'sm'} ml="2" fontWeight={'600'}>
+                {text}
+            </Text>
+        </Flex>
+    )
+}
+
 FeedCard.propTypes = {
     profile: PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -186,7 +249,12 @@ FeedCard.propTypes = {
     para: PropTypes.string,
     sdgGoals: PropTypes.arrayOf(PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])),
     buttonText: PropTypes.string,
-    buttonOnClick: PropTypes.func
+    buttonOnClick: PropTypes.func,
+    isOnline: PropTypes.bool,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    location: PropTypes.string,
+    url: PropTypes.string,
 }
 
 

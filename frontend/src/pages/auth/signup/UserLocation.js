@@ -46,7 +46,7 @@ const UserLocation = (props) => {
                     {!loadingLocation ? 'Enable Geolocation' : <span> <Spinner mr="2" size='lg' /> Locating you...</span>}
                 </Heading>
                 <Text color={'gray.500'} fontSize={{ base: 'sm', sm: 'md' }}>
-                    All us to provide you with relevant actions based on your location.
+                    Allow us to provide you with relevant actions based on your location.
                     We will not share your location with anyone else.
                 </Text>
             </Stack>

@@ -26,6 +26,10 @@ const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
                                 style={{ width: '90px', height: '90px', }}
                                 src={require(`../../images/SDGIcons/Goal${goal}.png`)}
                                 alt={`SDG Goal ${goal}`}
+                                _hover={{
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: 'lg',
+                                }}
                             />
                         ))}
                     </SimpleGrid>
