@@ -1,19 +1,17 @@
-import { Button, Flex, Image, Input, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { Box, Flex, Image, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
+import { IoSearch } from 'react-icons/io5';
 
 const SearchBar = () => {
 
-    const menuButtonRef = useRef();
 
     return (
         <Flex w="100%">
-            <Input onFocus={() => menuButtonRef.current.click()} variant='filled' placeholder='Search for actions, users...' rounded={"full"} />
-            <Menu matchWidth={true}>
-                <MenuButton >
-                    <Button ref={menuButtonRef} display="none" />
+            <Menu matchWidth={true} isLazy>
+                <MenuButton width={"100%"}>
+                    <Input variant='filled' placeholder='Search for actions, users...' rounded={"full"} />
                 </MenuButton>
-                <MenuList>
-                    <MenuItem>
+                <MenuList maxW={"fit-content"} maxH="50vh" overflow={"scroll"}>
+                    <MenuItem py="4">
                         <Image
                             boxSize='2rem'
                             borderRadius='full'
@@ -21,17 +19,207 @@ const SearchBar = () => {
                             alt='Fluffybuns the destroyer'
                             mr='12px'
                         />
-                        <span>Fluffybuns the Destroyer</span>
+                        <Text fontWeight={"600"}>josh bush</Text>
                     </MenuItem>
-                    <MenuItem>Create a Copy</MenuItem>
-                    <MenuItem>Mark as Draft</MenuItem>
-                    <MenuItem>Delete</MenuItem>
-                    <MenuItem>Attend a Workshop</MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='https://placekitten.com/100/100'
+                            alt='Fluffybuns the destroyer'
+                            mr='12px'
+                        />
+                        <Text fontWeight={"600"}>josh bush</Text>
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='https://placekitten.com/100/100'
+                            alt='Fluffybuns the destroyer'
+                            mr='12px'
+                        />
+                        <Text fontWeight={"600"}>josh bush</Text>
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='https://placekitten.com/100/100'
+                            alt='Fluffybuns the destroyer'
+                            mr='12px'
+                        />
+                        <Text fontWeight={"600"}>josh bush</Text>
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='https://placekitten.com/100/100'
+                            alt='Fluffybuns the destroyer'
+                            mr='12px'
+                        />
+                        <Text fontWeight={"600"}>josh bush</Text>
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='https://placekitten.com/100/100'
+                            alt='Fluffybuns the destroyer'
+                            mr='12px'
+                        />
+                        <Text fontWeight={"600"}>josh bush</Text>
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='https://placekitten.com/100/100'
+                            alt='Fluffybuns the destroyer'
+                            mr='12px'
+                        />
+                        <Text fontWeight={"600"}>josh bush</Text>
+                    </MenuItem>
+                    <MenuItem py="4">
+                        <Box mr='12px'>
+                            <IoSearch
+                                size={"2rem"}
+                            />
+                        </Box>
+                        <Box>
+                            <Text
+                                color={'green.500'}
+                                textTransform={'uppercase'}
+                                fontWeight={800}
+                                fontSize={'xs'}
+                                letterSpacing={1.1}>
+                                Action
+                            </Text>
+                            <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+                        </Box>
+
+                    </MenuItem>
                 </MenuList>
             </Menu>
         </Flex>
 
     )
 }
+
 
 export default SearchBar

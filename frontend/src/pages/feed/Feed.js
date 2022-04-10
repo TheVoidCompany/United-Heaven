@@ -12,6 +12,7 @@ const Feed = () => {
 
     const isLgScreen = useBreakpointValue({ base: false, lg: true })
     const bg = useColorModeValue('white', 'gray.900')
+    const iconColor = useColorModeValue('gray.400', 'gray.500');
     const location = useLocation();
     const url = location.pathname;
     const feedSubUrl = url.slice(5);
@@ -40,8 +41,8 @@ const Feed = () => {
                                 p="2" px="4" align={"center"}
                             >
                                 <SearchBar />
-                                <Box ml="4">
-                                    <FaFilter fontSize={26} color="red" />
+                                <Box ml="4" color={iconColor} >
+                                    <FaFilter fontSize={26} />
                                 </Box>
                             </Flex>
                             <TrendingColumn />
