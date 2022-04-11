@@ -1,10 +1,10 @@
 import { Box, Flex, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
-import { FaFilter } from 'react-icons/fa';
 import { Outlet, useLocation } from 'react-router-dom';
 import ColumnCard from '../../components/cards/ColumnCard';
 import SDGFollowCard from '../../components/cards/SDGFollowCard';
 import Heading from '../../components/common/Heading';
 import SearchBar from '../../components/common/SearchBar';
+import FeedFilter from '../../components/FeedFilter';
 import FeedNavbar from '../../components/navbar/FeedNavbar';
 import ThreeColumnStructure from '../../components/ThreeColumnStructure';
 
@@ -12,12 +12,13 @@ const Feed = () => {
 
     const isLgScreen = useBreakpointValue({ base: false, lg: true })
     const bg = useColorModeValue('white', 'gray.900')
-    const iconColor = useColorModeValue('gray.400', 'gray.500');
     const location = useLocation();
     const url = location.pathname;
     const feedSubUrl = url.slice(5);
     //check if feedSubUrl is '/goals/' + number and if so, set the goalId to the number
     const goalId = feedSubUrl.includes('/goals/') ? feedSubUrl.slice(7) ? feedSubUrl.slice(7) : null : null;
+    //check if feedSubUrl is '/actions/' + number and if so, set the actionId to the number
+    const actionId = feedSubUrl.includes('/actions/') ? feedSubUrl.slice(9) ? feedSubUrl.slice(9) : null : null;
 
 
 
@@ -41,9 +42,7 @@ const Feed = () => {
                                 p="2" px="4" align={"center"}
                             >
                                 <SearchBar />
-                                <Box ml="4" color={iconColor} >
-                                    <FaFilter fontSize={26} />
-                                </Box>
+                                {!actionId && <FeedFilter />}
                             </Flex>
                             <TrendingColumn />
                         </Box>

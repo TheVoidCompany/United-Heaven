@@ -1,6 +1,14 @@
+import { useSearchParams } from 'react-router-dom';
 import FeedCard from "../../../components/cards/FeedCard";
 
+
 const Home = () => {
+
+    const [searchParams] = useSearchParams();
+    const categoryFilter = searchParams.get('category');
+    const goalFilter = searchParams.get('goal');
+
+
     return (
         <div>
             <FeedCard

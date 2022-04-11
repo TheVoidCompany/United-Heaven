@@ -33,7 +33,7 @@ const AccordianCard = ({ target }) => {
     const { isOpen, onToggle } = useDisclosure()
 
     return (
-        <Stack borderRadius="sm" align={"start"}>
+        <Stack borderRadius="sm" align={"start"} cursor="pointer">
             <Stack
                 p="6"
                 px={{ base: '4%', '2xl': '8%' }}
