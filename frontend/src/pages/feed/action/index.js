@@ -11,7 +11,6 @@ const Action = () => {
     //get filter params from url query
     const [searchParams] = useSearchParams();
     const goalFilter = searchParams.get('goal');
-    console.log(goalFilter);
 
     const actions = actionId ? FakeActions.filter(action => {
         return action.id.toString() === actionId

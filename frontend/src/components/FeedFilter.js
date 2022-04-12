@@ -18,10 +18,13 @@ const FeedFilter = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [categoryFilters, setCategoryFilters] = useState([]);
     const [goalFilters, setGoalFilters] = useState([]);
+
     const navigate = useNavigate();
     const location = useLocation();
+
     const url = location.pathname;
     const feedSubUrl = url.slice(5);
+    const isActionFeed = feedSubUrl.includes("/actions");
 
 
 
@@ -30,7 +33,7 @@ const FeedFilter = () => {
 
         onClose();
         let queryParams = "";
-        if (categoryFilters.length > 0 && !feedSubUrl.includes("/actions")) {
+        if (categoryFilters.length > 0 && !isActionFeed) {
             queryParams += "category=" + categoryFilters.join(",");
         }
         if (goalFilters.length > 0) {
@@ -41,13 +44,13 @@ const FeedFilter = () => {
             }
         }
         if (queryParams.length > 0) {
-            if (feedSubUrl === "/actions") {
+            if (isActionFeed) {
                 navigate(`/feed/actions?${queryParams}`);
             } else {
                 navigate(`/feed?${queryParams}`);
             }
         } else {
-            if (feedSubUrl === "/actions") {
+            if (isActionFeed) {
                 navigate(`/feed/actions`);
             } else {
                 navigate(`/feed`);
@@ -73,7 +76,7 @@ const FeedFilter = () => {
                     <ModalHeader>Filters</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {!feedSubUrl.includes("/actions") && (
+                        {!isActionFeed && (
                             <>
                                 <Text fontWeight={"bold"} fontSize={"lg"} mb="3">Category</Text>
                                 {categories.map((category) => {
@@ -102,7 +105,7 @@ const FeedFilter = () => {
                                 })}
                             </>
                         )}
-                        <Text fontWeight={"bold"} fontSize={"lg"} mt="10" mb="3">Goal</Text>
+                        <Text fontWeight={"bold"} fontSize={"lg"} mt={!isActionFeed && "10"} mb="3">Goal</Text>
                         {goals.map((goal) => {
                             return (
                                 <Button

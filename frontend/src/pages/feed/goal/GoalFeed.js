@@ -156,15 +156,19 @@ const GoalFeed = () => {
                 </Box>
             </Box>
             <Box py={{ base: "80px", lg: "100px" }}>
-                <Heading
-                    pb={8}
-                    fontSize={{ base: '2xl', md: '3xl' }}
-                    fontWeight={'500'}
-                    fontFamily={'Oswald'}
-                    px={{ base: '4%', '2xl': '8%' }}
-                >
-                    RELATED TOPICS
-                </Heading>
+                <Flex justify={"space-between"} pb={8} px={{ base: '4%', '2xl': '8%' }} align={"center"}>
+                    <Heading
+                        fontSize={{ base: '2xl', md: '3xl' }}
+                        fontWeight={'500'}
+                        fontFamily={'Oswald'}
+
+                    >
+                        RELATED TOPICS
+                    </Heading>
+                    <Button variant='outline' size={"lg"} onClick={() => navigate(`/feed?goal=${goalId}`)}>
+                        View More
+                    </Button>
+                </Flex>
                 <Box px={{ base: '0%', 'lg': '4%', '2xl': '8%' }}>
                     <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing={6}>
                         <ColumnCard

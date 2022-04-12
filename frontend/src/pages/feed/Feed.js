@@ -32,24 +32,35 @@ const Feed = () => {
                     <Outlet />
                 ) : (
                     <ThreeColumnStructure>
-                        {url.slice(6).includes("actions") ? <SuggestedActionColumn /> : (isLgScreen ? <SDGFollowColumn /> : <TrendingColumn />)}
+                        {isLgScreen ? (
+                            url.slice(6).includes("actions") ? <SuggestedActionColumn /> : <SDGFollowColumn />
+                        ) : (
+                            <TrendingColumnWithSearch actionId={actionId} />
+                        )}
                         <Box>
                             <Outlet />
                         </Box>
-                        <Box>
-                            <Flex
-                                h="60px"
-                                p="2" px="4" align={"center"}
-                            >
-                                <SearchBar />
-                                {!actionId && <FeedFilter />}
-                            </Flex>
-                            <TrendingColumn />
-                        </Box>
+                        <TrendingColumnWithSearch actionId={actionId} />
                     </ThreeColumnStructure>
                 )}
 
             </Box>
+        </Box>
+    )
+}
+
+const TrendingColumnWithSearch = ({ actionId }) => {
+    return (
+        <Box>
+            <Flex
+                h="60px"
+                p="2" px="4" align={"center"}
+            >
+                <SearchBar />
+                {!actionId && <FeedFilter />}
+
+            </Flex>
+            <TrendingColumn />
         </Box>
     )
 }

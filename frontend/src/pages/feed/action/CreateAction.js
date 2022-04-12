@@ -1,20 +1,28 @@
 import {
-    Box, Button, Container, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, InputGroup, Menu, MenuButton, MenuItemOption, MenuList, MenuOptionGroup, Stack, Switch, Tag, TagCloseButton, TagLabel, Text, Textarea,
-    useColorModeValue, Wrap, WrapItem
+    Box, Button, Container, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, InputGroup, Stack, Switch, Text, Textarea,
+    useColorModeValue
 } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import {
+    AutoComplete,
+    AutoCompleteInput,
+    AutoCompleteItem,
+    AutoCompleteList,
+    AutoCompleteTag
+} from "@choc-ui/chakra-autocomplete";
+import { useEffect, useRef, useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BsFillCloudUploadFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import './datePicker.css';
 
-const sdgGoalNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+const sdgGoalNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"];
 
 const defaultFormFields = {
     title: '',
     description: '',
     sdgGoals: [],
+    sdgTargets: [],
     isOnline: false,
     startDate: new Date(),
     endDate: '',
@@ -35,8 +43,40 @@ const CreateAction = () => {
     const [form, setForm] = useState(defaultFormFields);
     const [submitted, setSubmitted] = useState(false);
     const [imgUrl, setImgUrl] = useState(null);
-    const tagBg = useColorModeValue('#EEF2F6', '#20222B');
     const imageUploadBg = useColorModeValue('gray.100', 'gray.800');
+    const [allTargets, setAllTargets] = useState([]);
+    const [targets, setTargets] = useState([]);
+
+
+    useEffect(() => {
+        fetch('https://unstats.un.org/sdgapi/v1/sdg/Target/List?includechildren=false')
+            .then(res => res.json())
+            .then(data => {
+                setAllTargets(data);
+            })
+    }, []);
+
+
+    useEffect(() => {
+
+        //if sdgGoals changes, loop through allTargets and add targets to targets state where goal is in sdgGoals array
+        if (form.sdgGoals.length > 0 && allTargets.length > 0) {
+            let newTargets = [];
+            allTargets.forEach(target => {
+                if (form.sdgGoals.includes(target.goal)) {
+                    newTargets.push(target);
+                }
+            }
+            );
+            setTargets(newTargets);
+        }
+        else {
+            setTargets([]);
+        }
+    }, [form.sdgGoals, allTargets]);
+
+
+
 
     const setField = (field, value) => {
         setForm({
@@ -65,11 +105,6 @@ const CreateAction = () => {
         reader.onload = () => {
             setImgUrl(reader.result);
         }
-    }
-
-
-    const handleSdgGoalsRemove = (sdgGoal) => {
-        setField('sdgGoals', form.sdgGoals.filter(goal => goal !== sdgGoal))
     }
 
 
@@ -168,50 +203,72 @@ const CreateAction = () => {
                         <FormErrorMessage>Description is required</FormErrorMessage>
                     </FormControl>
 
+
+
                     <FormControl id="sdgGoals" isRequired align={"start"} isInvalid={submitted && form.sdgGoals.length === 0}>
                         <FormLabel mb="4">Related SDG Goals</FormLabel>
-
-                        <Menu closeOnSelect={false} isLazy>
-                            <MenuButton as={Button}
-                                _focus={{
-                                    outline: 'none',
-                                }}
-                            >
-                                Choose goals
-                            </MenuButton>
-                            <MenuList minWidth='240px'>
-                                <MenuOptionGroup value={form.sdgGoals} type='checkbox' onChange={(e) => setField('sdgGoals', e)}>
-                                    {sdgGoalNumbers.map((goal, index) => (
-                                        <MenuItemOption key={index} value={goal}>
-                                            Goal {goal}
-                                        </MenuItemOption>
-                                    ))}
-                                </MenuOptionGroup>
-                            </MenuList>
-                        </Menu>
-                        {form.sdgGoals.length > 0 && (
-                            <Box mt={8} rounded={"lg"} p={10} bg={tagBg}>
-                                <Wrap>
-                                    {form.sdgGoals.map(goal => {
-                                        return (
-                                            <WrapItem key={goal}>
-                                                <Tag
-                                                    size={'md'}
-                                                    borderRadius='full'
-                                                    variant='solid'
-                                                    mx={1}
-                                                >
-                                                    <TagLabel>Goal {goal}</TagLabel>
-                                                    <TagCloseButton onClick={() => handleSdgGoalsRemove(goal)} />
-                                                </Tag>
-                                            </WrapItem>
-                                        )
-                                    })}
-                                </Wrap>
-                            </Box>
-                        )}
+                        <AutoComplete openOnFocus multiple onChange={(e) => setField('sdgGoals', e)}>
+                            <AutoCompleteInput variant="filled">
+                                {({ tags }) =>
+                                    tags.map((tag, tid) => (
+                                        <AutoCompleteTag
+                                            key={tid}
+                                            label={`Goal ${tag.label}`}
+                                            onRemove={tag.onRemove}
+                                        />
+                                    ))
+                                }
+                            </AutoCompleteInput>
+                            <AutoCompleteList>
+                                {sdgGoalNumbers.map((goal) => (
+                                    <AutoCompleteItem
+                                        key={`option-${goal}`}
+                                        value={goal}
+                                        goal="capitalize"
+                                        _selected={{ bg: "whiteAlpha.50" }}
+                                        _focus={{ bg: "whiteAlpha.100" }}
+                                    >
+                                        Goal - {goal}
+                                    </AutoCompleteItem>
+                                ))}
+                            </AutoCompleteList>
+                        </AutoComplete>
                         <FormErrorMessage>SDG Goals are required</FormErrorMessage>
                     </FormControl>
+
+
+                    <FormControl id="sdgTargets" align={"start"}>
+                        <FormLabel mb="4">Related SDG Targets</FormLabel>
+                        <AutoComplete openOnFocus multiple onChange={(e) => setField('sdgTargets', e)}>
+                            <AutoCompleteInput variant="filled">
+                                {({ tags }) =>
+                                    tags.map((tag, tid) => (
+                                        <AutoCompleteTag
+                                            key={tid}
+                                            label={`Target ${tag.label}`}
+                                            onRemove={tag.onRemove}
+                                        />
+                                    ))
+                                }
+                            </AutoCompleteInput>
+                            <AutoCompleteList>
+                                {targets.map((target) => (
+                                    <AutoCompleteItem
+                                        key={`option-${target.code}`}
+                                        value={target.code}
+                                        goal="capitalize"
+                                        _selected={{ bg: "whiteAlpha.50" }}
+                                        _focus={{ bg: "whiteAlpha.100" }}
+                                    >
+                                        {target.code} - {target.title}
+                                    </AutoCompleteItem>
+                                ))}
+                            </AutoCompleteList>
+                        </AutoComplete>
+                    </FormControl>
+
+
+
 
                     <FormControl id="startDate" isRequired>
                         <FormLabel>Start Date</FormLabel>

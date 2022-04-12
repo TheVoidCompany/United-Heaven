@@ -65,6 +65,12 @@ async def participate_action(user_id: int, action_id: int):
     return user_id
 
 
+# un participate action
+@router.post("/un_participate")
+async def un_participate_action(user_id: int, action_id: int):
+    return user_id
+
+
 # edit action
 @router.put("/{action_id}", response_model=schemas.Action)
 async def edit_action(action_id: int, action: models.Action):
