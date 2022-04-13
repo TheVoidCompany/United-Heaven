@@ -4,3 +4,5 @@ pyTigerGraph~=0.0.9.9.2
 pydantic~=1.9.0
 passlib
 python-jose
+beautifulsoup4
+requests
