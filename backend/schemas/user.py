@@ -18,6 +18,8 @@ class User(BaseModel):
     user_id: str
     name: str
     email: str
-    location: Location
+    image_url: str
     social_links: SocialLinks
+    timezone: str
+    location: Location
     followed_goals: List[int]

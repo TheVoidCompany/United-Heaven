@@ -17,5 +17,7 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str = 'united-heaven'
 
+    ENVIRONMENT: str = 'development'
+
 
 settings = Settings()

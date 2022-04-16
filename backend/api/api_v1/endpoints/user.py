@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile
 
 from db.init_db import connect_tg
 import models
@@ -23,3 +23,9 @@ async def edit_user_by_id(user_id: int, user: models.User):
 @router.get("/notification")
 async def get_user_notification(user_id: int):
     return user_id
+
+
+# upload user profile picture
+@router.post("/upload_profile_pic/{user_id}")
+async def upload_profile_pic(user_id: str, file: UploadFile):
+    return {"filename": file.filename}

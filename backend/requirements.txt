@@ -6,3 +6,5 @@ passlib
 python-jose
 beautifulsoup4
 requests
+py-bcrypt
+python-multipart
