@@ -1,8 +1,9 @@
-import { Box, Button, useBreakpointValue, useColorMode } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Skeleton, Text, useBreakpointValue, useColorMode, VStack } from '@chakra-ui/react';
 import { useCallback, useRef, useState } from 'react';
 import { Layer, Source } from 'react-map-gl';
+import OverlayCard from '../../components/cards/OverlayCard';
 import MapWrapper from '../../components/map/MapWrapper';
-import OverlayCard from '../../components/OverlayCard';
+import MouseOverlayWrapper from '../../components/MouseOverlayWrapper';
 import { countryLayer, countryOutline, selectedCountryFill } from './mapTilesStyle';
 
 const SightPage = () => {
@@ -14,7 +15,9 @@ const SightPage = () => {
     const [selectedCountry, setselectedCountry] = useState('null');
     const [showCharityOverlay, setShowCharityOverlay] = useState(true);
     const isSmallSize = useBreakpointValue({ base: true, lg: false });
+
     const { colorMode } = useColorMode()
+
 
 
     const onHover = useCallback(event => {
@@ -83,11 +86,22 @@ const SightPage = () => {
                     <Layer {...countryOutline(colorMode)} />
                     <Layer {...selectedCountryFill(colorMode, selectedCountry)} />
                 </Source>
-                {hoveredCountry && !isSmallSize && <OverlayCard
-                    title={hoveredCountry?.name}
-                    position={selectedCountry !== 'null' ? { left: '50%' } : { left: '0' }}
-                    customStyles={selectedCountry !== 'null' ? { transform: 'translateX(-50%)' } : {}}
-                />
+                {hoveredCountry && !isSmallSize && <MouseOverlayWrapper
+                >
+                    <Flex>
+                        <Image
+                            mr="10px"
+                            boxSize={"80px"}
+                            src={require(`../../images/Flags/${hoveredCountry?.iso_a2.toLowerCase()}.png`)}
+                            fallbackSrc={require('../../images/image-placeholder.png')}
+                            fallback={<Skeleton height="80px" />}
+                        />
+                        <VStack align={"start"} justify={"center"}>
+                            <Text fontSize={'xl'} fontWeight='bold' noOfLines={1}>{hoveredCountry?.name}</Text>
+                            <Text fontSize={'md'} fontWeight='400' noOfLines={1}>Significantly high</Text>
+                        </VStack>
+                    </Flex>
+                </MouseOverlayWrapper>
                 }
 
             </MapWrapper>

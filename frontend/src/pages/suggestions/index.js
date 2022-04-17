@@ -2,9 +2,9 @@ import { Box, Button, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 import { Marker } from 'react-map-gl';
 import { useNavigate } from 'react-router';
+import OverlayCard from '../../components/cards/OverlayCard';
 import MapWrapper from '../../components/map/MapWrapper';
 import PulseMarker from '../../components/marker/PulseMarker';
-import OverlayCard from '../../components/OverlayCard';
 import { FakeSuggestions } from '../../data/FakeSuggestions';
 import CountryDetailsPopup from './CountryDetailsPopup';
 

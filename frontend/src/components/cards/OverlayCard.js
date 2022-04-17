@@ -1,7 +1,8 @@
 import { Box, Divider, HStack, Spacer, Text, useColorModeValue } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 import { IoChevronBackOutline, IoClose } from "react-icons/io5";
-
+var isEqualWith = require('lodash.isequalwith');
 
 const OverlayCard = ({ children, position, title, onClose, onBack, customStyles, width, divider, isSmallSize }) => {
 
@@ -10,11 +11,11 @@ const OverlayCard = ({ children, position, title, onClose, onBack, customStyles,
     return (
         <Box
             bg={popupColor}
-            zIndex={2}
+            zIndex={20}
             position="absolute"
             {...position}
             p="4"
-            margin={isSmallSize ? "0" : "8"}
+            margin={isSmallSize ? "0" : "30px"}
             borderRadius={6}
             minW={isSmallSize ? "100vw" : width}
             maxW={isSmallSize ? "100vw" : width}
@@ -59,4 +60,8 @@ OverlayCard.propTypes = {
     isSmallSize: PropTypes.bool
 };
 
-export default OverlayCard
+const isPropsEqual = (prevProps, nextProps) => {
+    return isEqualWith(prevProps, nextProps)
+}
+
+export default memo(OverlayCard, isPropsEqual)

@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "framer-motion": "^6.2.8",
+    "lodash.isequalwith": "^4.4.0",
     "mapbox-gl": "^2.0.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",

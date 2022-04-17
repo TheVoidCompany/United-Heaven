@@ -1,7 +1,7 @@
 import { Image, SimpleGrid } from '@chakra-ui/react';
 import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router';
-import OverlayCard from '../../components/OverlayCard';
+import OverlayCard from '../../components/cards/OverlayCard';
 
 const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
 
