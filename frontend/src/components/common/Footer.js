@@ -24,7 +24,7 @@ const Footer = () => {
                 align={'center'}>
                 <Text fontSize="3xl" fontWeight="500" fontFamily="Ailerons">United Heaven</Text>
                 <Stack direction={'row'} spacing={6}>
-                    <Link href={'/'}>Primacy</Link>
+                    <Link href={'/'}>Prime</Link>
                     <Link href={'/sight'}>Sight</Link>
                     <Link href={'/feed'}>Feed</Link>
                     <Link href={'#'}>Sponsor</Link>

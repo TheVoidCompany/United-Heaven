@@ -76,6 +76,7 @@ const SuggestionsPage = () => {
             {showSuggestionOverlay || (isSmallSize && selectedMarker !== null) ? (
                 <OverlayCard
                     title={selectedMarker !== null ? selectedMarker.name : 'Suggestions'}
+                    titleOnClick={() => selectedMarker !== null ? navigate(`/profiles/${selectedMarker.iso3.toLowerCase()}`) : null}
                     onClose={(selectedMarker !== null && isSmallSize) ? null : () => setShowSuggestionOverlay(false)}
                     onBack={selectedMarker !== null ? (() => setSelectedMarker(null)) : null}
                     position={{ right: '0', bottom: '0' }}
@@ -93,7 +94,7 @@ const SuggestionsPage = () => {
                                         p={2}
                                         cursor='pointer'
                                         fontWeight={"bold"}
-                                        onClick={() => navigate(`/${country.name}/goal${country.goal}`)}
+                                        onClick={() => navigate(`/profiles/${country.iso3.toLowerCase()}/goal${country.goal}`)}
                                     >
                                         {`${country.suggestionRank}. ${country.description}`}
                                     </Text>
@@ -109,7 +110,7 @@ const SuggestionsPage = () => {
                                     p={2}
                                     cursor='pointer'
                                     fontWeight={"bold"}
-                                    onClick={() => navigate(`/${country.name}/goal${country.goal}`)}
+                                    onClick={() => navigate(`/profiles/${country.iso3.toLowerCase()}/goal${country.goal}`)}
                                     textShadow={country.iso3 === hoveredMarker?.iso3 && `1px 1px 8px`}
                                 >
                                     {`${country.suggestionRank}. ${country.description}`}

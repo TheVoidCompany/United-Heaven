@@ -10,7 +10,7 @@ const CountryGoalPage = () => {
 
     const params = useParams();
     const goalId = params.goalId.slice(4).toString();
-    const countryName = params.country.charAt(0).toUpperCase() + params.country.slice(1);
+    const countryIso = params.country;
     const navigate = useNavigate();
 
     const maxNodeSize = 80;
@@ -95,7 +95,7 @@ const CountryGoalPage = () => {
                                 fontWeight={900}
                                 lineHeight={1.2}
                                 fontSize={useBreakpointValue({ base: '5xl', md: '6xl' })}>
-                                {countryName}
+                                {countryIso}
                             </Text>
                         </Flex>
                         <Flex flex={2} align={"start"}>
@@ -105,7 +105,7 @@ const CountryGoalPage = () => {
                                 textShadow={'0px 0px 10px rgba(0,0,0,0.3)'}
                                 lineHeight={1.2}
                                 fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
-                                {`Solve ${SDGGoals[goalId - 1].name} in ${countryName}`}
+                                {`Solve ${SDGGoals[goalId - 1].name} in ${countryIso}`}
                             </Text>
                         </Flex>
                     </Flex>

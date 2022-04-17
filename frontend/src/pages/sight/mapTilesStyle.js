@@ -35,7 +35,7 @@ export const selectedCountryFill = (colorMode, selectedCountry) => {
         'id': 'selected-country-outline',
         'type': 'fill',
         'source': 'country',
-        'filter': ['==', 'name', selectedCountry.name || 'null'],
+        'filter': ['==', 'ADMIN', selectedCountry.ADMIN || 'null'],
         'paint': {
             'fill-color': colorMode === 'light' ? '#11465B' : '#93ADC6',
         }

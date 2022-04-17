@@ -5,14 +5,17 @@ import OverlayCard from '../../components/cards/OverlayCard';
 
 const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
 
+    console.log(hoveredMarker)
+
     const navigate = useNavigate();
 
 
     const Card = useCallback(
-        ({ name, goals, close }) => {
+        ({ name, iso3, goals, close }) => {
             return (
                 <OverlayCard
                     title={name}
+                    titleOnClick={() => navigate(`/profiles/${iso3.toLowerCase()}`)}
                     onClose={close && onClose}
                     width={340}
                     isSmallSize={false}
@@ -21,7 +24,7 @@ const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
                         {goals.map((goal) => (
                             <Image
                                 key={goal}
-                                onClick={() => navigate(`/${name}/goal${goal}`)}
+                                onClick={() => navigate(`/profiles/${iso3.toLowerCase()}/goal${goal}`)}
                                 cursor="pointer"
                                 style={{ width: '90px', height: '90px', }}
                                 src={require(`../../images/SDGIcons/Goal${goal}.png`)}
@@ -43,10 +46,10 @@ const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
     return (
         <>
             {(hoveredMarker && selectedMarker === null) && (
-                Card({ name: hoveredMarker.name, goals: hoveredMarker.goals, close: false })
+                Card({ name: hoveredMarker.name, goals: hoveredMarker.goals, iso3: hoveredMarker.iso3, close: false })
             )}
             {selectedMarker !== null && (
-                Card({ name: selectedMarker.name, goals: selectedMarker.goals, close: true })
+                Card({ name: selectedMarker.name, goals: selectedMarker.goals, iso3: selectedMarker.iso3, close: true })
 
             )}
         </>
