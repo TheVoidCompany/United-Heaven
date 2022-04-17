@@ -126,17 +126,17 @@ const CountryPage = () => {
 
     const params = useParams();
     const countryIso = params.country;
-    const countryName = countryDetails.find(country => country.code3 === countryIso.toUpperCase()).name;
+    const country = countryDetails.find(country => country.code3 === countryIso.toUpperCase());
     const navigate = useNavigate();
 
     const [countryImage, setcountryImage] = useState(null);
 
     useEffect(() => {
-        getCountryImage(countryName).then(imageUrl => {
+        getCountryImage(country.name).then(imageUrl => {
             setcountryImage(imageUrl);
         });
 
-    }, [countryName]);
+    }, [country.name]);
 
 
 
@@ -154,20 +154,26 @@ const CountryPage = () => {
                     align={"start"}
                     paddingX={{ base: '4%', lg: "2%", '2xl': '8%' }}
                     bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
-                    <Flex direction={"column"} maxW={'3xl'} align={'flex-start'} spacing={6} h="100%">
-                        <Flex flex={1.4} align={"end"} pb="6">
-                            <Text
-                                color={'#ffffff70'}
-                                fontWeight={900}
-                                lineHeight={1.2}
-                                fontSize={useBreakpointValue({ base: '5xl', md: '6xl' })}>
-                                {countryName.toUpperCase()}
-                            </Text>
-                        </Flex>
+
+                    <Flex direction={"column"} maxW={'3xl'} justify="end" spacing={6} h="100%" pb="10">
+                        {/* <Image
+                            mr="10px"
+                            boxSize={"80px"}
+                            src={require(`../../images/Flags/${country.code.toLowerCase()}.png`)}
+                            fallbackSrc={require('../../images/image-placeholder.png')}
+                            fallback={<Skeleton height="80px" />}
+                        /> */}
+                        <Text
+                            color={'#ffffff70'}
+                            fontWeight={900}
+                            lineHeight={1.2}
+                            fontSize={useBreakpointValue({ base: '5xl', md: '6xl' })}>
+                            {country.name.toUpperCase()}
+                        </Text>
                     </Flex>
                 </VStack>
             </Flex>
-            <Container maxW={'5xl'} pt={{ base: "100px", lg: "200px" }} pb={{ base: "50px", lg: "80px" }}>
+            <Container maxW={'5xl'} pt={{ base: "100px", lg: "200px" }} pb={{ base: "50px", lg: "80px" }} >
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                     <Stack spacing={4}>
                         <Text
@@ -182,7 +188,7 @@ const CountryPage = () => {
                             Country Score
                         </Text>
                         <Heading >Country Scores for <br />
-                            {countryName}
+                            {country.name}
                         </Heading>
                         <Stack
                             spacing={4}
@@ -222,7 +228,7 @@ const CountryPage = () => {
                             Goal Progress
                         </Text>
                         <Heading >Progression of <br />
-                            SDG goals in {countryName}
+                            SDG goals in {country.name}
                         </Heading>
                         <Text color={'gray.500'} fontSize={'lg'}>
                             Progression of SDG goals are calculated by making Time-Series analysis on the goal's respective targets

@@ -1,6 +1,7 @@
 import { Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 import UserDetails from './UserDetails';
+import UserDP from './UserDP';
 import UserLocation from './UserLocation';
 import UserSocial from './UserSocial';
 
@@ -20,7 +21,10 @@ const UserSignupDetails = ({ onLoginClick }) => {
             minH="500px"
         >
             {currentView === 'user details' && (
-                <UserDetails onLoginClick={onLoginClick} goNext={() => setCurrentView('user location')} />
+                <UserDetails onLoginClick={onLoginClick} goNext={() => setCurrentView('user dp')} />
+            )}
+            {currentView === 'user dp' && (
+                <UserDP onLoginClick={onLoginClick} goNext={() => setCurrentView('user location')} />
             )}
             {currentView === 'user location' && (
                 <UserLocation goNext={() => setCurrentView('user social')} />
