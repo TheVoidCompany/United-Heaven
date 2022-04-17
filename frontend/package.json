@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@antv/f2": "^4.0.15",
+    "@antv/f2-react": "^4.0.15",
     "@antv/g6": "^4.6.4",
     "@chakra-ui/react": "^1.8.6",
     "@choc-ui/chakra-autocomplete": "^4.20.2",

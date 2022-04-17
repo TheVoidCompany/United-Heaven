@@ -1,0 +1,78 @@
+[{
+    "goalId": "1",
+    "trendValue": "Up",
+    "ratingValue": "achieved"
+}, {
+    "goalId": "2",
+    "trendValue": "Down",
+    "ratingValue": "remain"
+},
+{
+    "goalId": "3",
+    "trendValue": "Right",
+    "ratingValue": "remain"
+},
+{
+    "goalId": "4",
+    "trendValue": "Right",
+    "ratingValue": "achieved"
+}, {
+    "goalId": "5",
+    "ratingValue": "significant remain"
+},
+{
+    "goalId": "6",
+    "trendValue": "Down",
+    "ratingValue": "achieved"
+},
+{
+    "goalId": "7",
+    "trendValue": "Up",
+    "ratingValue": "remain"
+}, {
+    "goalId": "8",
+    "trendValue": "Down",
+    "ratingValue": "achieved"
+},
+{
+    "goalId": "9",
+    "ratingValue": "Major remain"
+},
+{
+    "goalId": "10",
+    "trendValue": "Right",
+    "ratingValue": "significant remain"
+}, {
+    "goalId": "11",
+    "trendValue": "Right",
+    "ratingValue": "remain"
+},
+{
+    "goalId": "12",
+    "trendValue": "Up Right",
+    "ratingValue": "Major remain"
+},
+{
+    "goalId": "13",
+    "trendValue": "Up",
+    "ratingValue": "Major remain"
+}, {
+    "goalId": "14",
+    "trendValue": "Up Right"
+},
+{
+    "goalId": "15",
+    "trendValue": "Down",
+    "ratingValue": "significant remain"
+},
+{
+    "goalId": "16",
+    "trendValue": "Down",
+    "ratingValue": "significant remain"
+},
+{
+    "goalId": "17",
+    "trendValue": "Up Right",
+    "ratingValue": "remain"
+}
+]

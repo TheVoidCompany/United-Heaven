@@ -4,9 +4,12 @@ import {
 import { BsFillCircleFill } from 'react-icons/bs';
 import { ImArrowDown2, ImArrowRight2, ImArrowUp2, ImArrowUpRight2 } from 'react-icons/im';
 import { IoCloseSharp } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 
-const TrendsCard = ({ goalId, ratingValue, trendValue }) => {
+const TrendsCard = ({ goalId, ratingValue, trendValue, countryIso }) => {
+
+    const navigate = useNavigate();
 
     const TrendArrow = () => {
         if (trendValue === "Up") {
@@ -39,7 +42,13 @@ const TrendsCard = ({ goalId, ratingValue, trendValue }) => {
 
 
     return (
-        <Flex pb={6} w="full" alignItems="center" justifyContent="center">
+        <Flex
+            pb={6}
+            w="full"
+            alignItems="center"
+            justifyContent="center"
+            onClick={() => navigate(`/profiles/${countryIso}/goal${goalId}`)}
+        >
             <Box
                 maxW="sm"
                 minW="180px"
