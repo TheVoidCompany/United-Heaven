@@ -8,6 +8,7 @@ import CountryGoalPage from '../pages/common/CountryGoalPage';
 import CountryPage from '../pages/common/CountryPage';
 import Action from '../pages/feed/action';
 import CreateAction from '../pages/feed/action/CreateAction';
+import EditAction from '../pages/feed/action/EditAction';
 import Feed from '../pages/feed/Feed';
 import Goal from '../pages/feed/goal';
 import GoalFeed from '../pages/feed/goal/GoalFeed';
@@ -49,6 +50,7 @@ const Router = () => {
                     <Route path="/feed/actions" element={<Action />} />
                     <Route path="/feed/actions/:id" element={<Action />} />
                     <Route path="/feed/actions/create" element={<PrivateRoute><CreateAction /></PrivateRoute>} />
+                    <Route path="/feed/actions/edit/:id" element={<PrivateRoute><EditAction /></PrivateRoute>} />
                     <Route path="/feed/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
                     <Route path="/feed/profile/:id" element={<ProfilePage />} />
                     <Route path="/feed/profile/actions" element={<PrivateRoute><ViewAction /></PrivateRoute>} />

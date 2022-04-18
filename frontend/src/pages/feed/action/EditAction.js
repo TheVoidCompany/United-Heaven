@@ -1,18 +1,21 @@
 import {
     Box, Container, Flex, Heading, Stack, Text
 } from '@chakra-ui/react';
+import { useContext } from 'react';
 import "react-datepicker/dist/react-datepicker.css";
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../../context/userContext';
 import ActionFields from './ActionFields';
 import './datePicker.css';
 
 
+const EditAction = () => {
 
-const CreateAction = () => {
+    const params = useParams();
+    const actionId = params.id;
+    const { currentUser } = useContext(UserContext);
 
-
-
-
-
+    // get current users actions and check if actionId is in it or else show not found page
 
     return (
         <Flex direction={"column"} pt="10" align={"center"} pb={200}>
@@ -29,16 +32,12 @@ const CreateAction = () => {
                         fontWeight={600}
                         fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
                         lineHeight={'110%'}>
-                        Save the world with <br />
+                        Edit {" "}
                         <Text as={'span'} color={'green.400'}>
-                            your actions
+                            Action
                         </Text>
                     </Heading>
-                    <Text color={'gray.500'}>
-                        Create an action to solve a SDG goal and share it with the United Heaven community to inspire others.
-                        Allow others to participate in your action and help you achieve your goal.
-                    </Text>
-                    <ActionFields type="create" />
+                    <ActionFields type="edit" />
                 </Stack>
             </Container>
         </Flex>
@@ -46,4 +45,4 @@ const CreateAction = () => {
     )
 }
 
-export default CreateAction
+export default EditAction

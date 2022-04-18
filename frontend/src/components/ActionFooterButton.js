@@ -2,12 +2,14 @@ import {
     AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, useDisclosure
 } from '@chakra-ui/react';
 import { useContext, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { UserContext } from '../context/userContext';
 
-const ActionFooterButton = ({ userId, size = "md" }) => {
+const ActionFooterButton = ({ userId, actionId = "1", size = "md" }) => {
 
     const { onAuthRun, isAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
     const { currentUser } = useContext(UserContext);
     // const isOwnAction = userId === currentUser?.id;
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -32,6 +34,10 @@ const ActionFooterButton = ({ userId, size = "md" }) => {
         onClose()
     }
 
+    const handleEditClick = () => {
+        navigate(`/feed/actions/edit/${actionId}`)
+    }
+
 
     return (
         <Flex>
@@ -39,7 +45,7 @@ const ActionFooterButton = ({ userId, size = "md" }) => {
                 <Button _focus={{ outline: "none" }} size={size} colorScheme='twitter' mr="4" onClick={handleParticipateClick}>Participate</Button>
             ) : (
                 <>
-                    <Button _focus={{ outline: "none" }} size={size} mr="4">Edit Action</Button>
+                    <Button _focus={{ outline: "none" }} size={size} mr="4" onClick={handleEditClick}>Edit Action</Button>
                     <Button _focus={{ outline: "none" }} size={size} variant={"ghost"} colorScheme={"red"} onClick={onOpen}>Delete Action</Button>
                     <AlertDialog
                         isOpen={isOpen}
