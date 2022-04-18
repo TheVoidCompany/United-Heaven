@@ -1,19 +1,56 @@
-import { Box, Container, Flex, Heading, SimpleGrid, Stack, Text, useBreakpointValue, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, Hide, Show, SimpleGrid, Stack, Text, useBreakpointValue, useColorModeValue, VStack } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router';
 import ColumnCard from '../../components/cards/ColumnCard';
+import AreaChart from '../../components/Charts/AreaChart';
 import Footer from '../../components/common/Footer';
 import SdgGraph from '../../components/SdgGraph';
 import { SDGGoals } from '../../constants/SDGGoals';
 import { SDGRelation } from '../../constants/SDGRelation';
+import countriesDetails from '../../data/countriesDetail.json';
+
 
 const CountryGoalPage = () => {
 
     const params = useParams();
     const goalId = params.goalId.slice(4).toString();
-    const countryName = params.country.charAt(0).toUpperCase() + params.country.slice(1);
+    const countryIso = params.country;
+    const country = countriesDetails.find(country => country.code3 === countryIso.toUpperCase());
     const navigate = useNavigate();
 
     const maxNodeSize = 80;
+
+    const goalProgressionData = [
+        {
+            value: 62.7,
+            city: 'Goal ' + goalId,
+            date: '2011-10-01',
+        },
+        {
+            value: 58,
+            city: 'Goal ' + goalId,
+            date: '2011-10-02',
+        },
+        {
+            value: 67.7,
+            city: 'Goal ' + goalId,
+            date: '2011-10-02',
+        },
+        {
+            value: 59.1,
+            city: 'Goal ' + goalId,
+            date: '2011-10-03',
+        },
+        {
+            value: 68,
+            city: 'Goal ' + goalId,
+            date: '2011-10-04',
+        },
+        {
+            value: 72.4,
+            city: 'Goal ' + goalId,
+            date: '2011-10-05',
+        },
+    ];
 
 
 
@@ -95,7 +132,7 @@ const CountryGoalPage = () => {
                                 fontWeight={900}
                                 lineHeight={1.2}
                                 fontSize={useBreakpointValue({ base: '5xl', md: '6xl' })}>
-                                {countryName}
+                                {country.name}
                             </Text>
                         </Flex>
                         <Flex flex={2} align={"start"}>
@@ -105,14 +142,14 @@ const CountryGoalPage = () => {
                                 textShadow={'0px 0px 10px rgba(0,0,0,0.3)'}
                                 lineHeight={1.2}
                                 fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
-                                {`Solve ${SDGGoals[goalId - 1].name} in ${countryName}`}
+                                {`Solve ${SDGGoals[goalId - 1].name} in ${countryIso}`}
                             </Text>
                         </Flex>
                     </Flex>
                 </VStack>
             </Flex>
 
-            <Container maxW={'5xl'} py={{ base: "100px", lg: "200px" }}>
+            <Container maxW={'5xl'} pt={{ base: "100px", lg: "200px" }}>
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                     <Stack spacing={4}>
                         <Text
@@ -141,6 +178,44 @@ const CountryGoalPage = () => {
                             <SdgGraph nodes={nodes} edges={edges} maxNodeSize={maxNodeSize} size={"400px"} />
                         </Flex>
                     </Flex>
+                </SimpleGrid>
+            </Container>
+
+
+            <Container maxW={'5xl'} py={{ base: "100px", lg: "200px" }}>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+                    <Hide below='md'>
+                        <Flex align="center" justify="center" w={'full'}>
+                            <AreaChart data={goalProgressionData} />
+                        </Flex>
+                    </Hide>
+                    <Stack spacing={4}>
+                        <Text
+                            textTransform={'uppercase'}
+                            color={'blue.400'}
+                            fontWeight={600}
+                            fontSize={'sm'}
+                            bg={useColorModeValue('blue.50', 'blue.900')}
+                            p={2}
+                            alignSelf={'flex-start'}
+                            rounded={'md'}>
+                            Goal Progress
+                        </Text>
+                        <Heading >Progression of <br />
+                            <Text as={'span'} color={SDGGoals[goalId - 1].color}>
+                                {SDGGoals[goalId - 1].name + ' '}
+                            </Text>
+                            in {country.name}
+                        </Heading>
+                        <Text color={'gray.500'} fontSize={'lg'}>
+                            Progression of SDG goals are calculated by making Time-Series analysis on the goal's respective targets
+                        </Text>
+                    </Stack>
+                    <Show below='md'>
+                        <Flex align="center" justify="center" w={'full'}>
+                            <AreaChart data={goalProgressionData} />
+                        </Flex>
+                    </Show>
                 </SimpleGrid>
             </Container>
 

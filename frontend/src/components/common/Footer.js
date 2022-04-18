@@ -24,7 +24,7 @@ const Footer = () => {
                 align={'center'}>
                 <Text fontSize="3xl" fontWeight="500" fontFamily="Ailerons">United Heaven</Text>
                 <Stack direction={'row'} spacing={6}>
-                    <Link href={'/'}>Primacy</Link>
+                    <Link href={'/'}>Prime</Link>
                     <Link href={'/sight'}>Sight</Link>
                     <Link href={'/feed'}>Feed</Link>
                     <Link href={'#'}>Sponsor</Link>
@@ -45,13 +45,13 @@ const Footer = () => {
                     align={{ base: 'center', md: 'center' }}>
                     <Text>© 2021 United Heaven. All rights reserved</Text>
                     <Stack direction={'row'} spacing={6}>
-                        <SocialButton label={'Twitter'} href={'#'}>
+                        <SocialButton circle label={'Twitter'} href={'#'}>
                             <FaTwitter />
                         </SocialButton>
-                        <SocialButton label={'Github'} href={'#'}>
+                        <SocialButton circle label={'Github'} href={'#'}>
                             <FaGithub />
                         </SocialButton>
-                        <SocialButton label={'Instagram'} href={'#'}>
+                        <SocialButton circle label={'Instagram'} href={'#'}>
                             <FaInstagram />
                         </SocialButton>
                     </Stack>

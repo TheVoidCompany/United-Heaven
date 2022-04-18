@@ -1,4 +1,4 @@
-import { Box, Button, Circle, Divider, Flex, HStack, Icon, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
+import { Box, Circle, Divider, Flex, HStack, Icon, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AiOutlineLink } from 'react-icons/ai';
@@ -13,7 +13,7 @@ import Heading from '../common/Heading';
 import DisplayPic from '../DisplayPic';
 import SDGTags from '../SDGTags';
 
-const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, location, url, startDate, endDate, sdgGoals, buttonText, buttonOnClick, clickableCardUrl }) => {
+const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, location, url, startDate, endDate, sdgGoals, footer, clickableCardUrl }) => {
 
     const shareUrl = `https://united-heaven.org/action/${id}`;
     const [liked, setLiked] = useState(false);
@@ -63,11 +63,6 @@ const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, locat
         }
     }
 
-    const handleButtonClick = () => {
-        onAuthRun(() => {
-            buttonOnClick();
-        });
-    }
 
     const handleLike = () => {
         onAuthRun(() => {
@@ -191,12 +186,10 @@ const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, locat
 
 
                 </Stack>
-                {buttonText && (
+                {footer && (
                     <HStack mt="2">
                         <Spacer />
-                        <Button colorScheme='twitter' variant='solid' onClick={handleButtonClick}>
-                            {buttonText}
-                        </Button>
+                        {footer}
                     </HStack>
                 )}
             </Box>

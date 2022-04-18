@@ -177,13 +177,13 @@ const FeedNavbar = () => {
                                     <br />
                                     <Center>
                                         <Stack direction={'row'} spacing={6}>
-                                            <SocialButton label={'Twitter'} href={'#'}>
+                                            <SocialButton circle label={'Twitter'} href={'#'}>
                                                 <FaTwitter />
                                             </SocialButton>
-                                            <SocialButton label={'Facebook'} href={'#'}>
+                                            <SocialButton circle label={'Facebook'} href={'#'}>
                                                 <FaFacebook />
                                             </SocialButton>
-                                            <SocialButton label={'Instagram'} href={'#'}>
+                                            <SocialButton circle label={'Instagram'} href={'#'}>
                                                 <FaInstagram />
                                             </SocialButton>
                                         </Stack>
@@ -198,8 +198,7 @@ const FeedNavbar = () => {
                                     </Flex>
                                     <br />
                                     <MenuDivider />
-                                    <MenuItem onClick={() => navigate('/feed/profile/actions')}>Your Actions</MenuItem>
-                                    <MenuItem onClick={() => navigate('/feed/profile/registered_actions')}>Registered Actions</MenuItem>
+                                    <MenuItem onClick={() => navigate('/feed/profile')}>Profile</MenuItem>
                                     <MenuItem onClick={() => navigate('/feed/profile/edit_profile')}>Edit Profile</MenuItem>
                                     <MenuItem _hover={{ bg: colorMode === 'light' ? 'red.300' : 'red.400', color: 'white' }}>Logout</MenuItem>
                                 </MenuList>

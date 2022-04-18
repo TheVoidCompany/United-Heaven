@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
+import ActionFooterButton from '../../../components/ActionFooterButton';
 import FeedCard from "../../../components/cards/FeedCard";
-
 
 const Home = () => {
 
@@ -44,10 +44,7 @@ const Home = () => {
                 endDate="Feb 10, 2021"
                 url="https://www.google.com"
                 clickableCardUrl='/feed/actions/1'
-                buttonText="Participate"
-                buttonOnClick={() => {
-                    console.log('join clicked')
-                }}
+                footer={<ActionFooterButton />}
             />
             <FeedCard
                 type="news"

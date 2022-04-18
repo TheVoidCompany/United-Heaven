@@ -1,7 +1,7 @@
 import { useColorModeValue } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { forwardRef, useEffect, useState } from 'react';
-import MapGL, { AttributionControl, ScaleControl } from 'react-map-gl';
+import MapGL, { AttributionControl } from 'react-map-gl';
 import mapStyles from './mapStyles.constant';
 
 const MapWrapper = forwardRef(({ children, ...otherAttributes }, mapRef) => {
@@ -46,7 +46,6 @@ const MapWrapper = forwardRef(({ children, ...otherAttributes }, mapRef) => {
             ref={mapRef}
             {...otherAttributes}
         >
-            <ScaleControl />
             {children}
             <AttributionControl style={{ color: "black" }} customAttribution="Powered by Tigergraph" />
         </MapGL>

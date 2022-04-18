@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@antv/f2": "^4.0.15",
+    "@antv/f2-react": "^4.0.15",
     "@antv/g6": "^4.6.4",
     "@chakra-ui/react": "^1.8.6",
     "@choc-ui/chakra-autocomplete": "^4.20.2",
@@ -13,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "framer-motion": "^6.2.8",
+    "lodash.isequalwith": "^4.4.0",
     "mapbox-gl": "^2.0.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
