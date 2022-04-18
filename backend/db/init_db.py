@@ -3,7 +3,6 @@ import pyTigerGraph as Tg
 
 
 def connect_tg():
-
     if not cfg.TG_TOKEN:
         cfg.TG_TOKEN = Tg.TigerGraphConnection(host=cfg.TG_HOSTNAME, graphname=cfg.TG_GRAPH_NAME).getToken(cfg.TG_SECRET)[0]
 

@@ -1,11 +1,10 @@
 from pydantic import BaseModel
-from typing import List, Optional
+# from typing import List, Optional
 
 
 class Location(BaseModel):
-    latitude: str
-    longitude: str
-    last_updated: str
+    latitude: float
+    longitude: float
 
 
 class SocialLinks(BaseModel):
@@ -22,4 +21,3 @@ class User(BaseModel):
     social_links: SocialLinks
     timezone: str
     location: Location
-    followed_goals: List[int]

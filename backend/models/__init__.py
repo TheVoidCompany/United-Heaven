@@ -1,3 +1,3 @@
 from .user import UserCredentials
-from .user import User
-from .action import Action
+from .user import User, Password
+from .action import Action, UserAction

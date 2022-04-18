@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Optional
 
 
 class UserCredentials(BaseModel):
@@ -8,9 +7,8 @@ class UserCredentials(BaseModel):
 
 
 class Location(BaseModel):
-    latitude: str
-    longitude: str
-    last_updated: str
+    latitude: float
+    longitude: float
 
 
 class SocialLinks(BaseModel):
@@ -23,5 +21,10 @@ class User(BaseModel):
     name: str
     email: str
     password: str
-    location: Optional[Location]
+    location: Location | None = None  # Optional[Location]
     social_links: SocialLinks
+
+
+class Password(BaseModel):
+    old_pass: str
+    new_pass: str

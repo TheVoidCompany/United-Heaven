@@ -2,9 +2,11 @@ fastapi~=0.75.1
 uvicorn
 pyTigerGraph~=0.0.9.9.2
 pydantic~=1.9.0
-passlib
+passlib~=1.7.4
 python-jose
-beautifulsoup4
-requests
-py-bcrypt
+beautifulsoup4~=4.11.1
+requests~=2.27.1
 python-multipart
+bcrypt~=3.2.0
+google-cloud-storage
+cloudinary~=1.29.0

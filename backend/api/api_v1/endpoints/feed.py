@@ -7,6 +7,9 @@ import schemas
 
 router = APIRouter()
 
+# get feed for the user according to his goal following, action likes, participation and creation
+# feed will include actions, news and events
+# should be able to filter feed ->
 
 # get feed for a user
 @router.get("/")

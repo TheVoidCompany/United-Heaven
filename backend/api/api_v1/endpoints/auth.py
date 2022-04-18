@@ -1,93 +1,63 @@
-import datetime
-import uuid
-
 import bcrypt
 import models
-import requests
-from db.init_db import connect_tg
-from fastapi import APIRouter, File, HTTPException, Request, UploadFile
-from queries.user import create_user, add_user_info, get_user_by_email, delete_user_by_id
+from fastapi import APIRouter, HTTPException, Response
+import schemas
+from queries import user as user_query
+from core import security
+from core.settings import settings
+
 
 router = APIRouter()
-conn = connect_tg()
 
 
-@router.post("/login")
-async def login_user(credentials: models.UserCredentials):
+@router.post("/", response_model=schemas.User)
+async def login_user(credentials: models.UserCredentials, response: Response):
     # get user by email
-    db_user = get_user_by_email(credentials.email)
+    db_user = user_query.get_user_by_email(credentials.email)
 
-    # if no user found, return error
     if not db_user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=401, detail="Email or password is incorrect")
 
-    db_user_attributes = db_user[0]["attributes"]
+    db_user_att = db_user[0]["attributes"]
 
     # check if password is correct
-    if not bcrypt.checkpw(credentials.password, db_user_attributes["password"]):
-        raise HTTPException(status_code=400, detail="Incorrect password")
+    if not security.passwords_equal(credentials.password, db_user_att["password"]):
+        raise HTTPException(status_code=401, detail="Email or Password is incorrect")
+
+    # create jwt and attach as header
+    expires_delta = settings.ACCESS_TOKEN_EXPIRE_MINUTES
+    user_jwt = security.generate_access_token(
+        data={
+            "id": db_user_att["user"],
+            "name": db_user_att["name"],
+            "email": db_user_att["email"]
+            },
+        expires_delta=expires_delta
+    )
+
+    # set response headers
+    response.headers["x-auth-token"] = user_jwt
 
     # if password is correct, return user
     return {
-        "user_id": db_user_attributes["user"],
-        "name": db_user_attributes["name"],
-        "email": db_user_attributes["emailId"],
-        "timezone": db_user_attributes["timezone"],
-        "image_url": db_user_attributes["imageUrl"],
-        "social_links": db_user_attributes["socialLinks"]
-    }
-
-
-@router.post("/signup")
-async def register_user(user: models.User, request: Request):
-
-    # check if user exist
-    db_user = get_user_by_email(user.email)
-    if db_user:
-        raise HTTPException(status_code=400, detail="User already exist")
-
-    # Get info from ip
-    # client_ip = request.client.host
-    client_ip = "113.193.147.7"
-    client_ip_info = requests.get("http://ip-api.com/json/" + client_ip).json()
-
-    user_id = str(uuid.uuid4())
-    current_date = str(datetime.datetime.now())
-
-    try:
-        result = create_user(user_id, client_ip_info["countryCode"], current_date)
-        print(result)
-    except Exception as e:
-        raise HTTPException(
-            status_code=400, detail="Error while creating user")
-
-    # handle user lat and lon
-    lat = client_ip_info["lat"]
-    lon = client_ip_info["lon"]
-    if user.location:
-        lat = user.location.latitude
-        lon = user.location.longitude
-
-    timezone = client_ip_info['timezone']
-
-    try:
-        add_user_info(user_id, user.name, user.email, user.password, lat, lon, timezone, user.social_links)
-    except Exception as e:
-        delete_user_by_id(user_id)
-        raise HTTPException(
-            status_code=400, detail="Error while creating user")
-
-    return {
-        "user_id": user_id,
-        "name": user.name,
-        "email": user.email,
-        "timezone": timezone
+        "user_id": db_user_att["user"],
+        "name": db_user_att["name"],
+        "email": db_user_att["email"],
+        "image_url": db_user_att["imageUrl"],
+        "location": {
+            "latitude": db_user_att["latitude"],
+            "longitude": db_user_att["longitude"]
+        },
+        "timezone": db_user_att["timezone"],
+        "social_links": {
+            "instagram_url": db_user_att["socialLinks"]["instagramUrl"],
+            "facebook_url": db_user_att["socialLinks"]["facebookUrl"],
+            "linkedIn_url": db_user_att["socialLinks"]["linkedInUrl"]
+        }
     }
 
 
 # for development
 @router.post("/delete_user/{user_id}")
 async def delete_user(user_id: str):
-    result = conn.delVerticesById("User", user_id)
-    conn.delVerticesById("UserInfo", user_id)
-    return result
+    return user_query.delete_user_by_id(user_id) and user_query.delete_user_info_by_id(user_id)

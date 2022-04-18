@@ -5,6 +5,7 @@ import models
 
 router = APIRouter()
 
+# get all followed goals, follow goal, unfollow goal
 
 # get recommended goals for a user
 @router.get("/")
@@ -28,3 +29,6 @@ async def get_statistics_by_goal_id(goal_id: int):
 @router.post("/follow")
 async def follow_goal(goal_id: int, user_id: int):
     return goal_id
+
+
+# unfollow goal
