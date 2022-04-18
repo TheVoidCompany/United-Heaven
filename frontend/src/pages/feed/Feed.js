@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import ColumnCard from '../../components/cards/ColumnCard';
 import SDGFollowCard from '../../components/cards/SDGFollowCard';
 import Heading from '../../components/common/Heading';
+import SearchBar1 from '../../components/common/SearchBar/index';
 import FeedFilter from '../../components/FeedFilter';
 import FeedNavbar from '../../components/navbar/FeedNavbar';
 import ThreeColumnStructure from '../../components/ThreeColumnStructure';
@@ -53,14 +54,23 @@ const TrendingColumnWithSearch = ({ actionId }) => {
         <Box>
             <Flex
                 h="60px"
-                p="2" px="4" align={"center"}
+                p="2"
+                px="4"
+                position={"absolute"}
+                right={0}
+                left={0}
+                align="start"
             >
-                {/* <SearchBar1 /> */}
-                {!actionId && <FeedFilter />}
+                <SearchBar1 />
+                <Box alignSelf={"center"}>
+                    {!actionId && <FeedFilter />}
+                </Box>
 
             </Flex>
-            <TrendingColumn />
-        </Box>
+            <Box pt="60px">
+                <TrendingColumn />
+            </Box>
+        </Box >
     )
 }
 

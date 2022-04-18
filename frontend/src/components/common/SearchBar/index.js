@@ -1,12 +1,13 @@
-import { Box, Text, useOutsideClick } from "@chakra-ui/react";
+import { Box, Divider, Flex, Image, Text, useColorModeValue, useOutsideClick } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useRef, useState } from 'react';
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
+import { IoSearch } from 'react-icons/io5';
+import LoadingScreen from "../LoadingScreen";
 import './SearchBar.css';
 
 import { useDebounce } from "../../../hooks/debounceHook";
-import LoadingScreen from "../LoadingScreen";
 
 function SearchBar1(props) {
 
@@ -102,16 +103,8 @@ function SearchBar1(props) {
 
     return (
         <motion.div
-            className="searchBarContainer"
+            className={`searchBarContainer ${useColorModeValue("search-bar-light", "search-bar-dark")}`}
             animate={isExpanded ? "expanded" : "collapsed"}
-            style={{
-                height: "3em",
-                position: "absolute",
-                top: 10,
-                width: "inherit",
-                zIndex: 2,
-                overflow: "hidden"
-            }}
             variants={containerVariants}
             transition={containerTransition}
             ref={parentRef}
@@ -120,8 +113,7 @@ function SearchBar1(props) {
             <div className="SearchInputContainer" style={{ overflow: "hidden" }}>
                 <BiSearch size={28} color="#bebebe" />
                 <input
-                    className="searchInput"
-                    style={{ width: '100%', height: '100%', borderWidth: 0, outline: 0, color: "black" }}
+                    className={`searchInput ${useColorModeValue("search-bar-light", "search-bar-dark")}`}
                     type="text"
                     placeholder="Search items and accounts"
                     ref={inputRef}
@@ -145,6 +137,7 @@ function SearchBar1(props) {
                     )}
                 </AnimatePresence>
             </div>
+            <Divider />
             {isExpanded && (
                 <>
                     <div className="SearchContent">
@@ -159,15 +152,13 @@ function SearchBar1(props) {
                         )}
                         {!isLoading && noResults && (
                             <div className="LoadingWrapper">
-                                <span className="WarningMessage">{"No such results"}</span>
+                                <span className="WarningMessage">No such results</span>
                             </div>
                         )}
                         {!isLoading && !isEmpty && (
-                            <Box my="4" onClick={() => {
-                                collapseContainer();
-                            }
-                            }>
-                                <Text>hii</Text>
+                            <Box>
+                                <UserCard />
+                                <ActionCard />
                             </Box>
                         )}
                     </div>
@@ -179,6 +170,50 @@ function SearchBar1(props) {
 
         </motion.div>
     )
+}
+
+
+const UserCard = () => {
+    return (
+        <Box>
+            <Flex py="4" align="center">
+                <Image
+                    boxSize='2rem'
+                    borderRadius='full'
+                    src='https://placekitten.com/100/100'
+                    alt='Fluffybuns the destroyer'
+                    mr='12px'
+                />
+                <Text fontWeight={"600"}>josh bush</Text>
+
+            </Flex>
+            <Divider />
+        </Box>
+    )
+}
+
+const ActionCard = () => {
+    <Box>
+        <Flex py="4" align="center">
+            <Box mr='12px'>
+                <IoSearch
+                    size={"2rem"}
+                />
+            </Box>
+            <Box>
+                <Text
+                    color={'green.500'}
+                    textTransform={'uppercase'}
+                    fontWeight={800}
+                    fontSize={'xs'}
+                    letterSpacing={1.1}>
+                    Action
+                </Text>
+                <Text fontWeight={"600"} noOfLines={2}>Clean Marina Beach on 12 dec morning Clean Marina Beach on 12 dec morning</Text>
+            </Box>
+        </Flex>
+        <Divider />
+    </Box>
 }
 
 export default SearchBar1

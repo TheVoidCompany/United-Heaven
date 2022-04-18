@@ -43,7 +43,6 @@ const UserDP = ({ goNext }) => {
                     cursor="pointer"
                     src={imgUrl}
                     fallbackSrc='https://avatars.dicebear.com/api/male/username.svg'
-                    // src={'https://avatars.dicebear.com/api/male/username.svg'}
                     bg="gray.400"
                     _hover={{ bg: "gray" }}
                     boxSize="200px"

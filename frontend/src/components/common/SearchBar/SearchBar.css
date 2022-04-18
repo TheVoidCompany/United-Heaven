@@ -1,9 +1,19 @@
+.search-bar-light {
+    --bg-color: var(--chakra-colors-gray-50);
+}
+
+.search-bar-dark {
+    --bg-color: var(--chakra-colors-gray-900);
+}
+
+
+
 .searchBarContainer {
     display: flex;
     flex-direction: column;
-    background-color: #fafafa;
     border-radius: 6px;
     width: 100%;
+    background-color: var(--bg-color);
 
 }
 
@@ -23,8 +33,12 @@
 }
 
 .searchInput {
-    background-color: #fafafa;
     margin-left: 4px;
+    width: 100%;
+    height: 100%;
+    border-width: 0;
+    outline: 0;
+    background-color: var(--bg-color);
 }
 
 .closeIcon {
@@ -33,12 +47,6 @@
     transition: all 200ms ease-in-out;
 }
 
-.LineSeperator {
-    display: flex;
-    min-width: 100%;
-    min-height: 2px;
-    background-color: #d8d8d878;
-}
 
 .SearchContent {
     width: 100%;
