@@ -13,10 +13,28 @@ const ProfilePage = () => {
 
     const params = useParams();
     const navigate = useNavigate();
+    const userId = params.id;
     // const ownProfile = (!params.id || currentUserData.account_id === parseInt(params.id)) ? true : false;
-    const ownProfile = true;
+    const ownProfile = userId ? false : true;
     const textColor = useColorModeValue('black', 'white');
     const isLargeScreen = useBreakpointValue({ base: false, lg: true });
+
+
+    const handleActionsClick = () => {
+        if (ownProfile) {
+            navigate('/feed/profile/actions');
+        } else {
+            navigate(`/feed/profile/${userId}/actions`);
+        }
+    }
+
+    const handleRegisteredActionsClick = () => {
+        if (ownProfile) {
+            navigate('/feed/profile/registered_actions');
+        } else {
+            navigate(`/feed/profile/${userId}/registered_actions`);
+        }
+    }
 
     return (
         <Flex width="100%" justify="center" direction="column" pt={"10vh"}>
@@ -46,11 +64,11 @@ const ProfilePage = () => {
                     </Flex>
                     <Center>
                         <Flex mt="8" justifyContent="space-evenly" w={{ base: "100%", lg: "60%" }}>
-                            <Flex align="center" >
+                            <Flex align="center" onClick={() => handleActionsClick()} cursor="pointer">
                                 <Heading mr="4">0</Heading>
                                 <Text color="gray.600" fontSize="xl">Actions</Text>
                             </Flex>
-                            <Flex align="center" >
+                            <Flex align="center" onClick={() => handleRegisteredActionsClick()} cursor="pointer">
                                 <Heading mr="4">0</Heading>
                                 <Text color="gray.600" fontSize="xl">Registered Actions</Text>
                             </Flex>
@@ -69,8 +87,8 @@ const ProfilePage = () => {
                     <Flex mt="10">
                         <Tabs isFitted variant="unstyled" w="100%" isLazy>
                             <TabList>
-                                <Tab fontWeight="800" color="gray" _selected={{ borderBottom: `6px solid ${textColor}`, color: textColor }} _focus={{ boxShadow: "none" }}>Actions</Tab>
-                                <Tab fontWeight="800" color="gray" _selected={{ borderBottom: `6px solid ${textColor}`, color: textColor }} _focus={{ boxShadow: "none" }}>Registered Actions</Tab>
+                                <Tab fontWeight="800" color="gray" _selected={{ borderBottom: `6px solid ${textColor}`, color: textColor }} _focus={{ boxShadow: "none" }}>Current Actions</Tab>
+                                <Tab fontWeight="800" color="gray" _selected={{ borderBottom: `6px solid ${textColor}`, color: textColor }} _focus={{ boxShadow: "none" }}>Past Actions</Tab>
                             </TabList>
                             <TabPanels>
                                 <TabPanel p={0} pt="8">

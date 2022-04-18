@@ -134,10 +134,12 @@ const CountryPage = () => {
     useEffect(() => {
         getCountryImage(country.name).then(imageUrl => {
             setcountryImage(imageUrl);
-        });
+        }).catch(error => {
+            setcountryImage(null);
+        }
+        );
 
     }, [country.name]);
-
 
 
     return (

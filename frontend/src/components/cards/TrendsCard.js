@@ -48,6 +48,7 @@ const TrendsCard = ({ goalId, ratingValue, trendValue, countryIso }) => {
             alignItems="center"
             justifyContent="center"
             onClick={() => navigate(`/profiles/${countryIso}/goal${goalId}`)}
+            cursor="pointer"
         >
             <Box
                 maxW="sm"

@@ -1,9 +1,9 @@
-import { Flex, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Image, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 
-const ColumnCard = ({ type, heading, image, clickableCardUrl }) => {
+const ColumnCard = ({ type, heading, image, clickableCardUrl, footer }) => {
 
     const navigate = useNavigate();
 
@@ -24,25 +24,32 @@ const ColumnCard = ({ type, heading, image, clickableCardUrl }) => {
             }}
             justifyContent="space-between"
         >
-            <Stack alignSelf="flex-start">
-                <Text
-                    color={findTypeColor(type)}
-                    textTransform={'uppercase'}
-                    fontWeight={800}
-                    fontSize="12"
-                    letterSpacing={1.1}
-                >
+            <Stack justify={"space-between"}>
+                <Flex direction={"column"}>
+                    <Text
+                        color={findTypeColor(type)}
+                        textTransform={'uppercase'}
+                        fontWeight={800}
+                        fontSize="12"
+                        letterSpacing={1.1}
+                    >
 
-                    {type}
+                        {type}
 
-                </Text>
-                <Heading
-                    size="md"
-                    customStyles={{ noOfLines: 3 }}
-                    isExternal={type === "news" || type === "event" || type === "charity"}
-                >
-                    {heading}
-                </Heading>
+                    </Text>
+                    <Heading
+                        size="md"
+                        customStyles={{ noOfLines: 3 }}
+                        isExternal={type === "news" || type === "event" || type === "charity"}
+                    >
+                        {heading}
+                    </Heading>
+                </Flex>
+                {footer && (
+                    <Box>
+                        {footer}
+                    </Box>
+                )}
             </Stack>
             {image && (
                 <Image

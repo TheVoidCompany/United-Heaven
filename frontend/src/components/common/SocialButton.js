@@ -28,7 +28,7 @@ const SocialButton = ({
             }}>
             <VisuallyHidden>{label}</VisuallyHidden>
             {children}
-            {lg === true && <Text ml="2">Twitter</Text>}
+            {lg === true && <Text ml="2">{label}</Text>}
         </chakra.button>
     );
 };
