@@ -1,19 +1,21 @@
 import {
-    chakra, useColorModeValue,
+    chakra, Text, useColorModeValue,
     VisuallyHidden
 } from '@chakra-ui/react';
 
 const SocialButton = ({
     children,
     label,
+    lg,
+    circle,
     href,
 }) => {
     return (
         <chakra.button
             bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
             rounded={'full'}
-            w={8}
-            h={8}
+            px={circle ? "2" : "5"}
+            py="2"
             cursor={'pointer'}
             as={'a'}
             href={href}
@@ -26,6 +28,7 @@ const SocialButton = ({
             }}>
             <VisuallyHidden>{label}</VisuallyHidden>
             {children}
+            {lg === true && <Text ml="2">Twitter</Text>}
         </chakra.button>
     );
 };

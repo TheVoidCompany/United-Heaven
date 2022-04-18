@@ -12,8 +12,8 @@ import Feed from '../pages/feed/Feed';
 import Goal from '../pages/feed/goal';
 import GoalFeed from '../pages/feed/goal/GoalFeed';
 import Home from '../pages/feed/home';
+import ProfilePage from '../pages/feed/profile';
 import EditProfile from '../pages/feed/profile/EditProfile';
-import ViewAction from '../pages/feed/profile/ViewAction';
 import NotFound from '../pages/NotFound';
 import SightPage from '../pages/sight';
 import Study from '../pages/study';
@@ -48,11 +48,9 @@ const Router = () => {
                     <Route path="/feed/actions" element={<Action />} />
                     <Route path="/feed/actions/:id" element={<Action />} />
                     <Route path="/feed/actions/create" element={<PrivateRoute><CreateAction /></PrivateRoute>} />
+                    <Route path="/feed/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+                    <Route path="/feed/profile/:id" element={<ProfilePage />} />
                     <Route path="/feed/profile/edit_profile" element={<PrivateRoute> <EditProfile /></PrivateRoute>} />
-                    <Route path="/feed/profile/actions" element={<PrivateRoute><ViewAction /></PrivateRoute>} />
-                    <Route path="/feed/profile/registered_actions" element={<PrivateRoute><ViewAction /></PrivateRoute>} />
-                    <Route path="/feed/profile/actions/:id" element={<ViewAction />} />
-                    <Route path="/feed/profile/registered_actions/:id" element={<ViewAction />} />
                     <Route path="/feed/goals" element={<Goal />} />
                     <Route path="/feed/goals/:id" element={<GoalFeed />} />
                 </Route>
