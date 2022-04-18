@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Heading } from '@chakra-ui/react';
+import { Box, Flex, Heading } from '@chakra-ui/react';
 import { useLocation, useParams } from 'react-router';
+import ActionFooterButton from '../../../components/ActionFooterButton';
 import ColumnCard from '../../../components/cards/ColumnCard';
 
 const ViewAction = () => {
@@ -29,48 +30,33 @@ const SuggestedActionColumn = ({ type, ownProfile }) => {
                 heading="Clean Marina Beach on 12 dec morning"
                 image='https://picsum.photos/200/200'
                 clickableCardUrl='/feed/actions/1'
-                footer={ownProfile && <FooterButton type={type} />}
+                footer={<ActionFooterButton />}
             />
             <ColumnCard
                 type="action"
                 heading="12 students started environment campaign in south india"
                 image='https://picsum.photos/200/200'
                 clickableCardUrl='/feed/actions/2'
-                footer={ownProfile && <FooterButton type={type} />}
+                footer={<ActionFooterButton />}
             />
             <ColumnCard
                 type="action"
                 heading="Teach young students of africa about the importance of computer science in the modern world"
                 image='https://picsum.photos/200/200'
                 clickableCardUrl='/feed/actions/3'
-                footer={ownProfile && <FooterButton type={type} />}
+                footer={<ActionFooterButton />}
             />
             <ColumnCard
                 type="action"
                 heading="Global SDG conference is happening in california, US"
                 image='https://picsum.photos/200/200'
                 clickableCardUrl='/feed/actions/1'
-                footer={ownProfile && <FooterButton type={type} />}
+                footer={<ActionFooterButton />}
             />
 
         </Box>
     )
 }
 
-const FooterButton = ({ type }) => {
-
-    return (
-        <Flex>
-            {type === 'Registered Actions' ? (
-                <Button mr="4" size="sm">Unparticipate</Button>
-            ) : (
-                <>
-                    <Button mr="4" size="sm">Edit Action</Button>
-                    <Button size="sm" variant={"ghost"} colorScheme={"red"}>Delete Action</Button>
-                </>
-            )}
-        </Flex>
-    )
-}
 
 export default ViewAction

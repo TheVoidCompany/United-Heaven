@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
+import ActionFooterButton from '../../../components/ActionFooterButton';
 import FeedCard from "../../../components/cards/FeedCard";
 import { FakeActions } from "../../../data/FakeActions";
 
@@ -49,6 +50,7 @@ const Action = () => {
                     para="Marina beach is the second largest beach in the world and it is not maintained properly. The beach is full of litters and it's affecting everyone. So me and my friends are planning to clean the beach this sunday. Any one interested can join!!"
                     sdgGoals={[1, 4, 6, 15, 17]}
                     clickableCardUrl='/feed/actions/1'
+                    footer={<ActionFooterButton />}
                     buttonText="Participate"
                     buttonOnClick={() => {
                         console.log('join clicked')
@@ -58,5 +60,6 @@ const Action = () => {
         </div>
     )
 }
+
 
 export default Action
