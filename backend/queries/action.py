@@ -29,18 +29,18 @@ def user_unparticipates_action(user_id, action_id):
     return result
 
 
-def delete_action(action_id):
+def delete_action_by_id(action_id):
     conn = connect_tg()
     result = conn.delVerticesById("Action", action_id)
     return result
 
 
-def get_action(action_id):
+def get_action_by_id(action_id):
     conn = connect_tg()
     result = conn.getVerticesById("Action", action_id)
     return result
 
 
-def update_action():
+def update_action_by_id():
     conn = connect_tg()
     return

@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Body, Depends, HTTPException
-from typing import List, Optional
-from db.init_db import connect_tg
 import models
 import schemas
+from queries import action as action_query
 
 
 router = APIRouter()
@@ -17,17 +16,25 @@ async def create_action(user_id: str):
 # get action by action id
 @router.get("/{action_id}", response_model=schemas.Action)
 async def get_action_by_id(action_id: int):
-    return action_id
+    db_action = action_query.get_action_by_id(action_id)
+    db_action_att = db_action[0]["attributes"]
+    return
 
 
 # get trending actions
-@router.get("/trending", response_model=List[schemas.ActionShortInfo])
+@router.get("/trending", response_model=list[schemas.Action])
 async def get_trending_actions():
     return {"trending": "true"}
 
 
-# get own created actions by user id
-@router.get("/own", response_model=List[schemas.ActionShortInfo])
+# get recommended actions for a user
+@router.get("/recommended", response_model=list[schemas.Action])
+async def get_recommended_actions():
+    return
+
+
+# get all current || past actions
+@router.get("/", response_model=list[schemas.Action])
 async def get_created_action_by_user_id(user_id: int, status: str):
     return user_id
 
@@ -35,25 +42,24 @@ async def get_created_action_by_user_id(user_id: int, status: str):
 # like action
 @router.post("/like")
 async def like_action(body: models.UserAction):
-
-
+    return
 
 # unlike action
 @router.post("/unlike")
 async def unlike_action(body: models.UserAction):
-    return user_id
+    return
 
 
 # participate action
 @router.post("/participate")
 async def participate_action(body: models.UserAction):
-    return user_id
+    return
 
 
 # un participate action
 @router.post("/un_participate")
 async def un_participate_action(body: models.UserAction):
-    return user_id
+    return
 
 
 # edit action
