@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Body, Depends, HTTPException
-
 from db.init_db import connect_tg
 import models
+from queries import goal as goal_query
+from datetime import datetime
 
 router = APIRouter()
 
@@ -19,16 +20,14 @@ async def get_related_actions_by_goal_id(goal_id: int):
     return goal_id
 
 
-# get statistics for goal by id
-@router.get("/statistics/{goal_id}")
-async def get_statistics_by_goal_id(goal_id: int):
-    return goal_id
-
-
 # follow goal
 @router.post("/follow")
-async def follow_goal(goal_id: int, user_id: int):
-    return goal_id
+async def follow_goal(user_goal: models.UserGoal):
+    liked_date = str(datetime.now())
+    goal_query.user_follow_goal(user_goal.user_id, user_goal.goal_id, liked_date)
 
 
 # unfollow goal
+@router.post("/unfollow")
+async def unfollow_goal(user_goal: models.UserGoal):
+    goal_query.user_unfollow_goal(user_goal.user_id, user_goal.goal_id)

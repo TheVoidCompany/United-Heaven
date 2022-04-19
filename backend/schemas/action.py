@@ -8,13 +8,13 @@ class Action(BaseModel):
     title: str
     description: str
     goals: list[str]
-    target: list[str]
+    targets: list[str]
     start_date: datetime.datetime
     end_date: datetime.datetime
     is_online: bool
     location: str | None = None
-    related_url: str | None = None
-    image: str
+    online_action_url: str | None = None
+    image_url: str | None = None
     creator: str
 
 

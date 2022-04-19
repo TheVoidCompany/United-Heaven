@@ -12,8 +12,10 @@ class Action(BaseModel):
     end_date: datetime.datetime
     is_online: bool
     location: str | None = None
-    related_url: str | None = None
-    image: str
+    online_action_url: str | None = None
+    image_url: str | None = None
+    creator: str
+    country: str
 
 
 class UserAction(BaseModel):

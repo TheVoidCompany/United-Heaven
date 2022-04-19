@@ -260,7 +260,7 @@ async def upload_profile_pic(user_id: str, file: UploadFile, x_auth_token: str |
     # upload file to cloudinary
     image_result = cloudinary.uploader.upload(
         file.file,
-        folder="united-heaven/images",
+        folder="united-heaven/images/users",
         resource_type="image"
     )
 
