@@ -4,13 +4,13 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { SDGGoals } from '../constants/SDGGoals';
 
-const SDGTags = ({ goals, wrapWidth, position = "start" }) => {
+const SDGTags = ({ goals, targets, wrapWidth, position = "start" }) => {
 
     const navigate = useNavigate();
 
     return (
         <Wrap maxW={wrapWidth} justify={position}>
-            {goals.map(goal => {
+            {goals?.map(goal => {
                 return (
                     <WrapItem key={goal}>
                         {/* <Square size='28px' bg={SDGGoals[goal - 1].color} color='white'>
@@ -36,6 +36,25 @@ const SDGTags = ({ goals, wrapWidth, position = "start" }) => {
                              font-weight: bold;
                              `}
                             >{goal}</Text>
+                        </Tag>
+                    </WrapItem>
+                )
+            })}
+            {targets?.map(target => {
+                return (
+                    <WrapItem key={target}>
+                        <Tag
+                            size="sm"
+                            variant='solid'
+                            cursor={"pointer"}
+                        >
+                            <Text
+                                css={css`
+                             text-shadow: 2px 2px 8px black;
+                             font-size: 12;
+                             font-weight: bold;
+                             `}
+                            >{target}</Text>
                         </Tag>
                     </WrapItem>
                 )

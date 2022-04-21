@@ -5,7 +5,6 @@ import { SDGLogoColor } from '../../constants/SDGLogoColor';
 const AreaChart = ({ data }) => {
 
     const findAreaColor = (value) => {
-        console.log(value);
         //get goal number from 'goal 1' text
         const goalNumber = value.split(' ')[1];
         return SDGLogoColor[goalNumber - 1];

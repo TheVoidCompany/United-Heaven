@@ -1,5 +1,4 @@
 import { Box, Container, Heading, Image, SimpleGrid, Stack, useColorModeValue } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import UserSignupDetails from './UserSignupDetails';
 
@@ -19,12 +18,6 @@ const settings = {
 };
 
 const SignupPage = () => {
-
-    const navigate = useNavigate();
-
-    const onLoginClick = () => {
-        navigate('/login');
-    }
 
 
     return (
@@ -57,7 +50,7 @@ const SignupPage = () => {
                         </Slider>
                     </Box>
                 </Stack>
-                <UserSignupDetails onLoginClick={onLoginClick} />
+                <UserSignupDetails />
             </Container>
         </Box>
     );

@@ -12,10 +12,12 @@ const UserLocation = (props) => {
         if (!props.isGeolocationAvailable || !props.isGeolocationEnabled) {
             props.goNext();
         } else if (props.coords) {
-            setCurrentUser({
-                ...currentUser,
-                lat: props.coords.latitude,
-                lng: props.coords.longitude
+            props.setForm({
+                ...props.form,
+                location: {
+                    latitude: props.coords.latitude,
+                    longitude: props.coords.longitude
+                }
             });
             props.goNext();
         } else if (props.isGeolocationAvailable && props.isGeolocationEnabled && !props.coords) {

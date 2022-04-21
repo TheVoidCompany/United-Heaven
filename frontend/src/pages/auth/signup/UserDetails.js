@@ -1,21 +1,21 @@
-import { Box, Button, Checkbox, FormControl, FormErrorMessage, FormHelperText, Heading, Input, InputGroup, InputRightElement, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormErrorMessage, FormHelperText, Heading, Input, InputGroup, InputRightElement, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import findFormErrors from '../../../helpers/findFormErrors';
 
 
-const defaultFormFields = {
-    name: '',
-    email: '',
-    password: '',
-    remember: false,
-};
-
-const UserDetails = ({ goNext, onLoginClick }) => {
+const UserDetails = ({ goNext, form, setForm }) => {
 
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
-    const [form, setForm] = useState(defaultFormFields);
     const [errors, setErrors] = useState({});
+
+    const navigate = useNavigate();
+
+    const onLoginClick = () => {
+        navigate('/login');
+    }
+
 
 
     const setField = (field, value) => {
@@ -31,7 +31,7 @@ const UserDetails = ({ goNext, onLoginClick }) => {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
         const newErrors = findFormErrors(form)
 
         if (Object.keys(newErrors).length > 0) {
@@ -112,15 +112,6 @@ const UserDetails = ({ goNext, onLoginClick }) => {
                         <FormErrorMessage>{errors['password']}</FormErrorMessage>
                         <FormHelperText px={1} color={'gray.500'}>Your password must be atleast 8 characters long, contain letters and numbers</FormHelperText>
                     </FormControl>
-
-                    <Checkbox
-                        px="1"
-                        color={"black"}
-                        borderColor={"gray.500"}
-                        iconColor={"white"}
-                        value={form.remember}
-                        onChange={(e) => setField('remember', !form.remember)}
-                    >Remember me</Checkbox>
                 </Stack>
                 <Button
                     fontFamily={'heading'}

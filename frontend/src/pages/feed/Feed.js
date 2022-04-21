@@ -96,7 +96,7 @@ const SuggestedActionColumn = () => {
         <Box>
             <Heading
                 customStyles={{ p: 4 }}
-            >Action</Heading>
+            >Trending Actions</Heading>
             <ColumnCard
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
@@ -137,26 +137,26 @@ const TrendingColumn = () => {
             <ColumnCard
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
-                image='https://picsum.photos/200/200'
+                image='https://img.dtnext.in/Images/Article/201606010143032596_When-angels-come-to-clean-Marina-Beach_SECVPF.gif'
                 clickableCardUrl='/feed/actions/2'
             />
             <ColumnCard
                 type="news"
-                heading="12 students started environment campaign in south india"
-                image='https://picsum.photos/200/200'
-                clickableCardUrl='https://sdgs.un.org/news/call-inputs-global-sustainable-development-report-2023-34347'
+                heading="Draft Programme Released for In-Person HLPF 2022"
+                image='https://sdg.iisd.org/wp-content/uploads/2017/08/cg-150.jpg'
+                clickableCardUrl='https://sdg.iisd.org/news/draft-programme-released-for-in-person-hlpf-2022/'
             />
             <ColumnCard
                 type="action"
                 heading="Teach young students of africa about the importance of computer science in the modern world"
-                image='https://picsum.photos/200/200'
+                image='https://images.unsplash.com/photo-1536337005238-94b997371b40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YWZyaWNhbiUyMHN0dWRlbnR8ZW58MHx8MHx8&w=1000&q=80'
                 clickableCardUrl='/feed/actions/1'
             />
             <ColumnCard
                 type="event"
-                heading="Global SDG conference is happening in california, US"
-                image='https://picsum.photos/200/200'
-                clickableCardUrl='https://sdgs.un.org/events/online-regional-capacity-building-workshop-latin-america-and-caribbean-juncao-technology-and'
+                heading="World Migratory Bird Day (October) 2022"
+                image='https://sdg.iisd.org/wp-content/uploads/2019/05/cg-297.jpg'
+                clickableCardUrl='https://sdg.iisd.org/events/world-migratory-bird-day-2021/'
             />
 
         </Box>

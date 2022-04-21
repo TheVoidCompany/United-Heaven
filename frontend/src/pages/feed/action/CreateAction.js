@@ -9,11 +9,6 @@ import './datePicker.css';
 
 const CreateAction = () => {
 
-
-
-
-
-
     return (
         <Flex direction={"column"} pt="10" align={"center"} pb={200}>
 

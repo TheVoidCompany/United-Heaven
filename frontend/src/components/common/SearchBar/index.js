@@ -115,7 +115,7 @@ function SearchBar1(props) {
                 <input
                     className={`searchInput ${useColorModeValue("search-bar-light", "search-bar-dark")}`}
                     type="text"
-                    placeholder="Search items and accounts"
+                    placeholder="Search actions and users..."
                     ref={inputRef}
                     value={searchQuery}
                     onChange={changeHandler}

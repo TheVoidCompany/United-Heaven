@@ -3,9 +3,8 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import OverlayCard from '../../components/cards/OverlayCard';
 
-const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
+const CountryDetailsPopup = ({ hoveredCountry, selectedCountry, onClose }) => {
 
-    console.log(hoveredMarker)
 
     const navigate = useNavigate();
 
@@ -45,11 +44,11 @@ const CountryDetailsPopup = ({ hoveredMarker, selectedMarker, onClose }) => {
 
     return (
         <>
-            {(hoveredMarker && selectedMarker === null) && (
-                Card({ name: hoveredMarker.name, goals: hoveredMarker.goals, iso3: hoveredMarker.iso3, close: false })
+            {(hoveredCountry && selectedCountry === null) && (
+                Card({ name: hoveredCountry.name, goals: hoveredCountry.goals, iso3: hoveredCountry.iso3, close: false })
             )}
-            {selectedMarker !== null && (
-                Card({ name: selectedMarker.name, goals: selectedMarker.goals, iso3: selectedMarker.iso3, close: true })
+            {selectedCountry !== null && (
+                Card({ name: selectedCountry.name, goals: selectedCountry.goals, iso3: selectedCountry.iso3, close: true })
 
             )}
         </>

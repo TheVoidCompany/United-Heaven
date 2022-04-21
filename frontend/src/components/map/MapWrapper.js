@@ -1,8 +1,12 @@
 import { useColorModeValue } from '@chakra-ui/react';
+import mapboxgl from "mapbox-gl";
 import PropTypes from 'prop-types';
 import { forwardRef, useEffect, useState } from 'react';
 import MapGL, { AttributionControl } from 'react-map-gl';
 import mapStyles from './mapStyles.constant';
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const MapWrapper = forwardRef(({ children, ...otherAttributes }, mapRef) => {
 
@@ -40,7 +44,7 @@ const MapWrapper = forwardRef(({ children, ...otherAttributes }, mapRef) => {
             {...viewState}
             onMove={evt => setViewState(evt.viewState)}
             mapStyle={mapTheme}
-            // mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             reuseMaps
             attributionControl={false}
             ref={mapRef}

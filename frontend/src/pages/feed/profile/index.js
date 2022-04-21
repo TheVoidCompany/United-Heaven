@@ -1,23 +1,30 @@
 import {
     Avatar, Box, Button, Center, Flex, Heading, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useBreakpointValue, useColorModeValue
 } from '@chakra-ui/react';
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { useContext, useEffect, useState } from 'react';
+import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router';
 import ColumnCard from '../../../components/cards/ColumnCard';
+import LoadingScreen from '../../../components/common/LoadingScreen';
 import SocialButton from '../../../components/common/SocialButton';
 import SDGTags from '../../../components/SDGTags';
-
-const UserFollowingGoals = [1, 4, 6, 15, 17];
+import { UserContext } from '../../../context/userContext';
+import { getUserFollowingGoals } from '../../../services/GoalService';
+import { getUser } from '../../../services/UserService';
+import NotFound from '../../NotFound';
 
 const ProfilePage = () => {
 
     const params = useParams();
     const navigate = useNavigate();
     const userId = params.id;
-    // const ownProfile = (!params.id || currentUserData.account_id === parseInt(params.id)) ? true : false;
-    const ownProfile = userId ? false : true;
+    const { currentUser } = useContext(UserContext);
+    const ownProfile = (!params.id || currentUser.user_id === params.id) ? true : false;
     const textColor = useColorModeValue('black', 'white');
     const isLargeScreen = useBreakpointValue({ base: false, lg: true });
+    const [userDetails, setUserDetails] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [noUserFound, setNoUserFound] = useState(false);
 
 
     const handleActionsClick = () => {
@@ -36,30 +43,76 @@ const ProfilePage = () => {
         }
     }
 
+    useEffect(() => {
+
+        async function fetchUserDetails() {
+            try {
+                const response = await getUser(userId);
+                const goalResponse = await getUserFollowingGoals(userId);
+                const userDetail = {
+                    ...response.data,
+                    following_goals: goalResponse.data
+                }
+                setUserDetails(userDetail);
+                setIsLoading(false);
+            } catch (error) {
+                setIsLoading(false);
+                setNoUserFound(true);
+            }
+        }
+
+        if (ownProfile) {
+            setUserDetails(currentUser);
+        } else {
+            setIsLoading(true);
+            fetchUserDetails();
+        }
+    }, [userId, currentUser, ownProfile]);
+
+
+    if (isLoading) {
+        return (
+            <Box h="84vh">
+                <LoadingScreen size="xl" />
+            </Box>
+        )
+    }
+
+    if (noUserFound) {
+        return <NotFound />;
+    }
+
+
     return (
         <Flex width="100%" justify="center" direction="column" pt={"10vh"}>
             <Flex flex="1" direction="column" align="center">
-                <Avatar size="2xl" src={'https://avatars.dicebear.com/api/male/username.svg'} />
-                <Heading mt="2" noOfLines={1}>Santhosh Srinivasan</Heading>
+                <Avatar size="2xl" src={userDetails.image_url} />
+                <Heading mt="2" noOfLines={1}>{userDetails.name}</Heading>
                 <Box w={{ base: "100%", lg: "80%" }} >
                     <Flex mt="6" align={"center"} justifyContent={"center"}>
                         <SDGTags
                             wrapWidth={200}
                             position="center"
-                            goals={UserFollowingGoals}
+                            goals={userDetails.following_goals}
                         />
                     </Flex>
                     <Flex mt="6" justify="center">
                         <Stack direction={'row'} spacing={6}>
-                            <SocialButton label={'Twitter'} href={'#'} lg={isLargeScreen}>
-                                <FaTwitter />
-                            </SocialButton>
-                            <SocialButton label={'Facebook'} href={'#'} lg={isLargeScreen}>
-                                <FaFacebook />
-                            </SocialButton>
-                            <SocialButton label={'Instagram'} href={'#'} lg={isLargeScreen}>
-                                <FaInstagram />
-                            </SocialButton>
+                            {currentUser.social_links?.facebook_url && (
+                                <SocialButton label={'Facebook'} href={currentUser.social_links?.facebook_url} lg={isLargeScreen}>
+                                    <FaFacebook />
+                                </SocialButton>
+                            )}
+                            {currentUser.social_links?.instagram_url && (
+                                <SocialButton label={'Instagram'} href={currentUser.social_links?.instagram_url} lg={isLargeScreen}>
+                                    <FaInstagram />
+                                </SocialButton>
+                            )}
+                            {currentUser.social_links?.linkedIn_url && (
+                                <SocialButton label={'LinkedIn'} href={currentUser.social_links?.linkedIn_url} lg={isLargeScreen}>
+                                    <FaLinkedin />
+                                </SocialButton>
+                            )}
                         </Stack>
                     </Flex>
                     <Center>

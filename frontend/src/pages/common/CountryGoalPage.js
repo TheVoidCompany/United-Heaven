@@ -126,7 +126,7 @@ const CountryGoalPage = () => {
                     paddingX={{ base: '4%', lg: "2%", '2xl': '8%' }}
                     bgGradient={`linear(to-r, ${SDGGoals[goalId - 1].color + 'CC'}, transparent)`}>
                     <Flex direction={"column"} maxW={'3xl'} align={'flex-start'} spacing={6} h="100%">
-                        <Flex flex={1.4} align={"end"} pb="6">
+                        <Flex flex={1.4} align={"flex-end"} pb="6">
                             <Text
                                 color={'#ffffff70'}
                                 fontWeight={900}
@@ -142,7 +142,7 @@ const CountryGoalPage = () => {
                                 textShadow={'0px 0px 10px rgba(0,0,0,0.3)'}
                                 lineHeight={1.2}
                                 fontSize={useBreakpointValue({ base: '3xl', md: '4xl' })}>
-                                {`Solve ${SDGGoals[goalId - 1].name} in ${countryIso}`}
+                                {`${SDGGoals[goalId - 1].name} in ${country.name}`}
                             </Text>
                         </Flex>
                     </Flex>
@@ -233,33 +233,33 @@ const CountryGoalPage = () => {
                     <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing={6}>
                         <ColumnCard
                             type="charity"
-                            heading="Clean Marina Beach on 12 dec morning Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="BRAC USA"
+                            image='https://logo.clearbit.com/http:/www.bracusa.org'
+                            clickableCardUrl='http://www.bracusa.org'
                         />
                         <ColumnCard
                             type="charity"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="Camfed USA Foundation"
+                            image='https://logo.clearbit.com/http://www.camfed.org'
+                            clickableCardUrl='http://www.camfed.org'
                         />
                         <ColumnCard
                             type="charity"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="Communities In Schools of Chicago	"
+                            image='https://logo.clearbit.com/https://www.cisofchicago.org/'
+                            clickableCardUrl='https://www.cisofchicago.org/'
                         />
                         <ColumnCard
                             type="charity"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="Central Asia Institute"
+                            image='https://logo.clearbit.com/https://centralasiainstitute.org/'
+                            clickableCardUrl='https://centralasiainstitute.org/'
                         />
                         <ColumnCard
                             type="charity"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="Junior Achievement USA"
+                            image='https://logo.clearbit.com/https://www.juniorachievement.org'
+                            clickableCardUrl='https://www.juniorachievement.org'
                         />
                     </SimpleGrid>
 

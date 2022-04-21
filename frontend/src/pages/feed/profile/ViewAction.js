@@ -1,16 +1,18 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { useLocation, useParams } from 'react-router';
 import ActionFooterButton from '../../../components/ActionFooterButton';
 import ColumnCard from '../../../components/cards/ColumnCard';
+import { UserContext } from '../../../context/userContext';
 
 const ViewAction = () => {
 
     const params = useParams();
     const userId = params.id;
+    const { currentUser } = useContext(UserContext);
     const url = useLocation().pathname;
     const type = url.includes('registered_actions') ? 'Registered Actions' : 'Actions';
-    // const ownProfile = (!params.id || currentUserData.account_id === parseInt(params.id)) ? true : false;
-    const ownProfile = userId ? false : true;
+    const ownProfile = (!params.id || currentUser.user_id === params.id) ? true : false;
     return (
         <Flex width="100%" direction="column" pt="50px" px={{ base: "5%", md: "10%" }}>
             <Heading mb="10" size="lg">{`${userId ? "santhosh's" : "Your"} ${type}`}</Heading>

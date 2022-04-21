@@ -1,28 +1,21 @@
 import { Button, Flex, Heading, Image, Input, Stack, Text } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import DefaultDP from '../../../images/defaultDP.jpeg';
 
-const defaultFormFields = {
-    imageUrl: '',
-};
-
-const UserDP = ({ goNext }) => {
+const UserDP = ({ goNext, dpData, setDpData }) => {
 
 
-    const [fileData, setFileData] = useState(null);
     const [imgUrl, setImgUrl] = useState(null);
-    const navigate = useNavigate();
     const fileInputRef = useRef();
 
-    const handleImage = (fileData) => {
-        setFileData(fileData);
+    const handleImage = (imageFile) => {
+        setDpData(imageFile);
         var reader = new FileReader();
-        reader.readAsDataURL(fileData);
+        reader.readAsDataURL(imageFile);
         reader.onloadend = function (e) {
             setImgUrl(reader.result);
         };
     }
-
 
     return (
         <>
@@ -42,7 +35,7 @@ const UserDP = ({ goNext }) => {
                 <Image
                     cursor="pointer"
                     src={imgUrl}
-                    fallbackSrc='https://avatars.dicebear.com/api/male/username.svg'
+                    fallbackSrc={DefaultDP}
                     bg="gray.400"
                     _hover={{ bg: "gray" }}
                     boxSize="200px"

@@ -17,21 +17,6 @@ const Home = () => {
                     imageUrl: 'https://avatars0.githubusercontent.com/u/1164541?v=4',
                     name: 'Achim Rolle',
                     subText: 'Feb 08, 2021 · 6min read',
-                    followingGoals: [1, 4, 6, 15, 17],
-                    socialLinks: [
-                        {
-                            website: 'twitter',
-                            url: 'https://twitter.com/achimrolle'
-                        },
-                        {
-                            website: 'facebook',
-                            url: 'https://www.facebook.com/achimrolle'
-                        },
-                        {
-                            website: 'instagram',
-                            url: 'https://www.instagram.com/achimrolle'
-                        },
-                    ]
                 }}
                 type="action"
                 heading="Clean Marina Beach on 12 dec morning"
@@ -39,25 +24,30 @@ const Home = () => {
                 para="Marina beach is the second largest beach in the world and it is not maintained properly. The beach is full of litters and it's affecting everyone. So me and my friends are planning to clean the beach this sunday. Any one interested can join!!"
                 sdgGoals={[1, 4, 6, 15, 17]}
                 location="Marina Beach, chennai, IN"
-                isOnline
                 startDate="Feb 08, 2021"
                 endDate="Feb 10, 2021"
-                url="https://www.google.com"
                 clickableCardUrl='/feed/actions/1'
                 footer={<ActionFooterButton />}
             />
             <FeedCard
+                type="event"
+                heading="ECOSOC Humanitarian Affairs Segment 2022"
+                image='http://hub.iisd.org/wp-content/uploads/2021/09/cg-951.jpg'
+                sdgTags={[1, 4]}
+                clickableCardUrl='https://sdg.iisd.org/events/ecosoc-humanitarian-affairs-segment-2022/'
+            />
+            <FeedCard
                 type="news"
-                heading="12 students started environment campaign in south india"
-                image='https://avatars0.githubusercontent.com/u/1164541?v=4'
-                clickableCardUrl='/feed/actions/1'
+                heading="Five Countries Yet to Conduct Voluntary National Review"
+                image='https://sdg.iisd.org/wp-content/uploads/2019/09/cg-405.jpg'
+                clickableCardUrl='https://sdg.iisd.org/news/five-countries-yet-to-conduct-voluntary-national-review/'
             />
             <FeedCard
                 type="event"
-                heading="UN SDG Action Campaign"
-                image='https://www2.sdgactioncampaign.org/wp-content/uploads/2017/08/IMG_3905.jpg'
+                heading="World Maritime Day 2022"
+                image='http://hub.iisd.org/wp-content/uploads/2016/11/cg-104.jpg'
                 sdgTags={[1, 4]}
-                clickableCardUrl='https://sdgs.un.org/events/online-regional-capacity-building-workshop-latin-america-and-caribbean-juncao-technology-and'
+                clickableCardUrl='https://sdg.iisd.org/events/world-maritime-day-2022/'
             />
         </div>
     )

@@ -27,7 +27,7 @@ const Footer = () => {
                     <Link href={'/'}>Prime</Link>
                     <Link href={'/sight'}>Sight</Link>
                     <Link href={'/feed'}>Feed</Link>
-                    <Link href={'#'}>Sponsor</Link>
+                    <Link href={'https://www.buymeacoffee.com/unitedheaven'} target="_blank">Donate us</Link>
                 </Stack>
             </Container>
 
@@ -48,7 +48,7 @@ const Footer = () => {
                         <SocialButton circle label={'Twitter'} href={'#'}>
                             <FaTwitter />
                         </SocialButton>
-                        <SocialButton circle label={'Github'} href={'#'}>
+                        <SocialButton circle label={'Github'} href={'https://github.com/TheVoidCompany/United-Heaven'}>
                             <FaGithub />
                         </SocialButton>
                         <SocialButton circle label={'Instagram'} href={'#'}>

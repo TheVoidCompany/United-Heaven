@@ -1,7 +1,7 @@
 import {
     Box, Button, Container, Flex, Heading, SimpleGrid, Stack, Text, useBreakpointValue, useColorModeValue, VStack
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import ColumnCard from '../../../components/cards/ColumnCard';
 import StatisticsCard from '../../../components/cards/StatisticsCard';
@@ -9,12 +9,15 @@ import TargetAccordianCard from '../../../components/cards/TargetAccordianCard';
 import Footer from '../../../components/common/Footer';
 import { SDGGoals } from '../../../constants/SDGGoals';
 import { AuthContext } from '../../../context/authContext';
+import { UserContext } from '../../../context/userContext';
+import { followGoal, unFollowGoal } from '../../../services/GoalService';
 
 const GoalFeed = () => {
 
     const params = useParams();
     const navigate = useNavigate();
     const [isFollowing, setIsFollowing] = useState(false);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
     const { onAuthRun } = useContext(AuthContext);
     let goalId = params.id;
 
@@ -26,9 +29,47 @@ const GoalFeed = () => {
         }
     }
 
-    const handleFollow = () => {
-        onAuthRun(() => {
-            setIsFollowing(!isFollowing);
+
+    useEffect(() => {
+        if (currentUser.user_id) {
+            const isFollowingGoal = currentUser.following_goals.find(goal => goal === goalId);
+            if (isFollowingGoal) {
+                setIsFollowing(true);
+            } else {
+                setIsFollowing(false);
+            }
+        }
+    }, [currentUser, goalId]);
+
+    const handleFollow = (event) => {
+        event.stopPropagation();
+        onAuthRun(async () => {
+            setIsFollowing(true);
+            try {
+                await followGoal(goalId, currentUser.user_id);
+                setCurrentUser({
+                    ...currentUser,
+                    following_goals: [...currentUser.following_goals, goalId]
+                });
+            } catch (error) {
+                setIsFollowing(false);
+            }
+        });
+    }
+
+    const handleUnFollow = (event) => {
+        event.stopPropagation();
+        onAuthRun(async () => {
+            setIsFollowing(false);
+            try {
+                await unFollowGoal(goalId, currentUser.user_id);
+                setCurrentUser({
+                    ...currentUser,
+                    following_goals: currentUser.following_goals.filter(goal => goal !== goalId)
+                });
+            } catch (error) {
+                setIsFollowing(true);
+            }
         });
     }
 
@@ -49,7 +90,7 @@ const GoalFeed = () => {
                     paddingX={{ base: '4%', lg: "2%", '2xl': '8%' }}
                     bgGradient={`linear(to-r, ${SDGGoals[goalId - 1].color + 'CC'}, transparent)`}>
                     <Flex direction={"column"} maxW={'3xl'} align={'flex-start'} spacing={6} h="100%">
-                        <Flex flex={1.2} align={"end"} pb="6">
+                        <Flex flex={1.2} align={"flex-end"} pb="6">
                             <Text
                                 color={'#ffffff70'}
                                 fontWeight={900}
@@ -58,7 +99,7 @@ const GoalFeed = () => {
                                 {SDGGoals[goalId - 1].id}
                             </Text>
                         </Flex>
-                        <Flex flex={2.2} align={"start"}>
+                        <Flex flex={2.2} align={"flex-start"}>
                             <Text
                                 color={'white'}
                                 fontWeight={800}
@@ -71,7 +112,7 @@ const GoalFeed = () => {
                                 {SDGGoals[goalId - 1].description}
                             </Text>
                         </Flex>
-                        <Flex flex={0.6} align={"end"} mb="10">
+                        <Flex flex={0.6} align={"flex-end"} mb="10">
                             <Stack direction={'row'}>
                                 <Button
                                     bg={'whiteAlpha.300'}
@@ -100,7 +141,7 @@ const GoalFeed = () => {
                                         rounded={'full'}
                                         color={'white'}
                                         _focus={{ outline: 'none' }}
-                                        onClick={handleFollow}
+                                        onClick={handleUnFollow}
                                         _hover={{ bg: 'whiteAlpha.500' }}>
                                         Following
                                     </Button>
@@ -112,7 +153,8 @@ const GoalFeed = () => {
                                         bg={'blue.500'}
                                         _hover={{ bg: 'blue.600' }}
                                         _focus={{ outline: 'none' }}
-                                        onClick={handleFollow}>
+                                        onClick={handleFollow}
+                                    >
                                         Follow
                                     </Button>
                                 )}
@@ -173,33 +215,33 @@ const GoalFeed = () => {
                     <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} spacing={6}>
                         <ColumnCard
                             type="action"
-                            heading="Clean Marina Beach on 12 dec morning Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
+                            heading="Distributing free foods to people in need"
+                            image='https://pbs.twimg.com/media/EB_L4EGXUAAq3sU.jpg'
                             clickableCardUrl='/feed/actions/1'
                         />
                         <ColumnCard
                             type="news"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="Modelling Points to Income Redistribution as Strategy for SDG 1"
+                            image='http://hub.iisd.org/wp-content/uploads/2020/04/cg-548.jpg'
+                            clickableCardUrl='https://sdg.iisd.org/news/modelling-points-to-income-redistribution-as-strategy-for-sdg-1/'
                         />
                         <ColumnCard
                             type="action"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
+                            heading="Secretly providing blankets to homeless people"
+                            image='https://i2.wp.com/www.udayfoundation.org/wp-content/uploads/2017/11/blanket-donation-drive-2017.jpg?w=1224&ssl=1'
                             clickableCardUrl='/feed/actions/1'
                         />
                         <ColumnCard
                             type="event"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            heading="Forests, Trees and Poverty Alleviation in Africa"
+                            image='http://hub.iisd.org/wp-content/uploads/2020/04/cg634.jpg'
+                            clickableCardUrl='https://sdg.iisd.org/events/forests-trees-and-poverty-alleviation-in-africa/'
                         />
                         <ColumnCard
-                            type="action"
-                            heading="Clean Marina Beach on 12 dec morning"
-                            image='https://picsum.photos/200/200'
-                            clickableCardUrl='/feed/actions/1'
+                            type="event"
+                            heading="Pre-Summit of the UN Food Systems Summit 2021"
+                            image='http://hub.iisd.org/wp-content/uploads/2020/12/cg-917.jpg'
+                            clickableCardUrl='https://sdg.iisd.org/events/pre-summit-of-the-un-food-systems-summit-2021/'
                         />
                     </SimpleGrid>
 

@@ -3,7 +3,6 @@ import validator from "./validator";
 const findFormErrors = (form) => {
 
     const { name, email, password } = form;
-
     const newErrors = {}
 
     // name errors

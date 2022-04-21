@@ -1,24 +1,64 @@
 import {
     Box, Button, Center, Flex, Heading, Image, Stack, useColorModeValue
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import { UserContext } from '../../context/userContext';
+import { followGoal, unFollowGoal } from '../../services/GoalService';
 
 const GoalCard = ({ goal }) => {
 
     const IMAGE = require(`../../images/SDGIcons/Goal${goal.id}.png`);
 
-    const [isFollowing, setIsFollowing] = useState(goal.isFollowing);
+    const [isFollowing, setIsFollowing] = useState(false);
     const buttonBg = useColorModeValue('#151f21', 'gray.700');
     const navigate = useNavigate();
     const { onAuthRun } = useContext(AuthContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+
+
+    useEffect(() => {
+        if (currentUser.user_id) {
+            const isFollowingGoal = currentUser.following_goals.find(goal => goal === goal.id);
+            if (isFollowingGoal) {
+                setIsFollowing(true);
+            } else {
+                setIsFollowing(false);
+            }
+        }
+    }, [currentUser, goal.id]);
 
 
     const handleFollow = (event) => {
         event.stopPropagation();
-        onAuthRun(() => {
-            setIsFollowing(!isFollowing);
+        onAuthRun(async () => {
+            setIsFollowing(true);
+            try {
+                await followGoal(goal.id, currentUser.user_id);
+                setCurrentUser({
+                    ...currentUser,
+                    following_goals: [...currentUser.following_goals, goal.id]
+                });
+            } catch (error) {
+                setIsFollowing(false);
+            }
+        });
+    }
+
+    const handleUnFollow = (event) => {
+        event.stopPropagation();
+        onAuthRun(async () => {
+            setIsFollowing(false);
+            try {
+                await unFollowGoal(goal.id, currentUser.user_id);
+                setCurrentUser({
+                    ...currentUser,
+                    following_goals: currentUser.following_goals.filter(goal => goal !== goal.id)
+                });
+            } catch (error) {
+                setIsFollowing(true);
+            }
         });
     }
 
@@ -100,7 +140,7 @@ const GoalCard = ({ goal }) => {
                     right={0}
                     left={0}
                     zIndex={2}
-                    onClick={handleFollow}
+                    onClick={isFollowing ? handleUnFollow : handleFollow}
                     _focus={{
                         outline: 'none',
                     }}

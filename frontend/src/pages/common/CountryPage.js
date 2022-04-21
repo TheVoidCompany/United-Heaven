@@ -157,7 +157,7 @@ const CountryPage = () => {
                     paddingX={{ base: '4%', lg: "2%", '2xl': '8%' }}
                     bgGradient={'linear(to-r, blackAlpha.600, transparent)'}>
 
-                    <Flex direction={"column"} maxW={'3xl'} justify="end" spacing={6} h="100%" pb="10">
+                    <Flex direction={"column"} maxW={'3xl'} justify="flex-end" spacing={6} h="100%" pb="10">
                         {/* <Image
                             mr="10px"
                             boxSize={"80px"}

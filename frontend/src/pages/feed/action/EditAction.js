@@ -37,7 +37,7 @@ const EditAction = () => {
                             Action
                         </Text>
                     </Heading>
-                    <ActionFields type="edit" />
+                    <ActionFields type="edit" actionId={actionId} />
                 </Stack>
             </Container>
         </Flex>

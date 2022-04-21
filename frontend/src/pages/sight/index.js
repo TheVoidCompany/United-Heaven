@@ -1,7 +1,7 @@
 import {
     Box, Button, Flex, Image, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Skeleton, Text, useBreakpointValue, useColorMode, VStack
 } from '@chakra-ui/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { IoChevronUpOutline } from 'react-icons/io5';
 import { Layer, Source } from 'react-map-gl';
 import { useNavigate } from 'react-router-dom';
@@ -22,14 +22,12 @@ const SightPage = () => {
     const [hoveredCountry, sethoveredCountry] = useState(null);
     const [selectedCountry, setselectedCountry] = useState('null');
     const isSmallSize = useBreakpointValue({ base: true, lg: false });
-    const [insightMode, setInsightMode] = useState("Index Score");
+    const [insightMode, setInsightMode] = useState("Index Rank");
     const navigate = useNavigate();
 
     const { colorMode } = useColorMode()
 
-    useEffect(() => {
-        console.log(insightMode);
-    }, [insightMode])
+
 
     const handleSightChange = useCallback((mode) => {
         setInsightMode(mode);
@@ -42,7 +40,6 @@ const SightPage = () => {
         if (event.features.length > 0) {
 
             const hoveredFeature = event.features[0];
-            console.log(hoveredFeature)
 
             if (hoveredCountryId !== null) {
 
@@ -109,6 +106,14 @@ const SightPage = () => {
         )
     }
 
+    const findTempIndexRank = () => {
+        if (hoveredCountry?.ISO_A3 === 'IND') return '120'
+        else if (hoveredCountry?.ISO_A3 === 'RUS') return '46'
+        else if (hoveredCountry?.ISO_A3 === 'CHN') return '57'
+        else if (hoveredCountry?.ISO_A3 === 'MNG') return '106'
+        else return Math.floor(Math.random() * 250)
+    }
+
     return (
         <Box w="100vw" h="92vh" position='relative'>
             <MapWrapper
@@ -135,7 +140,7 @@ const SightPage = () => {
                         />
                         <VStack align={"start"} justify={"center"}>
                             <Text fontSize={'xl'} fontWeight='bold' noOfLines={1}>{hoveredCountry?.ADMIN}</Text>
-                            <Text fontSize={'md'} fontWeight='400' noOfLines={1} style={{ marginTop: "2px" }}>Significantly high</Text>
+                            <Text fontSize={'md'} fontWeight='400' noOfLines={1} style={{ marginTop: "2px" }}>{`Index Rank: ${findTempIndexRank()}`}</Text>
                         </VStack>
                     </Flex>
                 </MouseOverlayWrapper>
@@ -177,6 +182,7 @@ const SightPage = () => {
                         minW="300px"
                         p={2}
                     >
+                        <MenuItems mode="Index Rank" />
                         <MenuItems mode="Index Score" />
                         <MenuItems mode="Spillover Score" />
                         <MenuItems mode="Country Details" />

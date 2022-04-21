@@ -1,36 +1,19 @@
 import { Box, Button, Heading, Input, InputGroup, InputRightElement, Stack, Text } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../context/userContext';
+import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
-const defaultFormFields = {
-    facebookUrl: '',
-    instagramUrl: '',
-    twitterUrl: '',
-};
 
-const UserSocial = () => {
-
-    const [form, setForm] = useState(defaultFormFields);
-    const navigate = useNavigate();
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+const UserSocial = ({ form, setForm, handleSubmit }) => {
 
     const setField = (field, value) => {
         setForm({
             ...form,
-            [field]: value
+            social_links: {
+                ...form.social_links,
+                [field]: value
+            }
+
         })
     }
-
-    const handleSubmit = (e) => {
-        setCurrentUser({
-            ...currentUser,
-            ...form
-        });
-        navigate('/feed');
-    }
-
 
     return (
         <>
@@ -54,8 +37,8 @@ const UserSocial = () => {
                             type="url"
                             pr='4.5rem'
                             border={0}
-                            onChange={(e) => setField('facebookUrl', e.target.value)}
-                            value={form.facebookUrl}
+                            onChange={(e) => setField('facebook_url', e.target.value)}
+                            value={form.social_links.facebook_url}
                             color={'gray.500'}
                             _placeholder={{
                                 color: 'gray.500',
@@ -67,20 +50,20 @@ const UserSocial = () => {
                     </InputGroup>
                     <InputGroup size='md'>
                         <Input
-                            placeholder="Twitter url"
+                            placeholder="LinkedIn url"
                             bg={'gray.100'}
                             type="url"
                             pr='4.5rem'
                             border={0}
-                            onChange={(e) => setField('twitterUrl', e.target.value)}
-                            value={form.twitterUrl}
+                            onChange={(e) => setField('linkedIn_url', e.target.value)}
+                            value={form.social_links.linkedIn_url}
                             color={'gray.500'}
                             _placeholder={{
                                 color: 'gray.500',
                             }}
                         />
-                        <InputRightComponent url="https://twitter.com/">
-                            <FaTwitter fontSize={"18"} />
+                        <InputRightComponent url="https://www.linkedin.com/">
+                            <FaLinkedin fontSize={"18"} />
                         </InputRightComponent>
                     </InputGroup>
                     <InputGroup size='md'>
@@ -90,8 +73,8 @@ const UserSocial = () => {
                             type="url"
                             pr='4.5rem'
                             border={0}
-                            onChange={(e) => setField('instagramUrl', e.target.value)}
-                            value={form.instagramUrl}
+                            onChange={(e) => setField('instagram_url', e.target.value)}
+                            value={form.social_links.instagram_url}
                             color={'gray.500'}
                             _placeholder={{
                                 color: 'gray.500',

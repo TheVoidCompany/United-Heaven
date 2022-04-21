@@ -3,24 +3,25 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 import { AiFillHome, AiFillThunderbolt } from "react-icons/ai";
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { IoNotifications } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import { UserContext } from '../../context/userContext';
 import { FakeNotification } from '../../data/FakeNotification';
+import DefaultDP from '../../images/defaultDP.jpeg';
 import { SDGWheel } from '../../images/SDGWheel';
 import SocialButton from '../common/SocialButton';
 import SDGTags from '../SDGTags';
 import '../styles.css';
+
 
 const Links = [
     { name: 'Home', to: "/home", icon: AiFillHome },
     { name: 'Actions', to: "/feed/actions", icon: AiFillThunderbolt },
     { name: 'Goals', to: "/feed/goals", icon: SDGWheel },
 ];
-
-const UserFollowingGoals = [1, 4, 6, 15, 17];
 
 
 const FeedNavbar = () => {
@@ -30,7 +31,8 @@ const FeedNavbar = () => {
     const { colorMode } = useColorMode();
     const avatarSize = useBreakpointValue({ base: 'sm', md: 'md' });
     const url = location.pathname;
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
 
 
     useEffect(() => {
@@ -61,7 +63,13 @@ const FeedNavbar = () => {
     const profileOutlineColor = useColorModeValue('rgba(66, 123, 255, 0.6)', 'rgba(66, 123, 255, 0.9)');
 
 
-
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        setIsAuthenticated(false);
+        setCurrentUser({});
+        navigate('/feed');
+    }
 
     return (
         <Box
@@ -156,7 +164,8 @@ const FeedNavbar = () => {
                                 >
                                     <Avatar
                                         size={avatarSize}
-                                        src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                        src={currentUser.image_url}
+                                        fallbackSrc={DefaultDP}
                                         outline={url.includes('profile') ? "3px solid" : "0px"}
                                         outlineColor={profileOutlineColor}
                                         outlineOffset={'2px'}
@@ -167,25 +176,32 @@ const FeedNavbar = () => {
                                     <Center>
                                         <Avatar
                                             size={'2xl'}
-                                            src={'https://avatars.dicebear.com/api/male/username.svg'}
+                                            src={currentUser.image_url}
+                                            fallbackSrc={DefaultDP}
                                         />
                                     </Center>
                                     <br />
                                     <Center>
-                                        <Heading size={"md"}>Santhosh V S</Heading>
+                                        <Heading size={"md"}>{currentUser.name}</Heading>
                                     </Center>
                                     <br />
                                     <Center>
                                         <Stack direction={'row'} spacing={6}>
-                                            <SocialButton circle label={'Twitter'} href={'#'}>
-                                                <FaTwitter />
-                                            </SocialButton>
-                                            <SocialButton circle label={'Facebook'} href={'#'}>
-                                                <FaFacebook />
-                                            </SocialButton>
-                                            <SocialButton circle label={'Instagram'} href={'#'}>
-                                                <FaInstagram />
-                                            </SocialButton>
+                                            {currentUser.social_links?.facebook_url && (
+                                                <SocialButton circle label={'Twitter'} href={currentUser.social_links?.facebook_url}>
+                                                    <FaTwitter />
+                                                </SocialButton>
+                                            )}
+                                            {currentUser.social_links?.instagram_url && (
+                                                <SocialButton circle label={'Instagram'} href={currentUser.social_links?.instagram_url}>
+                                                    <FaInstagram />
+                                                </SocialButton>
+                                            )}
+                                            {currentUser.social_links?.linkedIn_url && (
+                                                <SocialButton circle label={'LinkedIn'} href={currentUser.social_links?.linkedIn_url}>
+                                                    <FaLinkedin />
+                                                </SocialButton>
+                                            )}
                                         </Stack>
                                     </Center>
                                     <br />
@@ -193,14 +209,19 @@ const FeedNavbar = () => {
                                         <SDGTags
                                             wrapWidth={200}
                                             position="center"
-                                            goals={UserFollowingGoals}
+                                            goals={currentUser.following_goals}
                                         />
                                     </Flex>
                                     <br />
                                     <MenuDivider />
                                     <MenuItem onClick={() => navigate('/feed/profile')}>Profile</MenuItem>
                                     <MenuItem onClick={() => navigate('/feed/profile/edit_profile')}>Edit Profile</MenuItem>
-                                    <MenuItem _hover={{ bg: colorMode === 'light' ? 'red.300' : 'red.400', color: 'white' }}>Logout</MenuItem>
+                                    <MenuItem
+                                        _hover={{ bg: colorMode === 'light' ? 'red.300' : 'red.400', color: 'white' }}
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </MenuItem>
                                 </MenuList>
                             </Menu>
                         </HStack>

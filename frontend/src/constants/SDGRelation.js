@@ -6,13 +6,13 @@ export const SDGRelation = [
     },
     {
         sourceGoal: "1",
-        targetGoal: "4",
+        targetGoal: "8",
         percentange: "32%"
     },
     {
-        sourceGoal: "2",
-        targetGoal: "4",
-        percentange: "41%"
+        sourceGoal: "4",
+        targetGoal: "3",
+        percentange: "81%"
     },
     {
         sourceGoal: "1",
@@ -20,19 +20,19 @@ export const SDGRelation = [
         percentange: "23%"
     },
     {
-        sourceGoal: "2",
-        targetGoal: "5",
-        percentange: "12%"
+        sourceGoal: "4",
+        targetGoal: "7",
+        percentange: "72%"
     },
     {
-        sourceGoal: "4",
+        sourceGoal: "12",
         targetGoal: "5",
         percentange: "78%"
     },
     {
-        sourceGoal: "7",
+        sourceGoal: "4",
         targetGoal: "8",
-        percentange: "24%"
+        percentange: "84%"
     },
     {
         sourceGoal: "7",
@@ -40,9 +40,9 @@ export const SDGRelation = [
         percentange: "54%"
     },
     {
-        sourceGoal: "8",
+        sourceGoal: "4",
         targetGoal: "9",
-        percentange: "20%"
+        percentange: "80%"
     },
     {
         sourceGoal: "12",

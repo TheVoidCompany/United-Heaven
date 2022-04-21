@@ -13,7 +13,7 @@ const Links = [
   { name: 'Sight', to: "/sight" },
   { name: 'Feed', to: "/feed" },
   { name: 'Study', to: "/study" },
-  { name: 'Donate us', to: "#" }
+  { name: 'Donate us', to: "https://www.buymeacoffee.com/unitedheaven", external: true }
 ];
 
 
@@ -88,8 +88,8 @@ const NavBar = () => {
             as={'nav'}
             spacing={4}
             display={{ base: 'none', lg: 'flex' }}>
-            {Links.map(({ name, to }) => (
-              <NavLink key={name} to={to}>{name}</NavLink>
+            {Links.map(({ name, to, external }) => (
+              <NavLink key={name} to={to} external={external}>{name}</NavLink>
             ))}
           </HStack>
 
@@ -117,8 +117,8 @@ const NavBar = () => {
       {isOpen ? (
         <Box pb={4} mt={url.includes('/feed') && '8vh'} zIndex={50} display={{ lg: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            {Links.map(({ name, to }) => (
-              <NavLink key={name} to={to} close={onClose}>{name}</NavLink>
+            {Links.map(({ name, to, external }) => (
+              <NavLink key={name} to={to} external={external} close={onClose}>{name}</NavLink>
             ))}
           </Stack>
         </Box>
@@ -127,7 +127,7 @@ const NavBar = () => {
   );
 };
 
-const NavLink = ({ children, to, close }) => {
+const NavLink = ({ children, to, close, external }) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -138,7 +138,11 @@ const NavLink = ({ children, to, close }) => {
 
   const handleClick = () => {
     close && close()
-    navigate(to);
+    if (external) {
+      window.open(to, '_blank');
+    } else {
+      navigate(to);
+    }
   };
 
   return (

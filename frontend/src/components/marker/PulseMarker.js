@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import colors from './colors.constant';
 
-const PulseMarker = ({ color = 'green', size = 50, text, markerValue, setHoveredMarker, selectedMarker, setSelectedMarker }) => {
+const PulseMarker = ({ color = 'green', size = 50, text, markerValue, setHoveredCountry, selectedCountry, setSelectedCountry }) => {
 
 
   const pulseAnimation = keyframes`
@@ -34,24 +34,24 @@ const PulseMarker = ({ color = 'green', size = 50, text, markerValue, setHovered
       border-radius: 50%;
       font-weight: bold;
       transform: scale(1);
-      animation: ${selectedMarker !== null ? selectedMarker === markerValue ? pulseAnimation : 'none' : pulseAnimation} 2s infinite;
+      animation: ${selectedCountry !== null ? selectedCountry === markerValue ? pulseAnimation : 'none' : pulseAnimation} 2s infinite;
     `}
-      w={(selectedMarker === markerValue ? size + 20 : size) + "px"}
-      h={(selectedMarker === markerValue ? size + 20 : size) + "px"}
+      w={(selectedCountry === markerValue ? size + 20 : size) + "px"}
+      h={(selectedCountry === markerValue ? size + 20 : size) + "px"}
       display="flex"
       alignItems="center"
       justifyContent="center"
       bg={colors[color] + '90'}
-      fontSize={(selectedMarker === markerValue) && 18 + "px"}
+      fontSize={(selectedCountry === markerValue) && 18 + "px"}
       cursor="pointer"
       _hover={{
         width: size + 20 + 'px',
         height: size + 20 + 'px',
         fontSize: 18 + 'px',
       }}
-      onMouseEnter={() => setHoveredMarker(markerValue)}
-      onMouseLeave={() => setHoveredMarker(null)}
-      onClick={() => setSelectedMarker(markerValue)}
+      onMouseEnter={() => setHoveredCountry(markerValue)}
+      onMouseLeave={() => setHoveredCountry(null)}
+      onClick={() => setSelectedCountry(markerValue)}
     >
       {text}
     </Box>
@@ -64,7 +64,7 @@ PulseMarker.propTypes = {
   size: PropTypes.number,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   markerValue: PropTypes.any,
-  setHoveredMarker: PropTypes.func
+  setHoveredCountry: PropTypes.func
 }
 
 export default memo(PulseMarker);

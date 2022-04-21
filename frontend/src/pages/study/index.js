@@ -56,20 +56,20 @@ const stats = [
         ),
     },
     {
-        title: 'GCP',
-        content: (
-            <>
-                <StatsText>Google cloud</StatsText> platform is utilized for
-                training the ml model for extreme efficiency
-            </>
-        ),
-    },
-    {
-        title: '250M+',
+        title: 'Mapbox',
         content: (
             <>
                 <StatsText>Mapbox</StatsText> api is used to visualize the
                 data in a beautiful and interactive way
+            </>
+        ),
+    },
+    {
+        title: 'UI',
+        content: (
+            <>
+                <StatsText>React </StatsText> library is used to build user friendly
+                and interactive UI for better user experience
             </>
         ),
     },

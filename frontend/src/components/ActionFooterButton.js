@@ -1,36 +1,67 @@
 import {
-    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, useDisclosure
+    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter,
+    AlertDialogHeader, AlertDialogOverlay, Button, Flex, useDisclosure, useToast
 } from '@chakra-ui/react';
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { UserContext } from '../context/userContext';
+import { deleteAction, participateInAction, unParticipateInAction } from '../services/ActionService';
 
-const ActionFooterButton = ({ userId, actionId = "1", size = "md" }) => {
+const ActionFooterButton = ({ creatorId, actionId, size = "md" }) => {
 
     const { onAuthRun, isAuthenticated } = useContext(AuthContext);
     const navigate = useNavigate();
     const { currentUser } = useContext(UserContext);
-    // const isOwnAction = userId === currentUser?.id;
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const cancelRef = useRef()
-    const isOwnAction = true;
+    const isOwnAction = creatorId === currentUser?.user_id;
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [isParticipated, setisParticipated] = useState(false);
+    const cancelRef = useRef();
+    const toast = useToast();
 
-
-    if (!isAuthenticated) {
-        return (
-            <Button colorScheme='twitter' mr="4">Participate</Button>
-        )
-    }
 
     const handleParticipateClick = () => {
-        onAuthRun(() => {
-            console.log("hi")
+        onAuthRun(async () => {
+            setisParticipated(true);
+            try {
+                await participateInAction({ "action_id": actionId, "user_id": currentUser.user_id });
+                setisParticipated(true);
+            } catch (error) {
+                setisParticipated(false);
+            }
         });
     }
 
-    const handleDeleteClick = () => {
-        console.log("hii")
+    const handleLeaveClick = () => {
+        onAuthRun(async () => {
+            setisParticipated(false);
+            try {
+                await unParticipateInAction({ "action_id": actionId, "user_id": currentUser.user_id });
+                setisParticipated(false);
+            } catch (error) {
+                setisParticipated(true);
+            }
+        });
+    }
+
+    const handleDeleteClick = async () => {
+        const response = await deleteAction(actionId);
+        if (response.status === 200) {
+            toast({
+                title: "Action deleted",
+                description: "The action has been deleted",
+                status: "success",
+                duration: 6000,
+            });
+            navigate("/feed");
+        } else {
+            toast({
+                title: "Action not deleted",
+                description: "The action could not be deleted",
+                status: "error",
+                duration: 6000,
+            });
+        }
         onClose()
     }
 
@@ -42,7 +73,14 @@ const ActionFooterButton = ({ userId, actionId = "1", size = "md" }) => {
     return (
         <Flex>
             {!isAuthenticated || !isOwnAction ? (
-                <Button _focus={{ outline: "none" }} size={size} colorScheme='twitter' mr="4" onClick={handleParticipateClick}>Participate</Button>
+                <Button
+                    _focus={{ outline: "none" }}
+                    size={size}
+                    colorScheme='twitter'
+                    mr="4"
+                    onClick={isParticipated ? handleLeaveClick : handleParticipateClick}>
+                    {isParticipated ? "Leave" : "Participate"}
+                </Button>
             ) : (
                 <>
                     <Button _focus={{ outline: "none" }} size={size} mr="4" onClick={handleEditClick}>Edit Action</Button>

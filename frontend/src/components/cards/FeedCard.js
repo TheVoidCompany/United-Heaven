@@ -1,4 +1,7 @@
-import { Box, Circle, Divider, Flex, HStack, Icon, Image, ScaleFade, Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast } from '@chakra-ui/react';
+import {
+    Box, Circle, Divider, Flex, HStack, Icon, Image, ScaleFade,
+    Spacer, Stack, Text, useClipboard, useColorMode, useColorModeValue, useToast
+} from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AiOutlineLink } from 'react-icons/ai';
@@ -8,14 +11,32 @@ import { IoIosHeart, IoIosHeartEmpty, IoIosShareAlt } from "react-icons/io";
 import { IoLocationSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import { UserContext } from '../../context/userContext';
+import { likeAction, unLikeAction } from '../../services/ActionService';
 import { findTypeColor } from '../../utils/common';
 import Heading from '../common/Heading';
 import DisplayPic from '../DisplayPic';
 import SDGTags from '../SDGTags';
 
-const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, location, url, startDate, endDate, sdgGoals, footer, clickableCardUrl }) => {
+const FeedCard = ({
+    actionId = 2,
+    profile,
+    type,
+    heading,
+    image,
+    isOnline,
+    para,
+    location,
+    url,
+    startDate,
+    endDate,
+    sdgGoals,
+    sdgTargets,
+    footer,
+    clickableCardUrl
+}) => {
 
-    const shareUrl = `https://united-heaven.org/action/${id}`;
+    const shareUrl = `https://united-heaven.org/action/${actionId}`;
     const [liked, setLiked] = useState(false);
     const { colorMode } = useColorMode();
     const toast = useToast();
@@ -23,6 +44,7 @@ const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, locat
     const { onCopy } = useClipboard(shareUrl);
     const navigate = useNavigate();
     const { onAuthRun } = useContext(AuthContext);
+    const { currentUser } = useContext(UserContext);
 
     const handleCardClick = () => {
         if (type === "action") {
@@ -65,8 +87,24 @@ const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, locat
 
 
     const handleLike = () => {
-        onAuthRun(() => {
-            setLiked(!liked);
+        onAuthRun(async () => {
+            setLiked(true);
+            try {
+                await likeAction({ "action_id": actionId, "user_id": currentUser.user_id });
+            } catch (err) {
+                setLiked(false);
+            }
+        });
+    }
+
+    const handleDislike = () => {
+        onAuthRun(async () => {
+            setLiked(false);
+            try {
+                await unLikeAction({ "action_id": actionId, "user_id": currentUser.user_id });
+            } catch (err) {
+                setLiked(true);
+            }
         });
     }
 
@@ -107,7 +145,7 @@ const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, locat
                             <Flex>
                                 {
                                     liked ? (
-                                        <CardOptions text="0" color="#F91C2D" selected onClick={handleLike}>
+                                        <CardOptions text="0" color="#F91C2D" selected onClick={handleDislike}>
                                             <ScaleFade initialScale={0.1} in={liked}>
                                                 <IoIosHeart size={'1.5em'} />
                                             </ScaleFade>
@@ -142,6 +180,12 @@ const FeedCard = ({ id = 2, profile, type, heading, image, isOnline, para, locat
                     {sdgGoals && (
                         <SDGTags
                             goals={sdgGoals}
+                        />
+                    )}
+
+                    {sdgTargets && (
+                        <SDGTags
+                            targets={sdgTargets}
                         />
                     )}
 

@@ -3,7 +3,7 @@ export const countryLayer = (colorMode) => {
         'id': 'country-layer',
         'type': 'fill',
         'source': 'country',
-        // 'filter': ['==', 'continent', 'Africa'],
+        'filter': ['!=', 'ISO_A3', '-99'],
         'paint': {
             'fill-color': colorMode === 'light' ? '#B7C2CD' : '#31465B',
             'fill-opacity': [
@@ -22,7 +22,7 @@ export const countryOutline = (colorMode) => {
         'id': 'country-outline',
         'type': 'line',
         'source': 'country',
-        // 'filter': ['==', 'continent', 'Africa'],
+        'filter': ['!=', 'ISO_A3', '-99'],
         'paint': {
             'line-color': colorMode === 'light' ? '#B7C2CD' : '#31465B',
             'line-width': 2
